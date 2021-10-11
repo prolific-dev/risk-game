@@ -1,5 +1,5 @@
-import de.htwg.se.riskgame.model.{Desk, Field, Matrix}
+import de.htwg.se.riskgame.model.{Desk, LegalField, Matrix}
 
-val desk = new Desk(new Matrix[Field](2, Field("x")))
+val desk = new Desk(new Matrix[LegalField](2, LegalField("x")))
 
 print(desk.toString)

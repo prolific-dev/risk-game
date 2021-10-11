@@ -5,9 +5,9 @@ import scala.math.sqrt
 case class Desk(fields: Matrix[Field]) {
   val size: Int = fields.size
 
-  def this(size: Int) = this(new Matrix[Field](size, Field("x")))
+  def this(size: Int) = this(new Matrix[Field](size, IllegalField()))
 
-  def set(row: Int, col: Int, value: String): Desk = copy(fields.replaceField(row, col, Field(value)))
+  def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
   override def toString: String = {
     val lineseparator = ("+-" + ("-----" * size) + "-+\n")

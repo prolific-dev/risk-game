@@ -3,12 +3,12 @@ package de.htwg.se.riskgame.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class FieldSpec extends AnyWordSpec with Matchers {
-  "A Field" when {
+class LegalFieldSpec extends AnyWordSpec with Matchers {
+  "A LegalField" when {
     "new" should {
-      val field = Field("Field")
+      val field = LegalField("LegalField")
       "have a nice String representation" in {
-        field.toString() should be("Field")
+        field.toString() should be("LegalField")
       }
     }
   }

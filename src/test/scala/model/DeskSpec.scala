@@ -12,8 +12,8 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = Desk(new Matrix[Field](2, Field("x")))
-        val vectorDesk = Desk(Matrix[Field](Vector(Vector(Field("x"), Field("x")), Vector(Field("x"), Field("x")))))
+        val matrixDesk = Desk(new Matrix[Field](2, IllegalField()))
+        val vectorDesk = Desk(Matrix[Field](Vector(Vector(IllegalField(), IllegalField()), Vector(IllegalField(), IllegalField()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -21,14 +21,14 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "created properly but empty" should {
       val desk = new Desk(2)
       "give acces to its Fields" in {
-        desk.field(0, 0) should be(Field("x"))
-        desk.field(0, 1) should be(Field("x"))
-        desk.field(1, 0) should be(Field("x"))
-        desk.field(1, 1) should be(Field("x"))
+        desk.field(0, 0) should be(IllegalField())
+        desk.field(0, 1) should be(IllegalField())
+        desk.field(1, 0) should be(IllegalField())
+        desk.field(1, 1) should be(IllegalField())
       }
       "allow to set individual Fields and remain immutable" in {
-        val changedDesk = desk.set(0, 0, "Field")
-        desk.field(0, 0) should be(Field("x"))
+        val changedDesk = desk.set(0, 0, LegalField("LegalField"))
+        desk.field(0, 0) should be(IllegalField())
       }
     }
     "have a nice String representation" in {
