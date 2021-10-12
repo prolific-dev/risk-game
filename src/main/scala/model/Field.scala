@@ -1,5 +1,5 @@
 package de.htwg.se.riskgame.model
 
-trait Field {
-  override def toString: String = "x"
+abstract class Field {
+  override def toString: String
 }

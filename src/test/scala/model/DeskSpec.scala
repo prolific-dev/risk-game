@@ -12,8 +12,9 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = Desk(new Matrix[Field](2, IllegalField()))
-        val vectorDesk = Desk(Matrix[Field](Vector(Vector(IllegalField(), IllegalField()), Vector(IllegalField(), IllegalField()))))
+        val matrixDesk = new Desk(new Matrix[Field](2, new IllegalField()))
+        val vectorDesk = new Desk(new Matrix[Field](
+          Vector(Vector(new IllegalField(), new IllegalField()), Vector(new IllegalField(), new IllegalField()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -21,13 +22,13 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "created properly but empty" should {
       val desk = new Desk(2)
       "give acces to its Fields" in {
-        desk.field(0, 0) should be(IllegalField())
-        desk.field(0, 1) should be(IllegalField())
-        desk.field(1, 0) should be(IllegalField())
-        desk.field(1, 1) should be(IllegalField())
+        desk.field(0, 0) should be(new IllegalField())
+        desk.field(0, 1) should be(new IllegalField())
+        desk.field(1, 0) should be(new IllegalField())
+        desk.field(1, 1) should be(new IllegalField())
       }
       "allow to set individual Fields and remain immutable" in {
-        val changedDesk = desk.set(0, 0, LegalField("LegalField"))
+        val changedDesk = desk.set(0, 0, new LegalField("LegalField"))
         desk.field(0, 0) should be(IllegalField())
       }
     }
@@ -38,6 +39,15 @@ class DeskSpec extends AnyWordSpec with Matchers {
           + "+-" + "-----" + "-----" + "-+\n"
           + "| " + "  x  " + "  x  " + " |\n"
           + "| " + "  x  " + "  x  " + " |\n"
+          + "+-" + "-----" + "-----" + "-+\n"
+      )
+
+      val changedDesk = desk.set(1, 0, new LegalField("LegalField", new Troop(1)))
+      changedDesk.toString should be(
+        "\n"
+          + "+-" + "-----" + "-----" + "-+\n"
+          + "| " + "  x  " + "  x  " + " |\n"
+          + "| " + "  1  " + "  x  " + " |\n"
           + "+-" + "-----" + "-----" + "-+\n"
       )
     }

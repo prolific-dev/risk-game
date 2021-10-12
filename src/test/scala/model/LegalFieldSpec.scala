@@ -6,9 +6,9 @@ import org.scalatest.wordspec.AnyWordSpec
 class LegalFieldSpec extends AnyWordSpec with Matchers {
   "A LegalField" when {
     "new" should {
-      val field = LegalField("LegalField")
+      val field = new LegalField("LegalField", new Troop(1))
       "have a nice String representation" in {
-        field.toString() should be("LegalField")
+        field.toString() should be("1")
       }
     }
   }
