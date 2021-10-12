@@ -10,20 +10,21 @@ case class Desk(fields: Matrix[Field]) {
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
   override def toString: String = {
-    val sb = new StringBuilder("\n")
-    val topbottomLine = ("+-" + ("-----" * size)) + "-+\n"
-    val leftWall = "| "
-    val rightWall = " |\n"
+    val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
+    val LEFT_WALL = "| "
+    val RIGHT_WALL = " |\n"
 
-    sb.append(topbottomLine)
+    val sb = new StringBuilder("\n")
+
+    sb.append(TOP_BOTTOM_LINE)
     for (i <- 0 until size) {
-      sb.append(leftWall)
+      sb.append(LEFT_WALL)
       for (j <- 0 until size) {
         sb.append("  " + field(i, j).toString + "  ")
       }
-      sb.append(rightWall)
+      sb.append(RIGHT_WALL)
     }
-    sb.append(topbottomLine)
+    sb.append(TOP_BOTTOM_LINE)
     sb.toString()
   }
 
