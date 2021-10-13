@@ -22,11 +22,11 @@ class MatrixSpec extends AnyWordSpec with Matchers {
       }
       "replace fields and return a new data structure" in {
         val returnedMatrix = matrix.replaceField(0, 0, new LegalField("Replaced Field"))
-        returnedMatrix.field(0, 0) should be(LegalField("Replaced Field", Troop(1)))
+        returnedMatrix.field(0, 0) should be(LegalField("Replaced Field", new Troop(1)))
       }
       "be filled using fill operation" in {
         val returnedMatrix = matrix.fill(new LegalField("Alternate Fields"))
-        returnedMatrix.field(0, 0) should be(LegalField("Alternate Fields", Troop(1)))
+        returnedMatrix.field(0, 0) should be(LegalField("Alternate Fields", new Troop(1)))
       }
     }
   }
