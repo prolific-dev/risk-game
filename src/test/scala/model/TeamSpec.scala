@@ -14,6 +14,11 @@ class TeamSpec extends AnyWordSpec with Matchers {
         blueteam.getOrder should be(1)
         redteam.getOrder should be(2)
       }
+      "have a ansi color representated as formatted string" in {
+        noteam.getAnsi should be("")
+        blueteam.getAnsi should be("\u001b[34m")
+        redteam.getAnsi should be("\u001b[31m")
+      }
       "have a nice String representation" in {
         noteam.getName should be("No Team")
         blueteam.getName should be("Blue")

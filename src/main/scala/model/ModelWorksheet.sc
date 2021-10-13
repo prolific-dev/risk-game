@@ -1,5 +1,9 @@
 import de.htwg.se.riskgame.model.*
 
-var desk = new Desk(3)
+import scala.io.AnsiColor.*
 
-desk = desk.set(1, 2, new LegalField(""))
+
+val team = BLUE_TEAM
+
+val string = "3"
+println(team.getAnsi + string)

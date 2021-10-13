@@ -1,13 +1,14 @@
 package de.htwg.se.riskgame.model
 
-import scala.math.sqrt
 
 case class Desk(fields: Matrix[Field]) {
-  val size: Int = fields.size
-
   def this(size: Int) = this(new Matrix[Field](size, IllegalField()))
 
+  val size: Int = fields.size
+
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
+
+  def field(row: Int, col: Int): Field = fields.field(row, col)
 
   override def toString: String = {
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
@@ -27,6 +28,4 @@ case class Desk(fields: Matrix[Field]) {
     sb.append(TOP_BOTTOM_LINE)
     sb.toString()
   }
-
-  def field(row: Int, col: Int): Field = fields.field(row, col)
 }

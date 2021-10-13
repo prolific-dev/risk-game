@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.aview
 
-import de.htwg.se.riskgame.model.Desk
+import de.htwg.se.riskgame.model.*
 
 class Tui {
 
