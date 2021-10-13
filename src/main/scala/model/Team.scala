@@ -6,7 +6,7 @@ sealed trait Team(name: String, order: Int) {
   def getOrder: Int = order
 }
 
-case object UNKNOWN_TEAM extends Team("Unknown", 0)
+case object NO_TEAM extends Team("No Team", 0)
 
 case object BLUE_TEAM extends Team("Blue", 1)
 

@@ -9,7 +9,7 @@ class TroopSpec extends AnyWordSpec with Matchers {
       val troop = new Troop(3)
       "return amount of troops and have no team" in {
         troop.amount should be(3)
-        troop.team should be(UNKNOWN_TEAM)
+        troop.team should be(NO_TEAM)
       }
       "have a nice String representation" in {
         troop.toString should be("3")
