@@ -31,26 +31,50 @@ class DeskSpec extends AnyWordSpec with Matchers {
         val changedDesk = desk.set(0, 0, new LegalField("LegalField"))
         desk.field(0, 0) should be(IllegalField())
       }
+      "change the colorization of the desk and each field depending on their occupying team" in {
+        desk.isColorized should be(false)
+        val deskColorOn = desk.setColorizedOn()
+        deskColorOn.isColorized should be(true)
+        val deskColorOff = desk.setColorizedOff()
+        deskColorOff.isColorized should be(false)
+      }
+      "have a nice String representation" in {
+        val desk = new Desk(2)
+        desk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "| " + "  x  " + "  x  " + " |\n"
+            + "| " + "  x  " + "  x  " + " |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
     }
-    "have a nice String representation" in {
+    "not empty" should {
       val desk = new Desk(2)
-      desk.toString should be(
-        "\n"
-          + "+-" + "-----" + "-----" + "-+\n"
-          + "| " + "  x  " + "  x  " + " |\n"
-          + "| " + "  x  " + "  x  " + " |\n"
-          + "+-" + "-----" + "-----" + "-+\n"
-      )
+      val changedDesk = desk.set(1, 1, new LegalField("LegalField", new Troop(1, BLUE_TEAM)))
+      "have a nice String representation" in {
+        changedDesk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "| " + "  x  " + "  x  " + " |\n"
+            + "| " + "  x  " + "  1  " + " |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
+      "have a nice colorized String representation" in {
+        val colorizedDesk = changedDesk.setColorizedOn()
+        val ansiBlue = "\u001B[34m"
+        val ansiNormal = "\u001B[0m"
+        val string = colorizedDesk.toString
 
-      val changedDesk = desk.set(1, 0, new LegalField("LegalField", new Troop(1)))
-      changedDesk.toString should be(
-        "\n"
-          + "+-" + "-----" + "-----" + "-+\n"
-          + "| " + "  x  " + "  x  " + " |\n"
-          + "| " + "  1  " + "  x  " + " |\n"
-          + "+-" + "-----" + "-----" + "-+\n"
-      )
+        colorizedDesk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "|   " + "x" + ansiNormal + "    " + "x" + ansiNormal + "   |\n"
+            + "|   " + "x" + ansiNormal + "    " + ansiBlue + "1" + ansiNormal + "   |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
     }
   }
-
 }
