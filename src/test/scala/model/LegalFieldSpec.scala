@@ -10,6 +10,9 @@ class LegalFieldSpec extends AnyWordSpec with Matchers {
       "have no team" in {
         field.team() should be(NO_TEAM)
       }
+      "should not be set" in {
+        field.isSet() should be(false)
+      }
       "have a nice String representation" in {
         field.toString() should be("1")
       }

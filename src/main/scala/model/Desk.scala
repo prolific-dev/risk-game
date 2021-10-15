@@ -6,7 +6,7 @@ import scala.io.AnsiColor.*
 case class Desk(fields: Matrix[Field], isColorized: Boolean) {
   def this(fields: Matrix[Field]) = this(fields, false)
 
-  def this(size: Int) = this(new Matrix[Field](size, IllegalField()))
+  def this(size: Int) = this(new Matrix[Field](size, new LegalField("Free Field")))
 
   val size: Int = fields.size
 

@@ -12,9 +12,9 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[Field](2, new IllegalField()))
+        val matrixDesk = new Desk(new Matrix[Field](2, new LegalField()))
         val vectorDesk = new Desk(new Matrix[Field](
-          Vector(Vector(new IllegalField(), new IllegalField()), Vector(new IllegalField(), new IllegalField()))))
+          Vector(Vector(new LegalField(), new LegalField()), Vector(new LegalField(), new LegalField()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -22,14 +22,14 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "created properly but empty" should {
       val desk = new Desk(2)
       "give acces to its Fields" in {
-        desk.field(0, 0) should be(new IllegalField())
-        desk.field(0, 1) should be(new IllegalField())
-        desk.field(1, 0) should be(new IllegalField())
-        desk.field(1, 1) should be(new IllegalField())
+        desk.field(0, 0) should be(new LegalField())
+        desk.field(0, 1) should be(new LegalField())
+        desk.field(1, 0) should be(new LegalField())
+        desk.field(1, 1) should be(new LegalField())
       }
       "allow to set individual Fields and remain immutable" in {
         val changedDesk = desk.set(0, 0, new LegalField("LegalField"))
-        desk.field(0, 0) should be(IllegalField())
+        desk.field(0, 0) should be(new LegalField())
       }
       "change the colorization of the desk and each field depending on their occupying team" in {
         desk.isColorized should be(false)
@@ -43,21 +43,21 @@ class DeskSpec extends AnyWordSpec with Matchers {
         desk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
-            + "| " + "  x  " + "  x  " + " |\n"
-            + "| " + "  x  " + "  x  " + " |\n"
+            + "| " + "  1  " + "  1  " + " |\n"
+            + "| " + "  1  " + "  1  " + " |\n"
             + "+-" + "-----" + "-----" + "-+\n"
         )
       }
     }
     "not empty" should {
       val desk = new Desk(2)
-      val changedDesk = desk.set(1, 1, new LegalField("LegalField", new Troop(1, BLUE_TEAM)))
+      val changedDesk = desk.set(1, 1, new LegalField("LegalField", new Troop(3, BLUE_TEAM)))
       "have a nice String representation" in {
         changedDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
-            + "| " + "  x  " + "  x  " + " |\n"
-            + "| " + "  x  " + "  1  " + " |\n"
+            + "| " + "  1  " + "  1  " + " |\n"
+            + "| " + "  1  " + "  3  " + " |\n"
             + "+-" + "-----" + "-----" + "-+\n"
         )
       }
@@ -70,8 +70,8 @@ class DeskSpec extends AnyWordSpec with Matchers {
         colorizedDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
-            + "|   " + "x" + ansiNormal + "    " + "x" + ansiNormal + "   |\n"
-            + "|   " + "x" + ansiNormal + "    " + ansiBlue + "1" + ansiNormal + "   |\n"
+            + "|   " + "1" + ansiNormal + "    " + "1" + ansiNormal + "   |\n"
+            + "|   " + "1" + ansiNormal + "    " + ansiBlue + "3" + ansiNormal + "   |\n"
             + "+-" + "-----" + "-----" + "-+\n"
         )
       }

@@ -10,6 +10,9 @@ class IllegalFieldSpec extends AnyWordSpec with Matchers {
       "have no team" in {
         field.team() should be(NO_TEAM)
       }
+      "should not be set" in {
+        field.isSet() should be(true)
+      }
       "have a nice String representation" in {
         field.toString should be("x")
       }
