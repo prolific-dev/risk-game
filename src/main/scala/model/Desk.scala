@@ -1,7 +1,5 @@
 package de.htwg.se.riskgame.model
 
-import de.htwg.se.riskgame.model.{Field, LegalField}
-
 import scala.io.AnsiColor.*
 
 
