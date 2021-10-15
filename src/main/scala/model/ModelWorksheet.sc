@@ -1,12 +1,7 @@
 import de.htwg.se.riskgame.model.*
 
-import scala.io.AnsiColor.*
+val desk = new Desk(3)
+
+val map = desk.neighbors(0, 1)
 
 
-val team = BLUE_TEAM
-
-val string = "3"
-println(team.getAnsi + string)
-
-
-val planet = Planet()

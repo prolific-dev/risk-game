@@ -19,6 +19,14 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
   def setColorizedOff(): Desk = copy(fields, isColorized = false)
 
   override def toString: String = {
+
+    def consoleFieldString(field: Field): String = {
+      isColorized match
+        case true => field.team().getAnsi + field.toString + RESET
+        case false => field.toString
+
+    }
+
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
     val LEFT_WALL = "| "
     val RIGHT_WALL = " |\n"
@@ -29,8 +37,7 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
     for (i <- 0 until size) {
       sb.append(LEFT_WALL)
       for (j <- 0 until size) {
-        val string = consoleFieldString(field(i, j))
-        sb.append("  " + string + "  ")
+        sb.append("  " + consoleFieldString(field(i, j)) + "  ")
       }
       sb.append(RIGHT_WALL)
     }
@@ -38,10 +45,36 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
     sb.toString()
   }
 
-  def consoleFieldString(field: Field): String = {
-    if (isColorized)
-      field.team().getAnsi + field.toString + RESET
-    else
-      field.toString
+  def neighbors(i: Int, j: Int): Map[String, Option[Field]] = {
+    val map = Map(
+      "N" -> {
+        try {
+          Some(fields.field(i + 1, j))
+        } catch {
+          case e: IndexOutOfBoundsException => None
+        }
+      },
+      "S" -> {
+        try {
+          Some(fields.field(i - 1, j))
+        } catch {
+          case e: IndexOutOfBoundsException => None
+        }
+      },
+      "W" -> {
+        try {
+          Some(fields.field(i, j - 1))
+        } catch {
+          case e: IndexOutOfBoundsException => None
+        }
+      },
+      "E" -> {
+        try {
+          Some(fields.field(i, j + 1))
+        } catch {
+          case e: IndexOutOfBoundsException => None
+        }
+      })
+    map
   }
 }

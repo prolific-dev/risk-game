@@ -9,17 +9,17 @@ object RiskGame {
   val tui = new Tui
   var desk = new Desk(0)
 
-  def main(args: Array[String]): Unit = {
-    var input: String = ""
-    var playerName: String = ""
+   @main def run: Unit = {
+     var input: String = ""
+     var playerName: String = ""
 
-    println("Welcome to Risk Game!")
-    println("\nWhat's your name?")
-    playerName = readLine()
-    println("\nNice to see you on the battlefield, " + playerName + "!")
+     println("Welcome to Risk Game!")
+     println("\nWhat's your name?")
+     playerName = readLine()
+     println("\nNice to see you on the battlefield, " + playerName + "!")
 
-    while
-      input != "q"
+     while
+       input != "q"
     do
       println("Your Desk : " + desk.toString)
       input = readLine()
