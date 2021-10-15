@@ -11,7 +11,7 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         player.name should be("Your Name")
       }
       "have no team" in {
-        player.team should be(NO_TEAM)
+        player.team should be(Team.NO_TEAM)
       }
       "have a nice String representation" in {
         player.toString should be("Your Name")

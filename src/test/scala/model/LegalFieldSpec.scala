@@ -8,7 +8,7 @@ class LegalFieldSpec extends AnyWordSpec with Matchers {
     "new" should {
       val field = new LegalField("LegalField", new Troop(1))
       "have no team" in {
-        field.team() should be(NO_TEAM)
+        field.team() should be(Team.NO_TEAM)
       }
       "should not be set" in {
         field.isSet() should be(false)

@@ -7,3 +7,6 @@ val team = BLUE_TEAM
 
 val string = "3"
 println(team.getAnsi + string)
+
+
+val planet = Planet()

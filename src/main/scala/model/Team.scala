@@ -1,17 +1,17 @@
 package de.htwg.se.riskgame.model
 
-import scala.io.AnsiColor.*
+import scala.io.AnsiColor
 
-sealed trait Team(name: String, ansiColor: String, order: Int) {
+enum Team(name: String, ansiColor: String, order: Int):
+
   def getName: String = name
 
   def getAnsi: String = ansiColor
 
   def getOrder: Int = order
-}
 
-case object NO_TEAM extends Team("No Team", "", 0)
 
-case object BLUE_TEAM extends Team("Blue", BLUE, 1)
-
-case object RED_TEAM extends Team("Red", RED, 2)
+  case NO_TEAM extends Team("No Team", "", 0)
+  case BLUE extends Team("Blue", AnsiColor.BLUE, 1)
+  case RED extends Team("Red", AnsiColor.RED, 2)
+end Team

@@ -51,7 +51,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
     }
     "not empty" should {
       val desk = new Desk(2)
-      val changedDesk = desk.set(1, 1, new LegalField("LegalField", new Troop(3, BLUE_TEAM)))
+      val changedDesk = desk.set(1, 1, new LegalField("LegalField", new Troop(3, Team.BLUE)))
       "have a nice String representation" in {
         changedDesk.toString should be(
           "\n"
