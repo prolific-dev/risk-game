@@ -7,6 +7,9 @@ class IllegalFieldSpec extends AnyWordSpec with Matchers {
   "An IllegalField" when {
     "new" should {
       val field = new IllegalField()
+      "have no troops" in {
+        field.getTroop() should be(None)
+      }
       "have no team" in {
         field.team() should be(Team.NO_TEAM)
       }

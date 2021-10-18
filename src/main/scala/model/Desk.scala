@@ -49,14 +49,14 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
     val map = Map(
       "N" -> {
         try {
-          Some(fields.field(i + 1, j))
+          Some(fields.field(i - 1, j))
         } catch {
           case e: IndexOutOfBoundsException => None
         }
       },
       "S" -> {
         try {
-          Some(fields.field(i - 1, j))
+          Some(fields.field(i + 1, j))
         } catch {
           case e: IndexOutOfBoundsException => None
         }

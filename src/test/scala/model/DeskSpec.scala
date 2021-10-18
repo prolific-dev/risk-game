@@ -31,6 +31,26 @@ class DeskSpec extends AnyWordSpec with Matchers {
         val changedDesk = desk.set(0, 0, new LegalField("LegalField"))
         desk.field(0, 0) should be(new LegalField())
       }
+      "keep a fields' neighbors inside a map" in {
+        val desk = new Desk(3)
+        val edgeNeighborsMap = desk.neighbors(0, 0)
+
+        edgeNeighborsMap should be(Map(
+          "N" -> None,
+          "S" -> Some(new LegalField()),
+          "W" -> None,
+          "E" -> Some(new LegalField())
+        ))
+
+        val otherEdgeNeighborsMap = desk.neighbors(2, 2)
+
+        otherEdgeNeighborsMap should be(Map(
+          "N" -> Some(new LegalField()),
+          "S" -> None,
+          "W" -> Some(new LegalField()),
+          "E" -> None
+        ))
+      }
       "change the colorization of the desk and each field depending on their occupying team" in {
         desk.isColorized should be(false)
         val deskColorOn = desk.setColorizedOn()

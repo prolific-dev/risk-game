@@ -5,6 +5,8 @@ case class LegalField(name: String, troop: Troop) extends Field {
 
   def this() = this("Free Field")
 
+  override def getTroop(): Option[Troop] = Some(troop)
+
   override def isSet(): Boolean = if (troop.team != Team.NO_TEAM) true else false
 
   override def team(): Team = troop.team
