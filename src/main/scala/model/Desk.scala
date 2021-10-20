@@ -45,36 +45,5 @@ case class Desk(fields: Matrix[IField], isColorized: Boolean) {
 
   def field(row: Int, col: Int): IField = fields.field(row, col)
 
-  def neighbors(i: Int, j: Int): Map[String, Option[IField]] = {
-    val map = Map(
-      "N" -> {
-        try {
-          Some(fields.field(i - 1, j))
-        } catch {
-          case e: IndexOutOfBoundsException => None
-        }
-      },
-      "S" -> {
-        try {
-          Some(fields.field(i + 1, j))
-        } catch {
-          case e: IndexOutOfBoundsException => None
-        }
-      },
-      "W" -> {
-        try {
-          Some(fields.field(i, j - 1))
-        } catch {
-          case e: IndexOutOfBoundsException => None
-        }
-      },
-      "E" -> {
-        try {
-          Some(fields.field(i, j + 1))
-        } catch {
-          case e: IndexOutOfBoundsException => None
-        }
-      })
-    map
-  }
+  def neighbors(i: Int, j: Int): Map[String, Option[IField]] = new NeighborMap(i, j, fields).mapNeighbors()
 }
