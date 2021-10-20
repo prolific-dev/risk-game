@@ -51,8 +51,12 @@ class DeskSpec extends AnyWordSpec with Matchers {
       "state valid status depending on if every of its point has at least one regular field neighbor" in {
         val desk = new Desk(3)
 
-        val bool = desk.valid()
-        bool should be(true)
+        desk.valid() should be(true)
+
+        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new Field("")))
+
+        invalidDesk.valid() should be(false)
+
       }
       "have a nice String representation" in {
         val desk = new Desk(2)

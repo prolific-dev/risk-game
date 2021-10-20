@@ -1,7 +1,6 @@
 package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
-import scala.util.control.Breaks.break
 
 case class Desk(fields: Matrix[IField], isColorized: Boolean) {
   def this(fields: Matrix[IField]) = this(fields, false)
@@ -47,11 +46,15 @@ case class Desk(fields: Matrix[IField], isColorized: Boolean) {
 
   def valid(): Boolean = {
     var valid = true
-    for (i <- 0 until size; j <- 0 until size)
-      if (neighbors(i, j).valid() == false) {
-        valid = false
-        break;
+    var i = 0
+    while (valid && i < size) {
+      for (j <- 0 until size) {
+        if (!neighbors(i, j).valid()) {
+          valid = false
+        }
       }
+      i += 1
+    }
     valid
   }
 
