@@ -1,9 +1,11 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, LegalField, Team, Troop}
+import de.htwg.se.riskgame.model.{Desk, Field, Team, Troop}
 import de.htwg.se.riskgame.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
+import scala.language.reflectiveCalls
 
 class ControllerSpec extends AnyWordSpec with Matchers {
   "A controller" when {
@@ -31,7 +33,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.desk.size should be(3)
       }
       "notify its Observer after setting a field" in {
-        controller.set(0, 0, new LegalField("", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, new Field("", new Troop(3, Team.BLUE)))
         //observer.updated should be(true)
         controller.desk.size should be(3)
       }

@@ -3,21 +3,21 @@ package de.htwg.se.riskgame.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class LegalFieldSpec extends AnyWordSpec with Matchers {
-  "A LegalField" when {
+class BlockedFieldSpec extends AnyWordSpec with Matchers {
+  "An BlockedField" when {
     "new" should {
-      val field = new LegalField("LegalField", new Troop(1))
-      "have default Troop set" in {
-        field.getTroop() should be(Some(new Troop(1)))
+      val field = new BlockedField()
+      "have no troops" in {
+        field.getTroop() should be(None)
       }
       "have no team" in {
         field.team() should be(Team.NO_TEAM)
       }
       "should not be set" in {
-        field.isSet() should be(false)
+        field.isSet() should be(true)
       }
       "have a nice String representation" in {
-        field.toString() should be("1")
+        field.toString should be("x")
       }
     }
   }

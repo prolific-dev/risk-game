@@ -2,7 +2,7 @@ package de.htwg.se.riskgame
 
 import aview.Tui
 import controller.Controller
-import model.{Desk, LegalField, Player}
+import model.{Desk, Field, Player}
 
 import scala.io.StdIn.readLine
 

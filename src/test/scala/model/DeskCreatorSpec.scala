@@ -9,7 +9,7 @@ class DeskCreatorSpec extends AnyWordSpec with Matchers {
       val desk = new DeskCreator(1, Seq(Team.BLUE)).createRandom(1)
       val field = desk.field(0, 0)
 
-      field.isInstanceOf[LegalField] should be(true)
+      field.isInstanceOf[Field] should be(true)
       field.team() should be(Team.BLUE)
       field.getTroop() should be(Some(new Troop(3, Team.BLUE)))
     }
@@ -17,7 +17,7 @@ class DeskCreatorSpec extends AnyWordSpec with Matchers {
       val desk = new DeskCreator(1, Seq(Team.BLUE)).createRandom(2)
       val field = desk.field(0, 0)
 
-      field.isInstanceOf[LegalField] should be(true)
+      field.isInstanceOf[Field] should be(true)
       field.team() should be(Team.BLUE)
       field.getTroop() should be(Some(new Troop(3, Team.BLUE)))
     }

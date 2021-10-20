@@ -3,24 +3,18 @@ package de.htwg.se.riskgame.model
 import scala.io.AnsiColor.*
 
 
-case class Desk(fields: Matrix[Field], isColorized: Boolean) {
-  def this(fields: Matrix[Field]) = this(fields, false)
+case class Desk(fields: Matrix[IField], isColorized: Boolean) {
+  def this(fields: Matrix[IField]) = this(fields, false)
 
-  def this(size: Int) = this(new Matrix[Field](size, new LegalField("Free Field")))
+  def this(size: Int) = this(new Matrix[IField](size, new Field("Free IField")))
 
   val size: Int = fields.size
 
-  def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
-
-  def field(row: Int, col: Int): Field = fields.field(row, col)
-
-  def setColorizedOn(): Desk = copy(fields, isColorized = true)
-
-  def setColorizedOff(): Desk = copy(fields, isColorized = false)
+  def set(row: Int, col: Int, value: IField): Desk = copy(fields.replaceField(row, col, value))
 
   override def toString: String = {
 
-    def consoleFieldString(field: Field): String = {
+    def consoleFieldString(field: IField): String = {
       isColorized match
         case true => field.team().getAnsi + field.toString + RESET
         case false => field.toString
@@ -45,7 +39,13 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
     sb.toString()
   }
 
-  def neighbors(i: Int, j: Int): Map[String, Option[Field]] = {
+  def setColorizedOn(): Desk = copy(fields, isColorized = true)
+
+  def setColorizedOff(): Desk = copy(fields, isColorized = false)
+
+  def field(row: Int, col: Int): IField = fields.field(row, col)
+
+  def neighbors(i: Int, j: Int): Map[String, Option[IField]] = {
     val map = Map(
       "N" -> {
         try {
