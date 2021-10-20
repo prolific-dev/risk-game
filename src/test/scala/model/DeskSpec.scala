@@ -38,6 +38,22 @@ class DeskSpec extends AnyWordSpec with Matchers {
         val deskColorOff = desk.setColorizedOff()
         deskColorOff.isColorized should be(false)
       }
+      "give out a neighbors datastructure of a field with a map" in {
+        val desk = new Desk(3)
+        desk.neighbors(1, 1) should be(Neighbors(1, 1, desk.fields))
+        desk.neighbors(1, 1).map should be(Map(
+          "N" -> Some(desk.field(0, 1)),
+          "S" -> Some(desk.field(2, 1)),
+          "W" -> Some(desk.field(1, 0)),
+          "E" -> Some(desk.field(1, 2))
+        ))
+      }
+      "state valid status depending on if every of its point has at least one regular field neighbor" in {
+        val desk = new Desk(3)
+
+        val bool = desk.valid()
+        bool should be(true)
+      }
       "have a nice String representation" in {
         val desk = new Desk(2)
         desk.toString should be(

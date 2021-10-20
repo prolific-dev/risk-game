@@ -2,7 +2,6 @@ package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
 
-
 case class Desk(fields: Matrix[IField], isColorized: Boolean) {
   def this(fields: Matrix[IField]) = this(fields, false)
 
@@ -45,5 +44,13 @@ case class Desk(fields: Matrix[IField], isColorized: Boolean) {
 
   def field(row: Int, col: Int): IField = fields.field(row, col)
 
-  def neighbors(i: Int, j: Int): Map[String, Option[IField]] = new NeighborMap(i, j, fields).mapNeighbors()
+  def valid(): Boolean = {
+    var valid = true
+    for (i <- 0 until size; j <- 0 until size) if (neighbors(i, j).valid() == false) {
+      valid = false
+    }
+    valid
+  }
+
+  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
 }
