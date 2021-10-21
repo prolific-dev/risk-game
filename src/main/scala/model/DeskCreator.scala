@@ -5,6 +5,7 @@ import scala.util.Random
 class DeskCreator(size: Int, teams: Seq[Team]) {
   def createRandom(num: Int): Desk = {
     var desk = new Desk(size)
+
     for (index <- 0 until num) {
       desk = setRandomField(desk)
     }
@@ -13,7 +14,6 @@ class DeskCreator(size: Int, teams: Seq[Team]) {
 
   private def setRandomField(desk: Desk): Desk = {
     val randomTeam = teams(Random.nextInt(teams.size))
-
 
     val row = Random.nextInt(desk.size)
     val column = Random.nextInt(desk.size)
