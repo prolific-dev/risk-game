@@ -33,6 +33,8 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[IField]) {
 
   def center(): IField = fields.field(row, col)
 
-  def valid(): Boolean = map.values.exists(n => n.isDefined && n.get.isInstanceOf[Field])
+  def valid(): Boolean = (map.values.exists(n => n.isDefined && n.get.isInstanceOf[Field]))
+    || (map.values.count(n => !n.isDefined) > 2)
+
 
 }

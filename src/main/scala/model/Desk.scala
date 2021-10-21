@@ -32,20 +32,17 @@ case class Desk(fields: Matrix[IField], isColorized: Boolean) {
     }
     valid
   }
-  
-  override def toString: String = {
 
+  override def toString: String = {
     def consoleFieldString(field: IField): String = {
       isColorized match
         case true => field.team().getAnsi + field.toString + RESET
         case false => field.toString
-
     }
 
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
     val LEFT_WALL = "| "
     val RIGHT_WALL = " |\n"
-
     val sb = new StringBuilder("\n")
 
     sb.append(TOP_BOTTOM_LINE)
