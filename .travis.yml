@@ -1,6 +1,6 @@
 language: scala
 scala:
-  - 3.0.2
+  - 3.1.0
 
 script:
   - sbt clean coverage test

@@ -1,10 +1,13 @@
-name := "risk-game"
+lazy val root = project
+  .in(file("."))
+  .settings(
+    name := "risk-game",
+    version := "0.1.0-SNAPSHOT",
 
-version := "0.1"
+    scalaVersion := scala3Version,
 
-scalaVersion := "3.0.2"
-
-idePackagePrefix := Some("de.htwg.se.riskgame")
-
-libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test"
+    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test",
+  )
+val scala3Version = "3.1.0"
+val scalaTestVersion = "3.2.10"
