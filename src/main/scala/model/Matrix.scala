@@ -1,4 +1,5 @@
-package de.htwg.se.riskgame.model
+package de.htwg.se.riskgame
+package model
 
 case class Matrix[Field](rows: Vector[Vector[Field]]) {
   val size: Int = rows.size
