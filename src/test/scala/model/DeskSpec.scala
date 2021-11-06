@@ -1,4 +1,5 @@
-package de.htwg.se.riskgame.model
+package de.htwg.se.riskgame
+package model
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -13,8 +14,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
         val matrixDesk = new Desk(new Matrix[IField](2, new Field()))
-        val vectorDesk = new Desk(new Matrix[IField](
-          Vector(Vector(new Field(), new Field()), Vector(new Field(), new Field()))))
+        val vectorDesk = new Desk(new Matrix[IField](Vector(Vector(new Field(), new Field()), Vector(new Field(), new Field()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -41,12 +41,14 @@ class DeskSpec extends AnyWordSpec with Matchers {
       "give out a neighbors datastructure of a field with a map" in {
         val desk = new Desk(3)
         desk.neighbors(1, 1) should be(Neighbors(1, 1, desk.fields))
-        desk.neighbors(1, 1).map should be(Map(
-          "N" -> Some(desk.field(0, 1)),
-          "S" -> Some(desk.field(2, 1)),
-          "W" -> Some(desk.field(1, 0)),
-          "E" -> Some(desk.field(1, 2))
-        ))
+        desk.neighbors(1, 1).map should be(
+          Map(
+            "N" -> Some(desk.field(0, 1)),
+            "S" -> Some(desk.field(2, 1)),
+            "W" -> Some(desk.field(1, 0)),
+            "E" -> Some(desk.field(1, 2))
+          )
+        )
       }
       "state valid status depending on if every of its point has at least one regular field neighbor" in {
         val desk = new Desk(3)
