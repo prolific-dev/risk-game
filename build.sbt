@@ -9,9 +9,8 @@ lazy val root = project
   )
   .enablePlugins(JacocoCoverallsPlugin)
 
-jacocoExcludes := Seq(
-  "src/main/scala/de/htwg/se/riskgame/RiskGame.scala"
-)
+jacocoExcludes := Seq("**/RiskGame*.*")
+
 
 val scala3Version = "3.1.0"
 val scalaTestVersion = "3.2.10"
