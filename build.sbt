@@ -12,5 +12,5 @@ lazy val root = project
 jacocoExcludes := Seq("**/riskgame/*")
 
 
-val scala3Version = "3.1.0"
+val scala3Version = "3.0.2"
 val scalaTestVersion = "3.2.10"
