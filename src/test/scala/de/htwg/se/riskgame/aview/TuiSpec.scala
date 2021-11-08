@@ -30,5 +30,10 @@ class TuiSpec extends AnyWordSpec with Matchers {
       tui.processInputLine("c off")
       controller.desk.isColorized should be(false)
     }
+    "on input _" in {
+      val oldDesk = controller.desk
+      tui.processInputLine("")
+      controller.desk.equals(oldDesk) should be(true)
+    }
   }
 }

@@ -98,5 +98,10 @@ class DeskSpec extends AnyWordSpec with Matchers {
         )
       }
     }
+    "only for class test purpose and 100% coverage" should {
+      val desk = new Desk(1)
+      val matrix = desk.fields
+      desk.equals(Desk(matrix, false)) should be(true)
+    }
   }
 }

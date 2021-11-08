@@ -9,7 +9,7 @@ class TeamSpec extends AnyWordSpec with Matchers {
       val noteam = Team.NO_TEAM
       val blueteam = Team.BLUE
       val redteam = Team.RED
-      
+
       "have an order" in {
         noteam.getOrder should be(0)
         blueteam.getOrder should be(1)
