@@ -54,7 +54,42 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val desk = new Desk(3)
       val controller = new Controller(desk)
       "handle undo/redo correctly on an empty undo-stack" in {
-        
+        controller.desk.field(0, 0).isSet() should be(false)
+        controller.undo
+        controller.desk.field(0, 0).isSet() should be(false)
+        controller.redo
+        controller.desk.field(0, 0).isSet() should be(false)
+      }
+      "handle undo/redo of setting a field correctly" in {
+        controller.desk.field(0, 0).isSet() should be(false)
+        controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+        controller.set(0, 0, new OccupiedField("Occupied Field", new Troop(3, Team.BLUE)))
+        controller.desk.field(0, 0).isSet() should be(true)
+        controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+        controller.undo
+        controller.desk.field(0, 0).isSet() should be(false)
+        controller.desk.field(0, 0).getTroop() should be(Some(Troop(1, Team.NO_TEAM)))
+        controller.redo
+        controller.desk.field(0, 0).isSet() should be(true)
+        controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+      }
+      "handle undo/redo of setting colorization on" in {
+        controller.desk.isColorized should be(false)
+        controller.setColorizedOn
+        controller.desk.isColorized should be(true)
+        controller.undo
+        controller.desk.isColorized should be(false)
+        controller.redo
+        controller.desk.isColorized should be(true)
+      }
+      "handle undo/redo of setting colorization off" in {
+        controller.desk.isColorized should be(true)
+        controller.setColorizedOff
+        controller.desk.isColorized should be(false)
+        controller.undo
+        controller.desk.isColorized should be(true)
+        controller.redo
+        controller.desk.isColorized should be(false)
       }
     }
   }

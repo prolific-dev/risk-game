@@ -17,7 +17,7 @@ class Controller(var desk: Desk) extends Observable {
   }
 
   def set(row: Int, col: Int, field: Field): Unit = {
-    desk = desk.set(row, col, field)
+    undoManager.doStep(new SetFieldCommand(row, col, field, this))
     notifyObserver
   }
 
