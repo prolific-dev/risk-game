@@ -22,7 +22,7 @@ class DeskCreator(size: Int, teams: Seq[Team]) {
     val column = Random.nextInt(desk.size)
 
     desk.field(row, column).isSet() match {
-      case false => desk.set(row, column, new Field("", new Troop(3, randomTeam)))
+      case false => desk.set(row, column, new OccupiedField("", new Troop(3, randomTeam)))
       case true => desk
     }
   }

@@ -1,15 +1,11 @@
 package de.htwg.se.riskgame.model
 
-case class Field(name: String, troop: Troop) extends IField {
-  def this(name: String) = this(name, new Troop(1))
+trait Field {
+  def isSet(): Boolean
 
-  def this() = this("Free Field")
+  def getTroop(): Option[Troop]
 
-  override def getTroop(): Option[Troop] = Some(troop)
+  def team(): Team
 
-  override def isSet(): Boolean = if (troop.team != Team.NO_TEAM) true else false
-
-  override def team(): Team = troop.team
-
-  override def toString: String = troop.toString
+  override def toString: String
 }

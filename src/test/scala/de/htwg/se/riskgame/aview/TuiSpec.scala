@@ -1,7 +1,7 @@
 package de.htwg.se.riskgame.aview
 
 import de.htwg.se.riskgame.controller.Controller
-import de.htwg.se.riskgame.model.{Desk, Field, Team, Troop}
+import de.htwg.se.riskgame.model.{Desk, OccupiedField, Team, Troop}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -20,7 +20,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
     }
     "set a field on input 's'" in {
       tui.processInputLine("s")
-      controller.desk.field(0, 0) should be(Field("Field", Troop(3, Team.BLUE)))
+      controller.desk.field(0, 0) should be(OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
     }
     "set colorization on with input 'c on'" in {
       tui.processInputLine("c on")

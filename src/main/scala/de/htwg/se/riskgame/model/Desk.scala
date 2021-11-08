@@ -2,39 +2,21 @@ package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
 
-case class Desk(fields: Matrix[IField], isColorized: Boolean) {
-  def this(fields: Matrix[IField]) = this(fields, false)
+case class Desk(fields: Matrix[Field], isColorized: Boolean) {
+  def this(fields: Matrix[Field]) = this(fields, false)
 
-  def this(size: Int) = this(new Matrix[IField](size, new Field()))
+  def this(size: Int) = this(new Matrix[Field](size, new OccupiedField()))
 
   val size: Int = fields.size
 
-  def set(row: Int, col: Int, value: IField): Desk = copy(fields.replaceField(row, col, value))
+  def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
   def setColorizedOn(): Desk = copy(fields, isColorized = true)
 
   def setColorizedOff(): Desk = copy(fields, isColorized = false)
 
-  def field(row: Int, col: Int): IField = fields.field(row, col)
-
-  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
-
-  def valid(): Boolean = {
-    var valid = true
-    var i = 0
-    while (valid && i < size) {
-      for (j <- 0 until size) {
-        if (!neighbors(i, j).valid()) {
-          valid = false
-        }
-      }
-      i += 1
-    }
-    valid
-  }
-
   override def toString: String = {
-    def consoleFieldString(field: IField): String = {
+    def consoleFieldString(field: Field): String = {
       isColorized match
         case true => field.team().getAnsi + field.toString + RESET
         case false => field.toString
@@ -56,4 +38,22 @@ case class Desk(fields: Matrix[IField], isColorized: Boolean) {
     sb.append(TOP_BOTTOM_LINE)
     sb.toString()
   }
+
+  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
+
+  def valid(): Boolean = {
+    var valid = true
+    var i = 0
+    while (valid && i < size) {
+      for (j <- 0 until size) {
+        if (!neighbors(i, j).valid()) {
+          valid = false
+        }
+      }
+      i += 1
+    }
+    valid
+  }
+
+  def field(row: Int, col: Int): Field = fields.field(row, col)
 }

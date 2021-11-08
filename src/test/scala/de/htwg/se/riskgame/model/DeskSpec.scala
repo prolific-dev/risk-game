@@ -13,8 +13,9 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[IField](2, new Field()))
-        val vectorDesk = new Desk(new Matrix[IField](Vector(Vector(new Field(), new Field()), Vector(new Field(), new Field()))))
+        val matrixDesk = new Desk(new Matrix[Field](2, new OccupiedField()))
+        val vectorDesk = new Desk(new Matrix[Field](
+          Vector(Vector(new OccupiedField(), new OccupiedField()), Vector(new OccupiedField(), new OccupiedField()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -22,14 +23,14 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "created properly but empty" should {
       val desk = new Desk(2)
       "give acces to its Fields" in {
-        desk.field(0, 0) should be(new Field())
-        desk.field(0, 1) should be(new Field())
-        desk.field(1, 0) should be(new Field())
-        desk.field(1, 1) should be(new Field())
+        desk.field(0, 0) should be(new OccupiedField())
+        desk.field(0, 1) should be(new OccupiedField())
+        desk.field(1, 0) should be(new OccupiedField())
+        desk.field(1, 1) should be(new OccupiedField())
       }
       "allow to set individual Fields and remain immutable" in {
-        val changedDesk = desk.set(0, 0, new Field("Field"))
-        desk.field(0, 0) should be(new Field())
+        val changedDesk = desk.set(0, 0, new OccupiedField("OccupiedField"))
+        desk.field(0, 0) should be(new OccupiedField())
       }
       "change the colorization of the desk and each field depending on their occupying team" in {
         desk.isColorized should be(false)
@@ -55,7 +56,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
 
         desk.valid() should be(true)
 
-        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new Field("")))
+        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")))
 
         invalidDesk.valid() should be(false)
 
@@ -73,7 +74,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
     }
     "not empty" should {
       val desk = new Desk(2)
-      val changedDesk = desk.set(1, 1, new Field("Field", new Troop(3, Team.BLUE)))
+      val changedDesk = desk.set(1, 1, new OccupiedField("OccupiedField", new Troop(3, Team.BLUE)))
       "have a nice String representation" in {
         changedDesk.toString should be(
           "\n"

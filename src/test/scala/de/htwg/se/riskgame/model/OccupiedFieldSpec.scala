@@ -3,10 +3,10 @@ package de.htwg.se.riskgame.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class FieldSpec extends AnyWordSpec with Matchers {
-  "A Field" when {
+class OccupiedFieldSpec extends AnyWordSpec with Matchers {
+  "An OccupiedField" when {
     "new" should {
-      val field = new Field("Field", new Troop(1))
+      val field = new OccupiedField("OccupiedField", new Troop(1))
       "have default Troop set" in {
         field.getTroop() should be(Some(new Troop(1)))
       }

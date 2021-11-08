@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.model
 
-case class BlockedField() extends IField {
+case class BlockedField() extends Field {
 
   override def getTroop(): Option[Troop] = None
 
