@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, Field, Team, Troop}
+import de.htwg.se.riskgame.model.{Desk, OccupiedField, Team, Troop}
 import de.htwg.se.riskgame.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -32,9 +32,9 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         updated = false // reset for further tests
       }
       "notify its Observer after setting a field" in {
-        controller.set(0, 0, new Field("", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, new OccupiedField("", new Troop(3, Team.BLUE)))
         updated should be(true)
-        controller.desk.field(0, 0) should be(Field("", Troop(3, Team.BLUE)))
+        controller.desk.field(0, 0) should be(OccupiedField("", Troop(3, Team.BLUE)))
         updated = false // reset for further tests
       }
       "notify its Observer after colorization gets set on" in {
@@ -48,6 +48,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         updated should be(true)
         controller.desk.isColorized should be(false)
         updated = false // reset for further tests
+      }
+    }
+    "empty" should {
+      val desk = new Desk(3)
+      val controller = new Controller(desk)
+      "handle undo/redo correctly on an empty undo-stack" in {
+        
       }
     }
   }
