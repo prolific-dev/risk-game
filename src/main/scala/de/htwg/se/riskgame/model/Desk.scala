@@ -16,26 +16,28 @@ case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
   def setConsoleColorOff(): Desk = copy(fields, consoleIsColorized = false)
 
   override def toString: String = {
+    val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
+    val LEFT_WALL = "| "
+    val RIGHT_WALL = " |\n"
+    val sb = new StringBuilder("\n")
+
     def consoleFieldString(field: Field): String = {
       consoleIsColorized match
         case true => field.team().getAnsi + field.toString + RESET
         case false => field.toString
     }
 
-    val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
-    val LEFT_WALL = "| "
-    val RIGHT_WALL = " |\n"
-    val sb = new StringBuilder("\n")
-
-    sb.append(TOP_BOTTOM_LINE)
+    sb ++= TOP_BOTTOM_LINE
     for (i <- 0 until size) {
-      sb.append(LEFT_WALL)
+      sb ++= LEFT_WALL
       for (j <- 0 until size) {
-        sb.append("  " + consoleFieldString(field(i, j)) + "  ")
+        sb ++= "  "
+        sb ++= consoleFieldString(field(i, j))
+        sb ++= "  "
       }
-      sb.append(RIGHT_WALL)
+      sb ++= RIGHT_WALL
     }
-    sb.append(TOP_BOTTOM_LINE)
+    sb ++= TOP_BOTTOM_LINE
     sb.toString()
   }
 
