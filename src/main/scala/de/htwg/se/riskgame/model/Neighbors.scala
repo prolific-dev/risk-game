@@ -1,33 +1,31 @@
 package de.htwg.se.riskgame.model
 
+import scala.util.{Failure, Success, Try}
+
 case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
   val map: Map[String, Option[Field]] = Map(
     "N" -> {
-      try {
-        Some(fields.field(row - 1, col))
-      } catch {
-        case e: IndexOutOfBoundsException => None
+      Try(fields.field(row - 1, col)) match {
+        case Success(field) => Some(field)
+        case Failure(exception) => None
       }
     },
     "S" -> {
-      try {
-        Some(fields.field(row + 1, col))
-      } catch {
-        case e: IndexOutOfBoundsException => None
+      Try(fields.field(row + 1, col)) match {
+        case Success(field) => Some(field)
+        case Failure(exception) => None
       }
     },
     "W" -> {
-      try {
-        Some(fields.field(row, col - 1))
-      } catch {
-        case e: IndexOutOfBoundsException => None
+      Try(fields.field(row, col - 1)) match {
+        case Success(field) => Some(field)
+        case Failure(exception) => None
       }
     },
     "E" -> {
-      try {
-        Some(fields.field(row, col + 1))
-      } catch {
-        case e: IndexOutOfBoundsException => None
+      Try(fields.field(row, col + 1)) match {
+        case Success(field) => Some(field)
+        case Failure(exception) => None
       }
     })
 
