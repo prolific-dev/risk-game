@@ -39,19 +39,15 @@ case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
     sb.toString()
   }
 
+
   def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
 
   def valid(): Boolean = {
     var valid = true
-    var i = 0
-    while (valid && i < size) {
-      for (j <- 0 until size) {
-        if (!neighbors(i, j).valid()) {
-          valid = false
-        }
-      }
-      i += 1
-    }
+    for {
+      i <- 0 until size
+      j <- 0 until size; if (!neighbors(i, j).valid())
+    } valid = false
     valid
   }
 
