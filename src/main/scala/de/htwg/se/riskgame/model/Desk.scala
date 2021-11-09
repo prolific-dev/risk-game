@@ -2,7 +2,7 @@ package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
 
-case class Desk(fields: Matrix[Field], isColorized: Boolean) {
+case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
   def this(fields: Matrix[Field]) = this(fields, false)
 
   def this(size: Int) = this(new Matrix[Field](size, new OccupiedField()))
@@ -11,13 +11,13 @@ case class Desk(fields: Matrix[Field], isColorized: Boolean) {
 
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
-  def setColorizedOn(): Desk = copy(fields, isColorized = true)
+  def setConsoleColorOn(): Desk = copy(fields, consoleIsColorized = true)
 
-  def setColorizedOff(): Desk = copy(fields, isColorized = false)
+  def setConsoleColorOff(): Desk = copy(fields, consoleIsColorized = false)
 
   override def toString: String = {
     def consoleFieldString(field: Field): String = {
-      isColorized match
+      consoleIsColorized match
         case true => field.team().getAnsi + field.toString + RESET
         case false => field.toString
     }

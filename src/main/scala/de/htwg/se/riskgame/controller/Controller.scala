@@ -22,12 +22,12 @@ class Controller(var desk: Desk) extends Observable {
   }
 
   def setColorizedOn: Unit = {
-    undoManager.doStep(new SetColorizedOnCommand(this))
+    desk = desk.setConsoleColorOn()
     notifyObserver
   }
 
   def setColorizedOff: Unit = {
-    undoManager.doStep(new SetColorizedOffCommand(this))
+    desk = desk.setConsoleColorOff()
     notifyObserver
   }
 

@@ -33,11 +33,11 @@ class DeskSpec extends AnyWordSpec with Matchers {
         desk.field(0, 0) should be(new OccupiedField())
       }
       "change the colorization of the desk and each field depending on their occupying team" in {
-        desk.isColorized should be(false)
-        val deskColorOn = desk.setColorizedOn()
-        deskColorOn.isColorized should be(true)
-        val deskColorOff = desk.setColorizedOff()
-        deskColorOff.isColorized should be(false)
+        desk.consoleIsColorized should be(false)
+        val deskColorOn = desk.setConsoleColorOn()
+        deskColorOn.consoleIsColorized should be(true)
+        val deskColorOff = desk.setConsoleColorOff()
+        deskColorOff.consoleIsColorized should be(false)
       }
       "give out a neighbors datastructure of a field with a map" in {
         val desk = new Desk(3)
@@ -85,7 +85,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
         )
       }
       "have a nice colorized String representation" in {
-        val colorizedDesk = changedDesk.setColorizedOn()
+        val colorizedDesk = changedDesk.setConsoleColorOn()
         val ansiBlue = "\u001B[34m"
         val ansiNormal = "\u001B[0m"
         val string = colorizedDesk.toString

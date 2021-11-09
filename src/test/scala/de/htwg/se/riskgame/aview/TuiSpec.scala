@@ -24,11 +24,11 @@ class TuiSpec extends AnyWordSpec with Matchers {
     }
     "set colorization on with input 'c on'" in {
       tui.processInputLine("c on")
-      controller.desk.isColorized should be(true)
+      controller.desk.consoleIsColorized should be(true)
     }
     "set colorization off with input 'c off'" in {
       tui.processInputLine("c off")
-      controller.desk.isColorized should be(false)
+      controller.desk.consoleIsColorized should be(false)
     }
     "on input _" in {
       val oldDesk = controller.desk

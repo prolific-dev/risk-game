@@ -40,13 +40,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "notify its Observer after colorization gets set on" in {
         controller.setColorizedOn
         updated should be(true)
-        controller.desk.isColorized should be(true)
+        controller.desk.consoleIsColorized should be(true)
         updated = false // reset for further tests
       }
       "notify its Observer after colorization gets set off" in {
         controller.setColorizedOff
         updated should be(true)
-        controller.desk.isColorized should be(false)
+        controller.desk.consoleIsColorized should be(false)
         updated = false // reset for further tests
       }
     }
@@ -72,24 +72,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.redo
         controller.desk.field(0, 0).isSet() should be(true)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
-      }
-      "handle undo/redo of setting colorization on" in {
-        controller.desk.isColorized should be(false)
-        controller.setColorizedOn
-        controller.desk.isColorized should be(true)
-        controller.undo
-        controller.desk.isColorized should be(false)
-        controller.redo
-        controller.desk.isColorized should be(true)
-      }
-      "handle undo/redo of setting colorization off" in {
-        controller.desk.isColorized should be(true)
-        controller.setColorizedOff
-        controller.desk.isColorized should be(false)
-        controller.undo
-        controller.desk.isColorized should be(true)
-        controller.redo
-        controller.desk.isColorized should be(false)
       }
     }
   }
