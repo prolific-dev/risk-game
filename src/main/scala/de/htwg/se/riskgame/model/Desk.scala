@@ -31,9 +31,7 @@ case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
     for (i <- 0 until size) {
       sb ++= LEFT_WALL
       for (j <- 0 until size) {
-        sb ++= "  "
-        sb ++= consoleFieldString(field(i, j))
-        sb ++= "  "
+        sb ++= "  " + consoleFieldString(field(i, j)) + "  "
       }
       sb ++= RIGHT_WALL
     }
