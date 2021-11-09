@@ -22,14 +22,6 @@ class TuiSpec extends AnyWordSpec with Matchers {
       tui.processInputLine("s")
       controller.desk.field(0, 0) should be(OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
     }
-    "set colorization on with input 'c on'" in {
-      tui.processInputLine("c on")
-      controller.desk.consoleIsColorized should be(true)
-    }
-    "set colorization off with input 'c off'" in {
-      tui.processInputLine("c off")
-      controller.desk.consoleIsColorized should be(false)
-    }
     "on input _" in {
       val oldDesk = controller.desk
       tui.processInputLine("")

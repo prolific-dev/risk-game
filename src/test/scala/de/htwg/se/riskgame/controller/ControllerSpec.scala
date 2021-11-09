@@ -37,18 +37,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.desk.field(0, 0) should be(OccupiedField("", Troop(3, Team.BLUE)))
         updated = false // reset for further tests
       }
-      "notify its Observer after colorization gets set on" in {
-        controller.setColorizedOn
-        updated should be(true)
-        controller.desk.consoleIsColorized should be(true)
-        updated = false // reset for further tests
-      }
-      "notify its Observer after colorization gets set off" in {
-        controller.setColorizedOff
-        updated should be(true)
-        controller.desk.consoleIsColorized should be(false)
-        updated = false // reset for further tests
-      }
     }
     "empty" should {
       val desk = new Desk(3)

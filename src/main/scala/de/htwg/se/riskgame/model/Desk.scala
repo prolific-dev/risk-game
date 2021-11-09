@@ -2,18 +2,12 @@ package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
 
-case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
-  def this(fields: Matrix[Field]) = this(fields, false)
-
+case class Desk(fields: Matrix[Field]) {
   def this(size: Int) = this(new Matrix[Field](size, new OccupiedField()))
 
   val size: Int = fields.size
 
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
-
-  def setConsoleColorOn(): Desk = copy(fields, consoleIsColorized = true)
-
-  def setConsoleColorOff(): Desk = copy(fields, consoleIsColorized = false)
 
   override def toString: String = {
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
@@ -22,9 +16,9 @@ case class Desk(fields: Matrix[Field], consoleIsColorized: Boolean) {
     val sb = new StringBuilder("\n")
 
     def consoleFieldString(field: Field): String = {
-      consoleIsColorized match
-        case true => field.team().getAnsi + field.toString + RESET
-        case false => field.toString
+      field.team() match
+        case Team.NO_TEAM => field.toString
+        case _ => field.team().getAnsi + field.toString + RESET
     }
 
     sb ++= TOP_BOTTOM_LINE

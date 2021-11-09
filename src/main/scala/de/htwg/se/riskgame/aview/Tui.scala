@@ -16,8 +16,6 @@ class Tui(controller: Controller) extends Observer {
       case "n" => controller.createEmptyDesk(size)
       case "r" => controller.createRandomDesk(size, teams, randomFields)
       case "s" => controller.set(0, 0, new OccupiedField("OccupiedField", new Troop(3, Team.BLUE)))
-      case "c on" => controller.setColorizedOn
-      case "c off" => controller.setColorizedOff
       case _ =>
     }
   }

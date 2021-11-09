@@ -32,13 +32,6 @@ class DeskSpec extends AnyWordSpec with Matchers {
         val changedDesk = desk.set(0, 0, new OccupiedField("OccupiedField"))
         desk.field(0, 0) should be(new OccupiedField())
       }
-      "change the colorization of the desk and each field depending on their occupying team" in {
-        desk.consoleIsColorized should be(false)
-        val deskColorOn = desk.setConsoleColorOn()
-        deskColorOn.consoleIsColorized should be(true)
-        val deskColorOff = desk.setConsoleColorOff()
-        deskColorOff.consoleIsColorized should be(false)
-      }
       "give out a neighbors datastructure of a field with a map" in {
         val desk = new Desk(3)
         desk.neighbors(1, 1) should be(Neighbors(1, 1, desk.fields))
@@ -75,26 +68,14 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "not empty" should {
       val desk = new Desk(2)
       val changedDesk = desk.set(1, 1, new OccupiedField("OccupiedField", new Troop(3, Team.BLUE)))
+      val ansiBlue = "\u001B[34m"
+      val ansiNormal = "\u001B[0m"
       "have a nice String representation" in {
         changedDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
             + "| " + "  1  " + "  1  " + " |\n"
-            + "| " + "  1  " + "  3  " + " |\n"
-            + "+-" + "-----" + "-----" + "-+\n"
-        )
-      }
-      "have a nice colorized String representation" in {
-        val colorizedDesk = changedDesk.setConsoleColorOn()
-        val ansiBlue = "\u001B[34m"
-        val ansiNormal = "\u001B[0m"
-        val string = colorizedDesk.toString
-
-        colorizedDesk.toString should be(
-          "\n"
-            + "+-" + "-----" + "-----" + "-+\n"
-            + "|   " + "1" + ansiNormal + "    " + "1" + ansiNormal + "   |\n"
-            + "|   " + "1" + ansiNormal + "    " + ansiBlue + "3" + ansiNormal + "   |\n"
+            + "| " + "  1  " + "  " + ansiBlue + "3" + ansiNormal + "   |\n"
             + "+-" + "-----" + "-----" + "-+\n"
         )
       }
@@ -102,7 +83,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "only for class test purpose and 100% coverage" should {
       val desk = new Desk(1)
       val matrix = desk.fields
-      desk.equals(Desk(matrix, false)) should be(true)
+      desk.equals(Desk(matrix)) should be(true)
     }
   }
 }
