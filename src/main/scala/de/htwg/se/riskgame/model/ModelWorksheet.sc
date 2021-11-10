@@ -1,5 +1,5 @@
 import de.htwg.se.riskgame.model.*
 
-val dc = new DeskCreator(8, Seq(Team.BLUE, Team.RED)).createRandom(30)
+val dc = new DeskCreateRandomStrategy(8, Seq(Team.BLUE, Team.RED)).createRandom(30)
 
 dc.toString

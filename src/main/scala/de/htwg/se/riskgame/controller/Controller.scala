@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, DeskCreator, Field, Team}
+import de.htwg.se.riskgame.model.{Desk, DeskCreateRandomStrategy, Field, Team}
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 class Controller(var desk: Desk) extends Observable {
@@ -12,7 +12,7 @@ class Controller(var desk: Desk) extends Observable {
   }
 
   def createRandomDesk(size: Int, teams: Seq[Team], randomFields: Int): Unit = {
-    desk = new DeskCreator(size, teams).createRandom(randomFields)
+    desk = new DeskCreateRandomStrategy(size, teams).createRandom(randomFields)
     notifyObserver
   }
 

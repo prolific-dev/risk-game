@@ -2,7 +2,7 @@ package de.htwg.se.riskgame.model
 
 import scala.util.Random
 
-class DeskCreator(size: Int, teams: Seq[Team]) {
+class DeskCreateRandomStrategy(size: Int, teams: Seq[Team]) extends DeskCreateStrategyTemplate {
   def createRandom(num: Int): Desk = {
     var desk = new Desk(size)
 
