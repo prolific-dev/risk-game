@@ -26,7 +26,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         updated = false // reset for further tests
       }
       "notify its Observer after random creation" in {
-        controller.createRandomDesk(3, Seq(Team.BLUE), 1)
+        controller.createRandomDesk(3, Seq(Team.BLUE))
         updated should be(true)
         controller.desk.valid() should be(true)
         updated = false // reset for further tests

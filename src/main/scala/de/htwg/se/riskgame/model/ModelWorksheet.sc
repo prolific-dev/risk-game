@@ -1,5 +1,5 @@
-import de.htwg.se.riskgame.model.*
+import scala.util.Random
 
-val dc = new DeskCreateRandomStrategy(8, Seq(Team.BLUE, Team.RED)).createRandom(30)
-
-dc.toString
+for (i <- 0 to 100) {
+  println(new Random().between(0, 2))
+}

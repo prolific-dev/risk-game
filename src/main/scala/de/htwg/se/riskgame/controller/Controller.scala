@@ -11,8 +11,8 @@ class Controller(var desk: Desk) extends Observable {
     notifyObserver
   }
 
-  def createRandomDesk(size: Int, teams: Seq[Team], randomFields: Int): Unit = {
-    desk = new DeskCreateRandomStrategy(size, teams).createRandom(randomFields)
+  def createRandomDesk(size: Int, teams: Seq[Team]): Unit = {
+    desk = new DeskCreateRandomStrategy(teams).createDesk(size)
     notifyObserver
   }
 

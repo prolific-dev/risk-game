@@ -32,15 +32,19 @@ class DeskSpec extends AnyWordSpec with Matchers {
         val changedDesk = desk.set(0, 0, new OccupiedField("OccupiedField"))
         desk.field(0, 0) should be(new OccupiedField())
       }
-      "give out a neighbors datastructure of a field with a map" in {
+      "give out a neighbors datastructure of a field with a neighborMap" in {
         val desk = new Desk(3)
         desk.neighbors(1, 1) should be(Neighbors(1, 1, desk.fields))
-        desk.neighbors(1, 1).map should be(
+        desk.neighbors(1, 1).neighborMap should be(
           Map(
             "N" -> Some(desk.field(0, 1)),
+            "NE" -> Some(desk.field(0, 2)),
+            "E" -> Some(desk.field(1, 2)),
+            "SE" -> Some(desk.field(2, 2)),
             "S" -> Some(desk.field(2, 1)),
+            "SW" -> Some(desk.field(2, 0)),
             "W" -> Some(desk.field(1, 0)),
-            "E" -> Some(desk.field(1, 2))
+            "NW" -> Some(desk.field(0, 0))
           )
         )
       }
