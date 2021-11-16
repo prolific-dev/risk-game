@@ -56,7 +56,7 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
   def center(): Field = fields.field(row, col)
 
   def valid(): Boolean = (neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField]))
-    || (neighborMap.values.count(n => !n.isDefined) > 2)
+    || (neighborMap.values.count(n => !n.isDefined) > 5)
 
 
 }

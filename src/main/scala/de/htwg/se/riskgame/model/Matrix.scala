@@ -1,14 +1,14 @@
 package de.htwg.se.riskgame
 package model
 
-case class Matrix[IField](rows: Vector[Vector[IField]]) {
+case class Matrix[Field](rows: Vector[Vector[Field]]) {
   val size: Int = rows.size
 
-  def this(size: Int, filling: IField) = this(Vector.tabulate(size, size) { (row, col) => filling })
+  def this(size: Int, filling: Field) = this(Vector.tabulate(size, size) { (row, col) => filling })
 
-  def field(row: Int, col: Int): IField = rows(row)(col)
+  def field(row: Int, col: Int): Field = rows(row)(col)
 
-  def fill(filling: IField): Matrix[IField] = copy(Vector.tabulate(size, size) { (row, col) => filling })
+  def fill(filling: Field): Matrix[Field] = copy(Vector.tabulate(size, size) { (row, col) => filling })
 
-  def replaceField(row: Int, col: Int, field: IField): Matrix[IField] = copy(rows.updated(row, rows(row).updated(col, field)))
+  def replaceField(row: Int, col: Int, field: Field): Matrix[Field] = copy(rows.updated(row, rows(row).updated(col, field)))
 }

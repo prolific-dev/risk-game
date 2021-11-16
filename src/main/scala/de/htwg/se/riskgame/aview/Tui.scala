@@ -13,7 +13,7 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" =>
       case "n" => controller.createEmptyDesk(size)
-      case "r" => controller.createRandomDesk(size, teams)
+      case "r" => controller.createRandomDesk(size)
       case "s" => controller.set(0, 0, new OccupiedField("OccupiedField", new Troop(3, Team.BLUE)))
       case _ =>
     }
