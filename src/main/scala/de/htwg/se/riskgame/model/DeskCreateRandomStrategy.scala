@@ -7,14 +7,12 @@ class DeskCreateRandomStrategy() extends DeskCreateStrategyTemplate {
   override def createDesk(size: Int): Desk = {
     var desk = prepare(size)
 
-    for {
-      i <- 0 to size * 2 // size*2 default amount of BlockedFields
-    } {
+    // size*2 default amount of BlockedFields
+    for {i <- 0 to size * 2} {
       desk = fill(desk)
     }
 
-    desk = postProcess(desk)
-    desk
+    postProcess(desk)
   }
 
   override def prepare(size: Int): Desk = super.prepare(size)
@@ -29,6 +27,7 @@ class DeskCreateRandomStrategy() extends DeskCreateStrategyTemplate {
     if (!desk.valid()) {
       desk = fill(_desk)
     }
+
     desk
   }
 
