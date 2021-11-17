@@ -23,10 +23,10 @@ case class Desk(fields: Matrix[Field]) {
   }
 
   override def toString: String = {
+    val sb = new StringBuilder("\n")
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
     val LEFT_WALL = "| "
     val RIGHT_WALL = " |\n"
-    val sb = new StringBuilder("\n")
 
     def consoleFieldString(field: Field): String = {
       field.team() match
