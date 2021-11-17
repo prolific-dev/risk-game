@@ -9,6 +9,19 @@ case class Desk(fields: Matrix[Field]) {
 
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
+  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
+
+  def field(row: Int, col: Int): Field = fields.field(row, col)
+
+  def valid(): Boolean = {
+    var valid = true
+    for {
+      i <- 0 until size
+      j <- 0 until size; if (!neighbors(i, j).valid())
+    } valid = false
+    valid
+  }
+
   override def toString: String = {
     val TOP_BOTTOM_LINE = ("+-" + ("-----" * size)) + "-+\n"
     val LEFT_WALL = "| "
@@ -32,18 +45,4 @@ case class Desk(fields: Matrix[Field]) {
     sb ++= TOP_BOTTOM_LINE
     sb.toString()
   }
-
-
-  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
-
-  def valid(): Boolean = {
-    var valid = true
-    for {
-      i <- 0 until size
-      j <- 0 until size; if (!neighbors(i, j).valid())
-    } valid = false
-    valid
-  }
-
-  def field(row: Int, col: Int): Field = fields.field(row, col)
 }
