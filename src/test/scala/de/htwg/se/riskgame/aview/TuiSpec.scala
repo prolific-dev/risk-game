@@ -20,7 +20,8 @@ class TuiSpec extends AnyWordSpec with Matchers {
     }
     "set a field on input 's'" in {
       tui.processInputLine("s")
-      controller.desk.field(0, 0) should be(OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
+      controller.desk.field(0, 0).getName() should be("OccupiedField")
+      controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
     }
     "on input _" in {
       val oldDesk = controller.desk

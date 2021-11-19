@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, OccupiedField, Team, Troop}
+import de.htwg.se.riskgame.model.{Desk, Field, Team, Troop}
 import de.htwg.se.riskgame.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -32,9 +32,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         updated = false // reset for further tests
       }
       "notify its Observer after setting a field" in {
-        controller.set(0, 0, new OccupiedField("", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, Field("x"))
         updated should be(true)
-        controller.desk.field(0, 0) should be(OccupiedField("", Troop(3, Team.BLUE)))
+        controller.desk.field(0, 0).getName() should be("x")
+        controller.desk.field(0, 0).getTroop() should be(None)
         updated = false // reset for further tests
       }
     }
@@ -52,7 +53,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "handle undo/redo of setting a field correctly" in {
         controller.desk.field(0, 0).isSet() should be(false)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(1, Team.NO_TEAM)))
-        controller.set(0, 0, new OccupiedField("Occupied Field", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, Field("Occupied IField", new Troop(3, Team.BLUE)))
         controller.desk.field(0, 0).isSet() should be(true)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
         controller.undo
@@ -74,7 +75,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.gameStatus should be(GameStatus.EMPTY)
         controller.createRandomDesk(3)
         controller.gameStatus should be(GameStatus.NEW)
-        controller.set(0, 0, new OccupiedField())
+        controller.set(0, 0, Field("x"))
         controller.gameStatus should be(GameStatus.SET)
         controller.undo
         controller.gameStatus should be(GameStatus.UNDO)
