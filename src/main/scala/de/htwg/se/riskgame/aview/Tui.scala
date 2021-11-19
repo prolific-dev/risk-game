@@ -19,5 +19,8 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-  override def update: Unit = println(controller.deskToString)
+  override def update: Unit = {
+    println(controller.deskToString)
+    println(controller.gameStatus.message)
+  }
 }

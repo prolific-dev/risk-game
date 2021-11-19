@@ -41,6 +41,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     "empty" should {
       val desk = new Desk(3)
       val controller = new Controller(desk)
+
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.desk.field(0, 0).isSet() should be(false)
         controller.undo
@@ -60,6 +61,25 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.redo
         controller.desk.field(0, 0).isSet() should be(true)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+      }
+
+    }
+    "have always a GameStatus" should {
+      val desk = new Desk(3)
+      val controller = new Controller(desk)
+
+      "change GameStatus properly" in {
+        controller.gameStatus should be(GameStatus.IDLE)
+        controller.createEmptyDesk(3)
+        controller.gameStatus should be(GameStatus.EMPTY)
+        controller.createRandomDesk(3)
+        controller.gameStatus should be(GameStatus.NEW)
+        controller.set(0, 0, new OccupiedField())
+        controller.gameStatus should be(GameStatus.SET)
+        controller.undo
+        controller.gameStatus should be(GameStatus.UNDO)
+        controller.redo
+        controller.gameStatus should be(GameStatus.REDO)
       }
     }
   }
