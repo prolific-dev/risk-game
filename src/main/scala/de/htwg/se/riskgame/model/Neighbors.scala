@@ -2,8 +2,8 @@ package de.htwg.se.riskgame.model
 
 import scala.util.{Failure, Success, Try}
 
-case class Neighbors(row: Int, col: Int, fields: Matrix[IField]) {
-  val neighborMap: Map[String, Option[IField]] = Map(
+case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
+  val neighborMap: Map[String, Option[Field]] = Map(
     "N" -> {
       Try(fields.field(row - 1, col)) match {
         case Success(field) => Some(field)
@@ -53,7 +53,7 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[IField]) {
       }
     })
 
-  def center(): IField = fields.field(row, col)
+  def center(): Field = fields.field(row, col)
 
   def valid(): Boolean = (neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField]))
     || (neighborMap.values.count(n => !n.isDefined) > 5)

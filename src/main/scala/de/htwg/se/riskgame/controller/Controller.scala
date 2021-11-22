@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, DeskCreateRandomStrategy, IField, Team}
+import de.htwg.se.riskgame.model.{Desk, DeskCreateRandomStrategy, Field, Team}
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 class Controller(var desk: Desk) extends Observable {
@@ -19,7 +19,7 @@ class Controller(var desk: Desk) extends Observable {
     notifyObserver
   }
 
-  def set(row: Int, col: Int, field: IField): Unit = {
+  def set(row: Int, col: Int, field: Field): Unit = {
     undoManager.doStep(new SetFieldCommand(row, col, field, this))
     gameStatus = GameStatus.SET
     notifyObserver

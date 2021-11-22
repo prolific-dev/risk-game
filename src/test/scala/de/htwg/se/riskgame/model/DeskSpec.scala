@@ -13,8 +13,8 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[IField](2, new OccupiedField()))
-        val vectorDesk = new Desk(new Matrix[IField](
+        val matrixDesk = new Desk(new Matrix[Field](2, new OccupiedField()))
+        val vectorDesk = new Desk(new Matrix[Field](
           Vector(Vector(new OccupiedField(), new OccupiedField()), Vector(new OccupiedField(), new OccupiedField()))))
         desk should be(matrixDesk)
         desk should be(vectorDesk)

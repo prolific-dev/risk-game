@@ -6,7 +6,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class NeighborsSpec extends AnyWordSpec with Matchers {
   "A Neighbors" when {
     "created" should {
-      val fields = new Matrix[IField](3, Field("free"))
+      val fields = new Matrix[Field](3, Field("free"))
       "keep a fields' neighbors inside a neighborMap" in {
         val neighbor = new Neighbors(1, 1, fields)
         neighbor.neighborMap should be(Map(

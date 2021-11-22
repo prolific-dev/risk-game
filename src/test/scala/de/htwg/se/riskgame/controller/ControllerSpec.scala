@@ -53,7 +53,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "handle undo/redo of setting a field correctly" in {
         controller.desk.field(0, 0).isSet() should be(false)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(1, Team.NO_TEAM)))
-        controller.set(0, 0, Field("Occupied IField", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, Field("Occupied Field", new Troop(3, Team.BLUE)))
         controller.desk.field(0, 0).isSet() should be(true)
         controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
         controller.undo

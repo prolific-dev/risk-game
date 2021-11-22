@@ -1,7 +1,19 @@
 package de.htwg.se.riskgame.model
 
+trait Field {
+  def isSet(): Boolean
+
+  def getName(): String
+
+  def getTroop(): Option[Troop]
+
+  def team(): Team
+
+  override def toString: String
+}
+
 object Field {
-  def apply(kind: String): IField = kind match {
+  def apply(kind: String): Field = kind match {
     case "x" => new BlockedField
     case "free" => new OccupiedField()
   }
@@ -9,7 +21,7 @@ object Field {
   def apply(name: String, troop: Troop) = new OccupiedField(name, troop)
 }
 
-private case class BlockedField() extends IField {
+private case class BlockedField() extends Field {
 
   override def getTroop(): Option[Troop] = None
 
@@ -22,7 +34,7 @@ private case class BlockedField() extends IField {
   override def getName(): String = "x"
 }
 
-private case class OccupiedField(name: String, troop: Troop) extends IField {
+private case class OccupiedField(name: String, troop: Troop) extends Field {
   def this(name: String) = this(name, new Troop(1))
 
   def this() = this("Free Field")

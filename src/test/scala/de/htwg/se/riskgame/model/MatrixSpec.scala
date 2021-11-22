@@ -7,7 +7,7 @@ class MatrixSpec extends AnyWordSpec with Matchers {
   "A Matrix data type that contains two-dimentional Vector of Fields" when {
     "empty" should {
       "be created by using a dimention and a sample field" in {
-        val matrix = new Matrix[IField](2, Field("x"))
+        val matrix = new Matrix[Field](2, Field("x"))
         matrix.size should be(2)
       }
       "for test purposes only be created with a Vector of Vectors" in {
@@ -16,13 +16,13 @@ class MatrixSpec extends AnyWordSpec with Matchers {
       }
     }
     "filled" should {
-      val matrix = new Matrix[IField](2, Field("x"))
+      val matrix = new Matrix[Field](2, Field("x"))
       "give access to its fields" in {
         matrix.field(0, 0) should be(BlockedField())
       }
       "replace fields and return a new data structure" in {
-        val returnedMatrix = matrix.replaceField(0, 0, Field("Replaced IField", new Troop(1)))
-        returnedMatrix.field(0, 0) should be(OccupiedField("Replaced IField", new Troop(1)))
+        val returnedMatrix = matrix.replaceField(0, 0, Field("Replaced Field", new Troop(1)))
+        returnedMatrix.field(0, 0) should be(OccupiedField("Replaced Field", new Troop(1)))
       }
       "be filled using fill operation" in {
         val returnedMatrix = matrix.fill(Field("Alternate Fields", new Troop(1)))
