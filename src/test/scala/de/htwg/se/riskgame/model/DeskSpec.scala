@@ -7,15 +7,17 @@ import org.scalatest.wordspec.AnyWordSpec
 class DeskSpec extends AnyWordSpec with Matchers {
   "A Desk is the playingfield of Risk Game" when {
     "to be constructed" should {
-      "be created with the length of its edges as size" in {
+      "be created with the length of its edges as size and a default team-set and playersTurn" in {
         val desk = new Desk(2)
         desk.size should be(2)
+        desk.teams should be(Seq[Team](Team.BLUE, Team.RED))
+        desk.playersTurn should be(0)
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[Field](2, new OccupiedField()))
+        val matrixDesk = new Desk(new Matrix[Field](2, new OccupiedField()), Seq[Team](Team.BLUE, Team.RED))
         val vectorDesk = new Desk(new Matrix[Field](
-          Vector(Vector(new OccupiedField(), new OccupiedField()), Vector(new OccupiedField(), new OccupiedField()))))
+          Vector(Vector(new OccupiedField(), new OccupiedField()), Vector(new OccupiedField(), new OccupiedField()))), Seq[Team](Team.BLUE, Team.RED))
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -53,7 +55,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
 
         desk.valid() should be(true)
 
-        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")))
+        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")), desk.teams)
 
         invalidDesk.valid() should be(false)
 
@@ -87,7 +89,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "only for class test purpose and 100% coverage" should {
       val desk = new Desk(1)
       val matrix = desk.fields
-      desk.equals(Desk(matrix)) should be(true)
+      desk.equals(new Desk(matrix.size, Seq[Team](Team.BLUE, Team.RED))) should be(true)
     }
   }
 }

@@ -1,5 +1,7 @@
 package de.htwg.se.riskgame.model
 
+import scala.io.AnsiColor.*
+
 trait Field {
   def isSet(): Boolean
 
@@ -47,5 +49,10 @@ private case class OccupiedField(name: String, troop: Troop) extends Field {
 
   override def team(): Team = troop.team
 
-  override def toString: String = troop.toString
+  override def toString: String = {
+    team() match {
+      case Team.NO_TEAM => troop.toString
+      case _ => team().getAnsi + troop.toString + RESET
+    }
+  }
 }
