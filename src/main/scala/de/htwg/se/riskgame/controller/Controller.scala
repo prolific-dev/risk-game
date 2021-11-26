@@ -37,5 +37,7 @@ class Controller(var desk: Desk) extends Observable {
     notifyObserver
   }
 
+  def currentPlayerTurnToString: String = desk.currentPlayerTurn.toString
+
   def deskToString: String = desk.toString
 }

@@ -14,12 +14,13 @@ class Tui(controller: Controller) extends Observer {
       case "q" =>
       case "n" => controller.createEmptyDesk(size)
       case "r" => controller.createRandomDesk(size)
-      case "s" => controller.set(0, 0, Field("OccupiedField", new Troop(3, Team.BLUE)))
+      case "s" => controller.set(0, 0, Field("OccupiedField", Troop(3, Team.BLUE)))
       case _ =>
     }
   }
 
   override def update: Unit = {
+    println("Player Turn: " + controller.currentPlayerTurnToString)
     println(controller.deskToString)
     println(controller.gameStatus.message)
   }
