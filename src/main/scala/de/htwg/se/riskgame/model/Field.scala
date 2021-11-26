@@ -1,5 +1,6 @@
 package de.htwg.se.riskgame.model
 
+import scala.io.AnsiColor
 import scala.io.AnsiColor.*
 
 trait Field {
@@ -36,7 +37,9 @@ private case class BlockedField() extends Field {
   override def getName(): String = "x"
 }
 
-private case class OccupiedField(name: String, troop: Troop) extends Field {
+private case class OccupiedField(name: String, troop: Troop, highlight: Boolean) extends Field {
+  def this(name: String, troop: Troop) = this(name, troop, false)
+
   def this(name: String) = this(name, new Troop(1))
 
   def this() = this("Free Field")
@@ -50,9 +53,13 @@ private case class OccupiedField(name: String, troop: Troop) extends Field {
   override def team(): Team = troop.team
 
   override def toString: String = {
-    team() match {
-      case Team.NO_TEAM => troop.toString
-      case _ => team().getAnsi + troop.toString + RESET
+    if (highlight) {
+      AnsiColor.YELLOW + troop.toString + RESET
+    } else {
+      team() match {
+        case Team.NO_TEAM => troop.toString
+        case _ => team().getAnsi + troop.toString + RESET
+      }
     }
   }
 }

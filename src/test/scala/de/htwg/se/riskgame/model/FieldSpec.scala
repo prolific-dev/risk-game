@@ -3,6 +3,9 @@ package de.htwg.se.riskgame.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+import scala.io.AnsiColor
+import scala.io.AnsiColor.*
+
 class FieldSpec extends AnyWordSpec with Matchers {
   "A field" when {
     "called as an object with the factory method pattern" should {
@@ -38,6 +41,14 @@ class FieldSpec extends AnyWordSpec with Matchers {
       }
       "have a nice String representation" in {
         field.toString() should be("1")
+      }
+      "have a colorized String representation of the associated team" in {
+        val colorizedField = new OccupiedField("Colorized Field", new Troop(3, Team.BLUE))
+        colorizedField.toString should be(Team.BLUE.getAnsi + colorizedField.troop.amount + RESET)
+      }
+      "have a highlighted String representation" in {
+        val highlightedField = new OccupiedField("Highlighted Field", new Troop(3, Team.BLUE), true)
+        highlightedField.toString should be(YELLOW + highlightedField.troop.amount + RESET)
       }
     }
     "as BlockedField" should {
