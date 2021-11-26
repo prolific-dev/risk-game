@@ -2,14 +2,18 @@ package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
 
-case class Desk(fields: Matrix[Field], teams: Seq[Team]) {
-  val playersTurn = 0
+case class Desk(fields: Matrix[Field], info: DeskInfo) {
+  def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), new DeskInfo(teams, 0))
 
-  def this(size: Int, teams: Seq[Team]) = this(new Matrix[Field](size, Field("free")), teams)
+  def this(size: Int) = this(size, IndexedSeq[Team](Team.BLUE, Team.RED))
 
   val size: Int = fields.size
 
-  def this(size: Int) = this(size, Seq[Team](Team.BLUE, Team.RED))
+  def endTurn: Desk = copy(fields, info.endTurn)
+
+  def teams: IndexedSeq[Team] = info.teams
+
+  def currentPlayerTurn: Team = info.currentPlayerTurn
 
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 

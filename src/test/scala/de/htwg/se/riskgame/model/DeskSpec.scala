@@ -10,14 +10,13 @@ class DeskSpec extends AnyWordSpec with Matchers {
       "be created with the length of its edges as size and a default team-set and playersTurn" in {
         val desk = new Desk(2)
         desk.size should be(2)
-        desk.teams should be(Seq[Team](Team.BLUE, Team.RED))
-        desk.playersTurn should be(0)
+        desk.info should be(DeskInfo(IndexedSeq[Team](Team.BLUE, Team.RED), 0))
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[Field](2, new OccupiedField()), Seq[Team](Team.BLUE, Team.RED))
+        val matrixDesk = new Desk(new Matrix[Field](2, Field("free")), new DeskInfo)
         val vectorDesk = new Desk(new Matrix[Field](
-          Vector(Vector(new OccupiedField(), new OccupiedField()), Vector(new OccupiedField(), new OccupiedField()))), Seq[Team](Team.BLUE, Team.RED))
+          Vector(Vector(Field("free"), Field("free")), Vector(Field("free"), Field("free")))), new DeskInfo)
         desk should be(matrixDesk)
         desk should be(vectorDesk)
       }
@@ -50,12 +49,25 @@ class DeskSpec extends AnyWordSpec with Matchers {
           )
         )
       }
+      "return all current playing teams within a IndexedSeq" in {
+        desk.teams should be(IndexedSeq[Team](Team.BLUE, Team.RED))
+      }
+      "return the team of the current turn" in {
+        desk.currentPlayerTurn should be(Team.BLUE)
+      }
+      "increment the playerTurn value after an ended turn" in {
+        var nextPlayerTurnDesk = desk
+        nextPlayerTurnDesk = nextPlayerTurnDesk.endTurn
+        nextPlayerTurnDesk.currentPlayerTurn should be(Team.RED)
+        nextPlayerTurnDesk = nextPlayerTurnDesk.endTurn
+        nextPlayerTurnDesk.currentPlayerTurn should be(Team.BLUE)
+      }
       "state valid status depending on if every of its point has at least one regular field neighbor" in {
         val desk = new Desk(3)
 
         desk.valid() should be(true)
 
-        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")), desk.teams)
+        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")), new DeskInfo)
 
         invalidDesk.valid() should be(false)
 
@@ -89,7 +101,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
     "only for class test purpose and 100% coverage" should {
       val desk = new Desk(1)
       val matrix = desk.fields
-      desk.equals(new Desk(matrix.size, Seq[Team](Team.BLUE, Team.RED))) should be(true)
+      desk.equals(new Desk(matrix.size)) should be(true)
     }
   }
 }
