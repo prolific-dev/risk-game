@@ -17,7 +17,7 @@ class TUI(controller: Controller) extends Observer {
   }
 
   def inputLoop(): Unit = {
-    readLine() match {
+    readLine match {
       case "q" =>
       case input: String => processInputLine(input); inputLoop()
     }
