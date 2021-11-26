@@ -44,7 +44,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
       }
       "have a colorized String representation of the associated team" in {
         val colorizedField = new OccupiedField("Colorized Field", new Troop(3, Team.BLUE))
-        colorizedField.toString should be(Team.BLUE.getAnsi + colorizedField.troop.amount + RESET)
+        colorizedField.toString should be(colorizedField.team().getAnsi + colorizedField.troop.amount + RESET)
       }
       "have a highlighted String representation" in {
         val highlightedField = new OccupiedField("Highlighted Field", new Troop(3, Team.BLUE), true)
