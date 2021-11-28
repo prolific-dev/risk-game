@@ -16,6 +16,6 @@ import de.htwg.se.riskgame.model.*
 //sb ++= ("+-" + ("-----" * desk.size)) + "-+\n"
 //sb.toString()
 
-val desk = new DeskCreateRandomStrategy().createDesk()
+val desk = new DeskCreateRandomStrategy().createDesk(5)
 
 desk.valid()

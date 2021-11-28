@@ -67,10 +67,11 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
 
   def center(): Field = fields.field(row, col)
 
-  def valid(): Boolean = atLeastOneReachableNeighbor()
-  //|| (neighborMap.values.count(n => !n.isDefined) > 5)
+  def valid(): Boolean = atLeastOneReachableNeighbor() || blockedFieldStandsAloneAllowed
 
   private def atLeastOneReachableNeighbor(): Boolean =
     neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField])
+
+  private def blockedFieldStandsAloneAllowed: Boolean = neighborMap.values.count(n => !n.isDefined) > 5
 
 }
