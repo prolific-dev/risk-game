@@ -9,15 +9,7 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
 
   val size: Int = fields.size
 
-  def chooseFieldAndShowAvailableEnemies(i: Int, j: Int): Desk = {
-    var updated = this
-    val available = neighbors(i, j).neighborMap
-      .map(field => if (field._2.isDefined && (field._2.get.team != info.currentPlayerTurn)) field else None)
-      .toIndexedSeq
-
-
-    copy(fields, info)
-  }
+  def chooseFieldAndShowAvailableEnemies(i: Int, j: Int): Desk = copy(fields, info)
 
   def endTurn: Desk = copy(fields, info.endTurn)
 
@@ -29,9 +21,9 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
 
   def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
 
-  def valid(): Boolean = !(0 until size).flatten(i => (0 until size).map(j => neighbors(i, j).valid)).contains(false)
+  def valid: Boolean = !(0 until size).flatten(i => (0 until size).map(j => neighbors(i, j).valid)).contains(false)
 
-  override def toString: String = {
+  override def toString: String =
     val sb = new StringBuilder(("\n+-" + ("-----" * size)) + "-+\n")
     (0 until size)
       .foreach(i => {
@@ -43,7 +35,6 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
       })
     sb ++= ("+-" + ("-----" * size)) + "-+\n"
     sb.toString()
-  }
 
   def field(row: Int, col: Int): Field = fields.field(row, col)
 }

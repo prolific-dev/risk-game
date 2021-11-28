@@ -16,10 +16,9 @@ trait Field {
 }
 
 object Field {
-  def apply(kind: String): Field = kind match {
+  def apply(kind: String): Field = kind match
     case "x" => new BlockedField
     case "free" => new OccupiedField()
-  }
 
   def apply(name: String, troop: Troop) = new OccupiedField(name, troop)
 }
@@ -48,18 +47,13 @@ private case class OccupiedField(name: String, troop: Troop, highlightOn: Boolea
 
   override def getName: String = name
 
-  override def isSet: Boolean = if (troop.team != Team.NO_TEAM) true else false
+  override def isSet: Boolean = if (troop.team == Team.NO_TEAM) false else true
 
-  override def toString: String = {
-    if (highlightOn) {
-      AnsiColor.YELLOW + troop.toString + RESET
-    } else {
-      team match {
-        case Team.NO_TEAM => troop.toString
-        case _ => team.getAnsi + troop.toString + RESET
-      }
-    }
-  }
+  override def toString: String =
+    if (highlightOn) return AnsiColor.YELLOW + troop.toString + RESET
+    team match
+      case Team.NO_TEAM => troop.toString
+      case _ => team.getAnsi + troop.toString + RESET
 
   override def team: Team = troop.team
 }
