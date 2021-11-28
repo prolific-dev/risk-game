@@ -52,7 +52,7 @@ class NeighborsSpec extends AnyWordSpec with Matchers {
         desk = desk.set(0, 0, Field("Blue Field", Troop(3, Team.BLUE)))
         desk = desk.set(2, 2, Field("Red Field", Troop(3, Team.RED)))
 
-        desk.neighbors(1, 1).availableFriendlies(Team.BLUE) should be(Map(
+        desk.neighbors(1, 1).availableFriendlies should be(Map(
           "N" -> None,
           "NE" -> None,
           "E" -> None,
@@ -70,7 +70,7 @@ class NeighborsSpec extends AnyWordSpec with Matchers {
         desk = desk.set(0, 0, Field("Blue Field", Troop(3, Team.BLUE)))
         desk = desk.set(2, 2, Field("Red Field", Troop(3, Team.RED)))
 
-        desk.neighbors(1, 1).availableEnemies(Team.BLUE) should be(Map(
+        desk.neighbors(1, 1).availableEnemies should be(Map(
           "N" -> None,
           "NE" -> None,
           "E" -> None,
@@ -84,16 +84,16 @@ class NeighborsSpec extends AnyWordSpec with Matchers {
       "return its center position and the field all neighbors are depending on" in {
         val changedMatrix = fields.replaceField(1, 1, Field("Center OccupiedField", Troop(1, Team.NO_TEAM)))
         val neighbors = new Neighbors(1, 1, changedMatrix)
-        neighbors.center() should be(OccupiedField("Center OccupiedField", Troop(1, Team.NO_TEAM), false))
+        neighbors.center should be(OccupiedField("Center OccupiedField", Troop(1, Team.NO_TEAM), false))
       }
       "state if its a valid neighbor neighborMap or not. It is only valid if the neighborMap contains at least on type of OccupiedField" in {
         val allBlockedFields = fields.fill(Field("x"))
         val neighbors = new Neighbors(1, 1, allBlockedFields)
-        neighbors.valid() should be(false)
+        neighbors.valid should be(false)
 
         val atleastOneField = allBlockedFields.replaceField(0, 1, Field("free"))
         val validNeighbors = new Neighbors(1, 1, atleastOneField)
-        validNeighbors.valid() should be(true)
+        validNeighbors.valid should be(true)
       }
     }
   }

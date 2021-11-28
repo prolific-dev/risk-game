@@ -53,23 +53,23 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
       }
     })
 
-  def availableFriendlies(team: Team): Map[String, Option[Field]] =
-    neighborMap.map((k: String, v: Option[Field]) => if (definedAndSameTeam(v, team)) (k -> v) else (k -> None))
+  def availableFriendlies: Map[String, Option[Field]] =
+    neighborMap.map((k: String, v: Option[Field]) => if (definedAndSameTeam(v)) (k -> v) else (k -> None))
 
-  private def definedAndSameTeam(v: Option[Field], team: Team): Boolean =
-    v.isDefined && v.get.isInstanceOf[OccupiedField] && v.get.team().equals(team)
+  private def definedAndSameTeam(v: Option[Field]): Boolean =
+    v.isDefined && v.get.isInstanceOf[OccupiedField] && v.get.team().equals(center.team())
 
-  def availableEnemies(team: Team): Map[String, Option[Field]] =
-    neighborMap.map((k: String, v: Option[Field]) => if (definedAndDifferentTeam(v, team)) (k -> v) else (k -> None))
+  def availableEnemies: Map[String, Option[Field]] =
+    neighborMap.map((k: String, v: Option[Field]) => if (definedAndDifferentTeam(v)) (k -> v) else (k -> None))
 
-  private def definedAndDifferentTeam(v: Option[Field], team: Team): Boolean =
-    v.isDefined && v.get.isInstanceOf[OccupiedField] && !v.get.team().equals(team)
+  private def definedAndDifferentTeam(v: Option[Field]): Boolean =
+    v.isDefined && v.get.isInstanceOf[OccupiedField] && !v.get.team().equals(center.team())
 
-  def center(): Field = fields.field(row, col)
+  def center: Field = fields.field(row, col)
 
-  def valid(): Boolean = atLeastOneReachableNeighbor() || blockedFieldStandsAloneAllowed
+  def valid: Boolean = atLeastOneReachableNeighbor || blockedFieldStandsAloneAllowed
 
-  private def atLeastOneReachableNeighbor(): Boolean =
+  private def atLeastOneReachableNeighbor: Boolean =
     neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField])
 
   private def blockedFieldStandsAloneAllowed: Boolean = neighborMap.values.count(n => !n.isDefined) > 5
