@@ -37,7 +37,7 @@ private case class BlockedField() extends Field {
   override def getName(): String = "x"
 }
 
-private case class OccupiedField(name: String, troop: Troop, highlight: Boolean) extends Field {
+private case class OccupiedField(name: String, troop: Troop, highlightOn: Boolean) extends Field {
   def this(name: String, troop: Troop) = this(name, troop, false)
 
   def this(name: String) = this(name, new Troop(1))
@@ -53,7 +53,7 @@ private case class OccupiedField(name: String, troop: Troop, highlight: Boolean)
   override def team(): Team = troop.team
 
   override def toString: String = {
-    if (highlight) {
+    if (highlightOn) {
       AnsiColor.YELLOW + troop.toString + RESET
     } else {
       team() match {
