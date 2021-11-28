@@ -26,13 +26,12 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
   override def toString: String =
     val sb = new StringBuilder(("\n+-" + ("-----" * size)) + "-+\n")
     (0 until size)
-      .foreach(i => {
+      .foreach(i =>
         sb ++= "| ";
         (0 until size)
           .foreach(j =>
             sb ++= "  " + field(i, j).toString + "  ");
-        sb ++= " |\n"
-      })
+        sb ++= " |\n")
     sb ++= ("+-" + ("-----" * size)) + "-+\n"
     sb.toString()
 
