@@ -57,13 +57,13 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
     neighborMap.map((k: String, v: Option[Field]) => if (definedAndSameTeam(v)) (k -> v) else (k -> None))
 
   private def definedAndSameTeam(v: Option[Field]): Boolean =
-    v.isDefined && v.get.isInstanceOf[OccupiedField] && v.get.team().equals(center.team())
+    v.isDefined && v.get.isInstanceOf[OccupiedField] && v.get.team.equals(center.team)
 
   def availableEnemies: Map[String, Option[Field]] =
     neighborMap.map((k: String, v: Option[Field]) => if (definedAndDifferentTeam(v)) (k -> v) else (k -> None))
 
   private def definedAndDifferentTeam(v: Option[Field]): Boolean =
-    v.isDefined && v.get.isInstanceOf[OccupiedField] && !v.get.team().equals(center.team())
+    v.isDefined && v.get.isInstanceOf[OccupiedField] && !v.get.team.equals(center.team)
 
   def center: Field = fields.field(row, col)
 
