@@ -73,5 +73,4 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
     neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField])
 
   private def blockedFieldStandsAloneAllowed: Boolean = neighborMap.values.count(n => !n.isDefined) > 5
-
 }

@@ -11,30 +11,24 @@ class TUI(controller: Controller) extends Observer {
   val size = 3
   val teams = Seq(Team.BLUE, Team.RED)
 
-  def run(): Unit = {
+  def run(): Unit =
     println(controller.deskToString)
     inputLoop()
-  }
 
-  def inputLoop(): Unit = {
-    readLine match {
+  def inputLoop(): Unit =
+    readLine match
       case "q" =>
       case input: String => processInputLine(input); inputLoop()
-    }
-  }
 
-  def processInputLine(input: String): Unit = {
-    input match {
+  def processInputLine(input: String): Unit =
+    input match
       case "n" => controller.createEmptyDesk(size)
       case "r" => controller.createRandomDesk(size)
       case "s" => controller.set(0, 0, Field("OccupiedField", Troop(3, Team.BLUE)))
       case _ =>
-    }
-  }
 
-  override def update: Unit = {
+  override def update: Unit =
     println("Player Turn: " + controller.currentPlayerTurnToString)
     println(controller.deskToString)
     println(controller.gameStatus.message)
-  }
 }
