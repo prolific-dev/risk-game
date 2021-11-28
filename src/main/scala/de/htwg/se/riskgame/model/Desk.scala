@@ -12,7 +12,7 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
   def chooseFieldAndShowAvailableEnemies(i: Int, j: Int): Desk = {
     var updated = this
     val available = neighbors(i, j).neighborMap
-      .map(field => if (field._2.isDefined && (field._2.get.team() != info.currentPlayerTurn)) field else None)
+      .map(field => if (field._2.isDefined && (field._2.get.team != info.currentPlayerTurn)) field else None)
       .toIndexedSeq
 
 
