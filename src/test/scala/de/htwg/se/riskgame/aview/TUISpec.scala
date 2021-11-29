@@ -16,12 +16,12 @@ class TUISpec extends AnyWordSpec with Matchers {
     }
     "create a random Risk Game on input 'r'" in {
       tui.processInputLine("r")
-      controller.desk.valid() should be(true)
+      controller.desk.valid should be(true)
     }
     "set a field on input 's'" in {
       tui.processInputLine("s")
-      controller.desk.field(0, 0).getName() should be("OccupiedField")
-      controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+      controller.desk.field(0, 0).getName should be("OccupiedField")
+      controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
     }
     "on input _" in {
       val oldDesk = controller.desk

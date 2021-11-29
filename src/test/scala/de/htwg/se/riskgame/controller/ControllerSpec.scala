@@ -28,14 +28,14 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "notify its Observer after random creation" in {
         controller.createRandomDesk(3)
         updated should be(true)
-        controller.desk.valid() should be(true)
+        controller.desk.valid should be(true)
         updated = false // reset for further tests
       }
       "notify its Observer after setting a field" in {
         controller.set(0, 0, Field("x"))
         updated should be(true)
-        controller.desk.field(0, 0).getName() should be("x")
-        controller.desk.field(0, 0).getTroop() should be(None)
+        controller.desk.field(0, 0).getName should be("x")
+        controller.desk.field(0, 0).getTroop should be(None)
         updated = false // reset for further tests
       }
     }
@@ -44,24 +44,24 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val controller = new Controller(desk)
 
       "handle undo/redo correctly on an empty undo-stack" in {
-        controller.desk.field(0, 0).isSet() should be(false)
+        controller.desk.field(0, 0).isSet should be(false)
         controller.undo
-        controller.desk.field(0, 0).isSet() should be(false)
+        controller.desk.field(0, 0).isSet should be(false)
         controller.redo
-        controller.desk.field(0, 0).isSet() should be(false)
+        controller.desk.field(0, 0).isSet should be(false)
       }
       "handle undo/redo of setting a field correctly" in {
-        controller.desk.field(0, 0).isSet() should be(false)
-        controller.desk.field(0, 0).getTroop() should be(Some(Troop(1, Team.NO_TEAM)))
+        controller.desk.field(0, 0).isSet should be(false)
+        controller.desk.field(0, 0).getTroop should be(Some(Troop(1, Team.NO_TEAM)))
         controller.set(0, 0, Field("Occupied Field", new Troop(3, Team.BLUE)))
-        controller.desk.field(0, 0).isSet() should be(true)
-        controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+        controller.desk.field(0, 0).isSet should be(true)
+        controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
         controller.undo
-        controller.desk.field(0, 0).isSet() should be(false)
-        controller.desk.field(0, 0).getTroop() should be(Some(Troop(1, Team.NO_TEAM)))
+        controller.desk.field(0, 0).isSet should be(false)
+        controller.desk.field(0, 0).getTroop should be(Some(Troop(1, Team.NO_TEAM)))
         controller.redo
-        controller.desk.field(0, 0).isSet() should be(true)
-        controller.desk.field(0, 0).getTroop() should be(Some(Troop(3, Team.BLUE)))
+        controller.desk.field(0, 0).isSet should be(true)
+        controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
       }
 
     }

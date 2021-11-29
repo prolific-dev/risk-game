@@ -31,20 +31,20 @@ class FieldSpec extends AnyWordSpec with Matchers {
     "as OccupiedField" should {
       val field = new OccupiedField("OccupiedField", new Troop(1))
       "have default Troop set" in {
-        field.getTroop() should be(Some(new Troop(1)))
+        field.getTroop should be(Some(new Troop(1)))
       }
       "have no team" in {
-        field.team() should be(Team.NO_TEAM)
+        field.team should be(Team.NO_TEAM)
       }
       "should not be set" in {
-        field.isSet() should be(false)
+        field.isSet should be(false)
       }
       "have a nice String representation" in {
-        field.toString() should be("1")
+        field.toString should be("1")
       }
       "have a colorized String representation of the associated team" in {
         val colorizedField = new OccupiedField("Colorized Field", new Troop(3, Team.BLUE))
-        colorizedField.toString should be(colorizedField.team().getAnsi + colorizedField.troop.amount + RESET)
+        colorizedField.toString should be(colorizedField.team.getAnsi + colorizedField.troop.amount + RESET)
       }
       "have a highlighted String representation" in {
         val highlightedField = new OccupiedField("Highlighted Field", new Troop(3, Team.BLUE), true)
@@ -54,13 +54,13 @@ class FieldSpec extends AnyWordSpec with Matchers {
     "as BlockedField" should {
       val field = new BlockedField()
       "have no troops" in {
-        field.getTroop() should be(None)
+        field.getTroop should be(None)
       }
       "have no team" in {
-        field.team() should be(Team.NO_TEAM)
+        field.team should be(Team.NO_TEAM)
       }
       "should not be set" in {
-        field.isSet() should be(true)
+        field.isSet should be(true)
       }
       "have a nice String representation" in {
         field.toString should be("x")

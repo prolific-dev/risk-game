@@ -16,6 +16,17 @@ import de.htwg.se.riskgame.model.*
 //sb ++= ("+-" + ("-----" * desk.size)) + "-+\n"
 //sb.toString()
 
-val desk = new DeskCreateRandomStrategy().createDesk(5)
+val desk = new Desk(3)
 
-desk.valid()
+val last = desk.size - 1
+
+
+for {
+  i <- 0 until desk.size
+  j <- 0 until desk.size
+} yield (
+  (i, j) match {
+    case (_, 0) => "| " + desk.field(i, j).toString + "  "
+    case (_, last) => "  " + desk.field(i, j).toString + "  |\n"
+    case _ => "  " + desk.field(i, j).toString + "  "
+  }).foreach(print(_))
