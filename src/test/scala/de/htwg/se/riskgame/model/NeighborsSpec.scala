@@ -45,41 +45,18 @@ class NeighborsSpec extends AnyWordSpec with Matchers {
           "NW" -> Some(OccupiedField("Free Field", Troop(1, Team.NO_TEAM), false))
         ))
       }
-      "map up only possibly reachable friendly fields" in {
+      "map up only possibly reachable friendly as well as enemy fields" in {
         var desk = new Desk(3)
         desk = desk.copy(fields.fill(Field("x")))
         desk = desk.set(1, 1, Field("Blue Field", Troop(3, Team.BLUE)))
         desk = desk.set(0, 0, Field("Blue Field", Troop(3, Team.BLUE)))
         desk = desk.set(2, 2, Field("Red Field", Troop(3, Team.RED)))
 
-        desk.neighbors(1, 1).availableFriendlies should be(Map(
-          "N" -> None,
-          "NE" -> None,
-          "E" -> None,
-          "SE" -> None,
-          "S" -> None,
-          "SW" -> None,
-          "W" -> None,
-          "NW" -> Some(OccupiedField("Blue Field", Troop(3, Team.BLUE), false))
-        ))
-      }
-      "map up only possibly reachable enemy fields" in {
-        var desk = new Desk(3)
-        desk = desk.copy(fields.fill(Field("x")))
-        desk = desk.set(1, 1, Field("Blue Field", Troop(3, Team.BLUE)))
-        desk = desk.set(0, 0, Field("Blue Field", Troop(3, Team.BLUE)))
-        desk = desk.set(2, 2, Field("Red Field", Troop(3, Team.RED)))
+        desk.neighbors(1, 1).availableFriendlies should be(
+          Map("NW" -> Some(OccupiedField("Blue Field", Troop(3, Team.BLUE), false))))
 
-        desk.neighbors(1, 1).availableEnemies should be(Map(
-          "N" -> None,
-          "NE" -> None,
-          "E" -> None,
-          "SE" -> Some(OccupiedField("Red Field", Troop(3, Team.RED), false)),
-          "S" -> None,
-          "SW" -> None,
-          "W" -> None,
-          "NW" -> None
-        ))
+        desk.neighbors(1, 1).availableEnemies should be(
+          Map("SE" -> Some(OccupiedField("Red Field", Troop(3, Team.RED), false))))
       }
       "return its center position and the field all neighbors are depending on" in {
         val changedMatrix = fields.replaceField(1, 1, Field("Center OccupiedField", Troop(1, Team.NO_TEAM)))
