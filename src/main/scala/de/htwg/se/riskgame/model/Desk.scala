@@ -4,7 +4,7 @@ import scala.io.AnsiColor.*
 import scala.language.postfixOps
 
 case class Desk(fields: Matrix[Field], info: DeskInfo) {
-  def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), new DeskInfo(teams, 0))
+  def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), DeskInfo(teams, 0))
 
   def this(size: Int) = this(size, IndexedSeq[Team](Team.BLUE, Team.RED))
 
@@ -40,7 +40,7 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
 
   def set(row: Int, col: Int, value: Field): Desk = copy(fields.replaceField(row, col, value))
 
-  def neighbors(i: Int, j: Int): Neighbors = new Neighbors(i, j, fields)
+  def neighbors(i: Int, j: Int): Neighbors = Neighbors(i, j, fields)
 
   def valid: Boolean = !(0 until size).flatten(i => (0 until size).map(j => neighbors(i, j).valid)).contains(false)
 
