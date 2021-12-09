@@ -1,6 +1,9 @@
 # Mac
 .DS_Store
 
+# Visual Studio Code
+.vscode/
+
 # Eclipse
 bin/
 .settings/
@@ -37,6 +40,9 @@ project/.sbtserver
 .bsp/
 
 # Scala-IDE specific
+.bloop/
+.metals/
+project/metals.sbt
 .scala_dependencies
 .worksheet
 .sc
