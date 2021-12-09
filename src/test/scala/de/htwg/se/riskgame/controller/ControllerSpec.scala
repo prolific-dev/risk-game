@@ -5,6 +5,7 @@ import de.htwg.se.riskgame.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+import scala.io.AnsiColor
 import scala.language.reflectiveCalls
 
 class ControllerSpec extends AnyWordSpec with Matchers {
@@ -53,7 +54,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "handle undo/redo of setting a field correctly" in {
         controller.desk.field(0, 0).isSet should be(false)
         controller.desk.field(0, 0).getTroop should be(Some(Troop(1, Team.NO_TEAM)))
-        controller.set(0, 0, Field("Occupied Field", new Troop(3, Team.BLUE)))
+        controller.set(0, 0, Field("Occupied Field", Troop(3, Team.BLUE)))
         controller.desk.field(0, 0).isSet should be(true)
         controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
         controller.undo
@@ -64,6 +65,23 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
       }
 
+    }
+    "not empty" should {
+      val desk = new Desk(3)
+      val controller = new Controller(desk)
+      controller.set(1, 1, Field("Blue Field", Troop(3, Team.BLUE)))
+
+      "set highlight of friendly neighbors" in {
+        controller.set(0, 2, Field("Blue Field", Troop(3, Team.BLUE)))
+        controller.chooseAndShowFriendlies(1, 1)
+        controller.desk.field(0, 2).toString should be(AnsiColor.YELLOW + "3" + AnsiColor.RESET)
+      }
+
+      "set highlight of enemy neighbors" in {
+        controller.set(2, 0, Field("Red Field", Troop(3, Team.RED)))
+        controller.chooseAndShowEnemies(1, 1)
+        controller.desk.field(2, 0).toString should be(AnsiColor.YELLOW + "3" + AnsiColor.RESET)
+      }
     }
     "have always a GameStatus" should {
       val desk = new Desk(3)

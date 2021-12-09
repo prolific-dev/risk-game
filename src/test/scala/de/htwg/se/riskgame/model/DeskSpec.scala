@@ -4,6 +4,8 @@ package model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+import scala.io.AnsiColor.*
+
 class DeskSpec extends AnyWordSpec with Matchers {
   "A Desk is the playingfield of Risk Game" when {
     "to be constructed" should {
@@ -14,8 +16,8 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)
-        val matrixDesk = new Desk(new Matrix[Field](2, Field("free")), new DeskInfo)
-        val vectorDesk = new Desk(new Matrix[Field](
+        val matrixDesk = Desk(new Matrix[Field](2, Field("free")), new DeskInfo)
+        val vectorDesk = Desk(new Matrix[Field](
           Vector(Vector(Field("free"), Field("free")), Vector(Field("free"), Field("free")))), new DeskInfo)
         desk should be(matrixDesk)
         desk should be(vectorDesk)
@@ -67,7 +69,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
 
         desk.valid should be(true)
 
-        val invalidDesk = new Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")), new DeskInfo)
+        val invalidDesk = Desk(desk.fields.fill(BlockedField()).replaceField(1, 1, new OccupiedField("")), new DeskInfo)
 
         invalidDesk.valid should be(false)
 
@@ -85,15 +87,45 @@ class DeskSpec extends AnyWordSpec with Matchers {
     }
     "not empty" should {
       val desk = new Desk(2)
-      val changedDesk = desk.set(1, 1, new OccupiedField("OccupiedField", new Troop(3, Team.BLUE)))
-      val ansiBlue = "\u001B[34m"
-      val ansiNormal = "\u001B[0m"
+      val changedDesk = desk.set(1, 1, new OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
+      "show available enemies around a field" in {
+        val availableEnemiesDesk = changedDesk.chooseFieldShowAvailableEnemies(changedDesk.neighbors(1, 1))
+        availableEnemiesDesk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "| " + "  " + YELLOW + "1" + RESET + "  " + "  " + YELLOW + "1" + RESET + "   |\n"
+            + "| " + "  " + YELLOW + "1" + RESET + "  " + "  " + BLUE + "3" + RESET + "   |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
+      "show available friendlies around a field" in {
+        val addTeamFieldDesk = changedDesk.set(0, 1, new OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
+        val availableFriendliesDesk = addTeamFieldDesk.chooseFieldShowAvailableFriendlies(addTeamFieldDesk.neighbors(1, 1))
+        availableFriendliesDesk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "| " + "  1  " + "  " + YELLOW + "3" + RESET + "   |\n"
+            + "| " + "  1  " + "  " + BLUE + "3" + RESET + "   |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
+      "reset highlight of friendlies or enemies for every field" in {
+        val highlightedDesk = changedDesk.chooseFieldShowAvailableEnemies(changedDesk.neighbors(1, 1))
+        val resetDesk = highlightedDesk.resetHighlight
+        resetDesk.toString should be(
+          "\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+            + "| " + "  1  " + "  1  " + " |\n"
+            + "| " + "  1  " + "  " + BLUE + "3" + RESET + "   |\n"
+            + "+-" + "-----" + "-----" + "-+\n"
+        )
+      }
       "have a nice String representation" in {
         changedDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
             + "| " + "  1  " + "  1  " + " |\n"
-            + "| " + "  1  " + "  " + ansiBlue + "3" + ansiNormal + "   |\n"
+            + "| " + "  1  " + "  " + BLUE + "3" + RESET + "   |\n"
             + "+-" + "-----" + "-----" + "-+\n"
         )
       }
