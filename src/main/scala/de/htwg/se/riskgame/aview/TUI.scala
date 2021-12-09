@@ -24,7 +24,13 @@ class TUI(controller: Controller) extends Observer {
     input match
       case "n" => controller.createEmptyDesk(size)
       case "r" => controller.createRandomDesk(size)
-      case "s" => controller.set(0, 0, Field("OccupiedField", Troop(3, Team.BLUE)))
+      case "s" =>
+        controller.set(0, 0, Field("OccupiedField", Troop(3, Team.BLUE)));
+        controller.set(0, 1, Field("OccupiedField", Troop(3, Team.BLUE)));
+        controller.set(1, 0, Field("OccupiedField", Troop(3, Team.RED)))
+      case "c f" => controller.chooseAndShowFriendlies(0, 0)
+      case "c e" => controller.chooseAndShowEnemies(0, 0)
+      case "r h" => controller.resetHighlight
       case _ =>
 
   override def update: Unit =

@@ -1,6 +1,7 @@
 package de.htwg.se.riskgame.model
 
 import scala.io.AnsiColor.*
+import scala.language.postfixOps
 
 case class Desk(fields: Matrix[Field], info: DeskInfo) {
   def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), new DeskInfo(teams, 0))
@@ -9,7 +10,27 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
 
   val size: Int = fields.size
 
-  def chooseFieldAndShowAvailableEnemies(i: Int, j: Int): Desk = copy(fields, info)
+  def chooseFieldShowAvailableFriendlies(neighbors: Neighbors): Desk =
+    showFieldHighlight(neighbors.availableFriendlies, neighbors)
+
+  def chooseFieldShowAvailableEnemies(neighbors: Neighbors): Desk =
+    showFieldHighlight(neighbors.availableEnemies, neighbors)
+
+  def showFieldHighlight(available: Map[String, Option[Field]], neighbors: Neighbors): Desk = {
+    var _desk = copy()
+    available foreach {case(k, v) =>
+      val x = neighbors.neighborCoordinates(k).get._1
+      val y = neighbors.neighborCoordinates(k).get._2
+      _desk = _desk.copy(fields = _desk.fields.replaceField(x, y, v.get.highlightOn))}
+    _desk
+  }
+
+  def resetHighlight: Desk =
+    var _desk = copy()
+    (0 until size).foreach(i => (0 until size).foreach(j => if (field(i, j).isInstanceOf[OccupiedField])
+      _desk = _desk.copy(fields = _desk.fields.replaceField(i, j, field(i, j).highlightOff))))
+    _desk
+
 
   def endTurn: Desk = copy(fields, info.endTurn)
 

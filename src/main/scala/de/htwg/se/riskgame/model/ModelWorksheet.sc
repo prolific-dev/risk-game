@@ -1,32 +1,34 @@
 import de.htwg.se.riskgame.model.*
 
-//val matrix = new Matrix[Field](3, Field("x"))
-//val desk = new Desk(matrix, Seq[Team](Team.BLUE, Team.RED))
-
-
-//val sb = new StringBuilder(("\n+-" + ("-----" * desk.size)) + "-+\n")
-//(0 until desk.size)
-//  .foreach(i => {
-//    sb ++= "| ";
-//    (0 until desk.size)
-//      .foreach(j =>
-//        sb ++= "  " + desk.field(i, j).toString + "  ");
-//    sb ++= " |\n"
-//  })
-//sb ++= ("+-" + ("-----" * desk.size)) + "-+\n"
-//sb.toString()
-
 val desk = new Desk(3)
 
-val last = desk.size - 1
+val map: Map[String, Option[(Int, Int)]] = desk.neighbors(1, 1).neighborMap map {case(k, v) => if (v.isDefined) (k -> (k match {
+  case "N" => Some((1 - 1, 1))
+  case "NE"=> Some((1 - 1, 1 + 1))
+  case "E" => Some((1, 1 + 1))
+  case "SE" => Some((1 + 1, 1 + 1))
+  case "S" => Some((1 + 1, 1))
+  case "SW" => Some((1 + 1, 1 - 1))
+  case "W" => Some((1, 1 - 1))
+  case "NW" => Some((1 - 1, 1 - 1))
+})) else (k -> None)}
 
+map("N")
 
-for {
-  i <- 0 until desk.size
-  j <- 0 until desk.size
-} yield (
-  (i, j) match {
-    case (_, 0) => "| " + desk.field(i, j).toString + "  "
-    case (_, last) => "  " + desk.field(i, j).toString + "  |\n"
-    case _ => "  " + desk.field(i, j).toString + "  "
-  }).foreach(print(_))
+//val last = desk.size - 1
+//
+//
+//for {
+//  i <- 0 until desk.size
+//  j <- 0 until desk.size
+//} yield (
+//  (i, j) match {
+//    case (_, 0) => "| " + desk.field(i, j).toString + "  "
+//    case (_, last) => "  " + desk.field(i, j).toString + "  |\n"
+//    case _ => "  " + desk.field(i, j).toString + "  "
+//  }).foreach(print(_))
+
+val g: Option[Int] = Some(3)
+
+g.isEmpty
+
