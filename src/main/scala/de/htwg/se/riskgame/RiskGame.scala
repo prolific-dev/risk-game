@@ -19,6 +19,14 @@ import scala.io.StdIn.readLine
     override def run(): Unit = TUI(controller).run()
   }.start()
 
+
+object Tui extends App {
+  val desk = new Desk(3)
+  val controller = new Controller(desk)
+  val tui = TUI(controller)
+  tui.run()
+}
+
 object Gui extends JFXApp3 {
   val desk = new Desk(3)
   val controller = new Controller(desk)
