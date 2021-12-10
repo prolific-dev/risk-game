@@ -9,6 +9,8 @@ lazy val root = project
     libraryDependencies += ("org.scalafx" %% "scalafx" % scalaFXVersion)
   )
   .enablePlugins(JacocoCoverallsPlugin)
+
+
 // Determine OS version of JavaFX binaries
 lazy val osName = System.getProperty("os.name") match {
   case n if n.startsWith("Linux") => "linux"

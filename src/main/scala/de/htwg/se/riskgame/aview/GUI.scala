@@ -19,7 +19,7 @@ class GUI(controller: Controller) extends JFXApp3 with Observer {
     start()
 
   override def start(): Unit = {
-    stage = new PrimaryStage {
+    stage = new JFXApp3.PrimaryStage {
       title = "Simple ScalaFX App"
       scene = new Scene {
         root = new StackPane {
