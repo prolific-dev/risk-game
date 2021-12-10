@@ -1,4 +1,4 @@
-package de.htwg.se.riskgame.aview
+package de.htwg.se.riskgame.aview.TUI
 
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.model.*

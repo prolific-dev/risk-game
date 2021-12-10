@@ -1,4 +1,4 @@
-package de.htwg.se.riskgame.aview
+package de.htwg.se.riskgame.aview.GUI
 
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.util.Observer
@@ -11,14 +11,10 @@ import scalafx.scene.paint.*
 import scalafx.scene.paint.Color.*
 import scalafx.scene.text.Text
 
-object GUI extends JFXApp3 {
-  //  controller.add(this)
-  //
-  //  def run(): Unit =
-  //    println("GUI starts running...")
-  //    start()
-  //
-  //  override def update: Unit = println("GUI updated.")
+class GUI(controller: Controller) extends JFXApp3 with Observer {
+  controller.add(this)
+
+  override def update: Unit = start()
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
@@ -29,7 +25,7 @@ object GUI extends JFXApp3 {
           padding = Insets(50, 80, 50, 80)
           children = Seq(
             new Text {
-              text = "Risk Game"
+              text = "Risk "
               style = "-fx-font: normal bold 100pt sans-serif"
               fill = new LinearGradient(
                 endX = 0,
@@ -37,7 +33,7 @@ object GUI extends JFXApp3 {
               )
             },
             new Text {
-              text = " FX"
+              text = "Game"
               style = "-fx-font: italic bold 100pt sans-serif"
               fill = new LinearGradient(
                 endX = 0,

@@ -1,5 +1,6 @@
 package de.htwg.se.riskgame.aview
 
+import de.htwg.se.riskgame.aview.TUI.TUI
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.model.{Desk, OccupiedField, Team, Troop}
 import org.scalatest.matchers.should.Matchers

@@ -1,20 +1,31 @@
 package de.htwg.se.riskgame
 
-import de.htwg.se.riskgame.aview.TUI
+import de.htwg.se.riskgame.aview.GUI.GUI
+import de.htwg.se.riskgame.aview.TUI.TUI
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.model.{Desk, OccupiedField, Player}
+import scalafx.application.JFXApp3
 
 import scala.io.StdIn.readLine
 
-
-@main def run(): Unit = {
-  println("Welcome to Risk Game!")
+object RiskGame {
   val desk = new Desk(3)
   val controller = new Controller(desk)
-//  val gui = new GUI(controller)
-  val tui = new TUI(controller)
-  //  gui.run()
-  tui.run()
+  val GUI = new GUI(controller)
+  val TUI = new TUI(controller)
 
+  def startGUI(): Unit = GUI.start()
+
+  def runTUI(): Unit = TUI.run()
 
 }
+
+object RiskGameGUI extends JFXApp3 {
+  override def start(): Unit = RiskGame.startGUI()
+}
+
+object RiskGameTUI extends App {
+  RiskGame.runTUI()
+}
+
+
