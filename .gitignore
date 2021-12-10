@@ -52,3 +52,6 @@ project/metals.sbt
 
 # Application
 *.log
+
+# Project
+templates/
