@@ -71,10 +71,8 @@ case class Neighbors(row: Int, col: Int, fields: Matrix[Field]) {
   private def definedAndDifferentTeam(v: Option[Field]): Boolean =
     v.isDefined && v.get.isInstanceOf[OccupiedField] && !v.get.team.equals(center.team)
 
-  def valid: Boolean = atLeastOneReachableNeighbor || blockedFieldStandsAloneAllowed
+  def valid: Boolean = if (center.isInstanceOf[OccupiedField]) leastOneReachableNeighbor else true
 
-  private def atLeastOneReachableNeighbor: Boolean =
+  private def leastOneReachableNeighbor: Boolean =
     neighborMap.values.exists(n => n.isDefined && n.get.isInstanceOf[OccupiedField])
-
-  private def blockedFieldStandsAloneAllowed: Boolean = neighborMap.values.count(n => n.isEmpty) > 5
 }

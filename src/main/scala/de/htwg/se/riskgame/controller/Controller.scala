@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.controller
 
-import de.htwg.se.riskgame.model.{Desk, DeskCreateRandomStrategy, Field, Neighbors, Team}
+import de.htwg.se.riskgame.model.*
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 class Controller(var desk: Desk) extends Observable {
@@ -17,32 +17,37 @@ class Controller(var desk: Desk) extends Observable {
     gameStatus = GameStatus.NEW
     notifyObserver
 
+  def createWorldMapDesk(): Unit =
+    desk = new DeskCreateWorldMapStrategy().createDesk()
+    gameStatus = GameStatus.NEW
+    notifyObserver
+
   def set(row: Int, col: Int, field: Field): Unit =
     undoManager.doStep(new SetFieldCommand(row, col, field, this))
     gameStatus = GameStatus.SET
     notifyObserver
 
   def chooseAndShowFriendlies(row: Int, col: Int): Unit =
-    resetHighlight
+    resetHighlight()
     desk = desk.chooseFieldShowAvailableFriendlies(desk.neighbors(row, col))
     notifyObserver
-    
-  def chooseAndShowEnemies(row: Int, col: Int): Unit =
-    resetHighlight
-    desk = desk.chooseFieldShowAvailableEnemies(desk.neighbors(row, col))
-    notifyObserver
-    
-  def resetHighlight: Unit =
+
+  def resetHighlight(): Unit =
     desk = desk.resetHighlight
     notifyObserver
 
-  def undo: Unit =
-    undoManager.undoStep
+  def chooseAndShowEnemies(row: Int, col: Int): Unit =
+    resetHighlight()
+    desk = desk.chooseFieldShowAvailableEnemies(desk.neighbors(row, col))
+    notifyObserver
+
+  def undo(): Unit =
+    undoManager.undoStep()
     gameStatus = GameStatus.UNDO
     notifyObserver
 
-  def redo: Unit =
-    undoManager.redoStep
+  def redo(): Unit =
+    undoManager.redoStep()
     gameStatus = GameStatus.REDO
     notifyObserver
 

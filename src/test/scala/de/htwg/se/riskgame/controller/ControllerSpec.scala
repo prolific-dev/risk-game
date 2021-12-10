@@ -32,6 +32,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.desk.valid should be(true)
         updated = false // reset for further tests
       }
+      "notify its Observer after worldmap creation" in {
+        controller.createWorldMapDesk()
+        updated should be(true)
+        controller.desk.valid should be(true)
+        updated = false // reset for further tests
+      }
       "notify its Observer after setting a field" in {
         controller.set(0, 0, Field("x"))
         updated should be(true)
@@ -46,9 +52,9 @@ class ControllerSpec extends AnyWordSpec with Matchers {
 
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.desk.field(0, 0).isSet should be(false)
-        controller.undo
+        controller.undo()
         controller.desk.field(0, 0).isSet should be(false)
-        controller.redo
+        controller.redo()
         controller.desk.field(0, 0).isSet should be(false)
       }
       "handle undo/redo of setting a field correctly" in {
@@ -57,10 +63,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.set(0, 0, Field("Occupied Field", Troop(3, Team.BLUE)))
         controller.desk.field(0, 0).isSet should be(true)
         controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
-        controller.undo
+        controller.undo()
         controller.desk.field(0, 0).isSet should be(false)
         controller.desk.field(0, 0).getTroop should be(Some(Troop(1, Team.NO_TEAM)))
-        controller.redo
+        controller.redo()
         controller.desk.field(0, 0).isSet should be(true)
         controller.desk.field(0, 0).getTroop should be(Some(Troop(3, Team.BLUE)))
       }
@@ -93,11 +99,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.gameStatus should be(GameStatus.EMPTY)
         controller.createRandomDesk(3)
         controller.gameStatus should be(GameStatus.NEW)
+        controller.createWorldMapDesk()
+        controller.gameStatus should be(GameStatus.NEW)
         controller.set(0, 0, Field("x"))
         controller.gameStatus should be(GameStatus.SET)
-        controller.undo
+        controller.undo()
         controller.gameStatus should be(GameStatus.UNDO)
-        controller.redo
+        controller.redo()
         controller.gameStatus should be(GameStatus.REDO)
       }
     }

@@ -1,4 +1,4 @@
-package de.htwg.se.riskgame.aview
+package de.htwg.se.riskgame.aview.TUI
 
 import de.htwg.se.riskgame.aview.TUI.TUI
 import de.htwg.se.riskgame.controller.Controller
@@ -20,6 +20,11 @@ class TUISpec extends AnyWordSpec with Matchers {
     "create a random Risk Game on input 'r'" in {
       tui.processInputLine("r")
       controller.desk.valid should be(true)
+    }
+    "create a random Risk Game on input 'w'" in {
+      tui.processInputLine("w")
+      controller.desk.valid should be(true)
+      controller.desk.size should be(10)
     }
     "set a field on input 's'" in {
       tui.processInputLine("s")
