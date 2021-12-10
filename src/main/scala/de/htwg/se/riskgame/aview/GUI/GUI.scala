@@ -14,7 +14,7 @@ import scalafx.scene.text.Text
 class GUI(controller: Controller) extends JFXApp3 with Observer {
   controller.add(this)
 
-  override def update: Unit = start()
+  override def update: Unit = {}
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {

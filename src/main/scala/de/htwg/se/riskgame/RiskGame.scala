@@ -8,24 +8,14 @@ import scalafx.application.JFXApp3
 
 import scala.io.StdIn.readLine
 
-object RiskGame {
+@main def run(): Unit =
   val desk = new Desk(3)
   val controller = new Controller(desk)
-  val GUI = new GUI(controller)
-  val TUI = new TUI(controller)
 
-  def startGUI(): Unit = GUI.start()
-
-  def runTUI(): Unit = TUI.run()
-
-}
-
-object RiskGameGUI extends JFXApp3 {
-  override def start(): Unit = RiskGame.startGUI()
-}
-
-object RiskGameTUI extends App {
-  RiskGame.runTUI()
-}
-
+  new Thread {
+    override def run(): Unit = GUI(controller).main(Array())
+  }.start()
+  new Thread {
+    override def run(): Unit = TUI(controller).run()
+  }.start()
 
