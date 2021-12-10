@@ -11,9 +11,9 @@ import scala.io.StdIn.readLine
   println("Welcome to Risk Game!")
   val desk = new Desk(3)
   val controller = new Controller(desk)
-  val gui = new GUI(controller)
+//  val gui = new GUI(controller)
   val tui = new TUI(controller)
-  gui.run()
+  //  gui.run()
   tui.run()
 
 
