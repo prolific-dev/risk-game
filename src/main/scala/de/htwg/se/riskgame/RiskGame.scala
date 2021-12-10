@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame
 
-import de.htwg.se.riskgame.aview.{GUI, TUI}
+import de.htwg.se.riskgame.aview.TUI
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.model.{Desk, OccupiedField, Player}
 
