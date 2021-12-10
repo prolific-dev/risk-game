@@ -45,6 +45,7 @@ class GUI(controller: Controller) extends JFXApp3 with Observer {
               new Text("VBox child")
             )
           }
+
         }
       }
     }
