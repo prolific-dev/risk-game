@@ -21,10 +21,15 @@ class TUISpec extends AnyWordSpec with Matchers {
       tui.processInputLine("r")
       controller.desk.valid should be(true)
     }
-    "create a random Risk Game on input 'w'" in {
+    "create a world map Risk Game on input 'w'" in {
       tui.processInputLine("w")
       controller.desk.valid should be(true)
       controller.desk.size should be(10)
+    }
+    "create a continent map Risk Game on input 'c'" in {
+      tui.processInputLine("c")
+      controller.desk.valid should be(true)
+      controller.desk.size should be(4)
     }
     "set a field on input 's'" in {
       tui.processInputLine("s")

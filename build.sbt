@@ -13,7 +13,7 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test",
-    libraryDependencies += ("org.scalafx" %% "scalafx" % scalaFXVersion),
+    libraryDependencies += "org.scalafx" %% "scalafx" % scalaFXVersion,
 
     // Add JavaFX dependencies
     libraryDependencies ++= {

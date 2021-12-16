@@ -10,20 +10,21 @@ case class Desk(fields: Matrix[Field], info: DeskInfo) {
 
   val size: Int = fields.size
 
-  def chooseFieldShowAvailableFriendlies(neighbors: Neighbors): Desk =
-    showFieldHighlight(neighbors.availableFriendlies, neighbors)
+  def chooseFieldShowFriendlyNeighbors(neighbors: Neighbors): Desk =
+    showHighlightNeighbors(neighbors.availableFriendlies, neighbors)
 
-  def chooseFieldShowAvailableEnemies(neighbors: Neighbors): Desk =
-    showFieldHighlight(neighbors.availableEnemies, neighbors)
-
-  def showFieldHighlight(available: Map[String, Option[Field]], neighbors: Neighbors): Desk = {
+  def showHighlightNeighbors(available: Map[String, Option[Field]], neighbors: Neighbors): Desk = {
     var _desk = copy()
-    available foreach {case(k, v) =>
+    available foreach { case (k, v) =>
       val x = neighbors.neighborCoordinates(k).get._1
       val y = neighbors.neighborCoordinates(k).get._2
-      _desk = _desk.copy(fields = _desk.fields.replaceField(x, y, v.get.highlightOn))}
+      _desk = _desk.copy(fields = _desk.fields.replaceField(x, y, v.get.highlightOn))
+    }
     _desk
   }
+
+  def chooseFieldShowEnemyNeighbors(neighbors: Neighbors): Desk =
+    showHighlightNeighbors(neighbors.availableEnemies, neighbors)
 
   def resetHighlight: Desk =
     var _desk = copy()

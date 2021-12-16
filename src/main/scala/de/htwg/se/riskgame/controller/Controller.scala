@@ -17,6 +17,11 @@ class Controller(var desk: Desk) extends Observable {
     gameStatus = GameStatus.NEW
     notifyObserver
 
+  def createContinentMapDesk(): Unit =
+    desk = new DeskCreateContinentMapStrategy().createDesk()
+    gameStatus = GameStatus.NEW
+    notifyObserver
+
   def createWorldMapDesk(): Unit =
     desk = new DeskCreateWorldMapStrategy().createDesk()
     gameStatus = GameStatus.NEW
@@ -27,18 +32,18 @@ class Controller(var desk: Desk) extends Observable {
     gameStatus = GameStatus.SET
     notifyObserver
 
-  def chooseAndShowFriendlies(row: Int, col: Int): Unit =
+  def chooseFieldShowFriendlies(row: Int, col: Int): Unit =
     resetHighlight()
-    desk = desk.chooseFieldShowAvailableFriendlies(desk.neighbors(row, col))
+    desk = desk.chooseFieldShowFriendlyNeighbors(desk.neighbors(row, col))
     notifyObserver
 
   def resetHighlight(): Unit =
     desk = desk.resetHighlight
     notifyObserver
 
-  def chooseAndShowEnemies(row: Int, col: Int): Unit =
+  def chooseFieldShowEnemies(row: Int, col: Int): Unit =
     resetHighlight()
-    desk = desk.chooseFieldShowAvailableEnemies(desk.neighbors(row, col))
+    desk = desk.chooseFieldShowEnemyNeighbors(desk.neighbors(row, col))
     notifyObserver
 
   def undo(): Unit =

@@ -38,6 +38,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.desk.valid should be(true)
         updated = false // reset for further tests
       }
+      "notify its Observer after continent map creation" in {
+        controller.createContinentMapDesk()
+        updated should be(true)
+        controller.desk.valid should be(true)
+        updated = false // reset for further tests
+      }
       "notify its Observer after setting a field" in {
         controller.set(0, 0, Field("x"))
         updated should be(true)
@@ -79,13 +85,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
 
       "set highlight of friendly neighbors" in {
         controller.set(0, 2, Field("Blue Field", Troop(3, Team.BLUE)))
-        controller.chooseAndShowFriendlies(1, 1)
+        controller.chooseFieldShowFriendlies(1, 1)
         controller.desk.field(0, 2).toString should be(AnsiColor.YELLOW + "3" + AnsiColor.RESET)
       }
 
       "set highlight of enemy neighbors" in {
         controller.set(2, 0, Field("Red Field", Troop(3, Team.RED)))
-        controller.chooseAndShowEnemies(1, 1)
+        controller.chooseFieldShowEnemies(1, 1)
         controller.desk.field(2, 0).toString should be(AnsiColor.YELLOW + "3" + AnsiColor.RESET)
       }
     }

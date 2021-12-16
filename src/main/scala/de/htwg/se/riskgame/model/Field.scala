@@ -5,7 +5,7 @@ import scala.io.AnsiColor.*
 
 trait Field {
   def highlightOn: Field
-  
+
   def highlightOff: Field
 
   def isSet: Boolean
@@ -15,6 +15,8 @@ trait Field {
   def getTroop: Option[Troop]
 
   def team: Team
+
+  def getHighlight: Boolean
 
   override def toString: String
 }
@@ -30,7 +32,7 @@ object Field {
 private case class BlockedField() extends Field {
 
   override def highlightOn: Field = this
-  
+
   override def highlightOff: Field = this
 
   override def getTroop: Option[Troop] = None
@@ -42,6 +44,8 @@ private case class BlockedField() extends Field {
   override def toString: String = getName
 
   override def getName: String = "x"
+
+  override def getHighlight: Boolean = false
 }
 
 private case class OccupiedField(name: String, troop: Troop, highlight: Boolean) extends Field {
@@ -52,7 +56,7 @@ private case class OccupiedField(name: String, troop: Troop, highlight: Boolean)
   def this() = this("Free Field")
 
   def highlightOn: OccupiedField = copy(highlight = true)
-  
+
   def highlightOff: OccupiedField = copy(highlight = false)
 
   override def getTroop: Option[Troop] = Some(troop)
@@ -68,4 +72,6 @@ private case class OccupiedField(name: String, troop: Troop, highlight: Boolean)
       case _ => team.getAnsi + troop.toString + RESET
 
   override def team: Team = troop.team
+
+  override def getHighlight: Boolean = highlight
 }

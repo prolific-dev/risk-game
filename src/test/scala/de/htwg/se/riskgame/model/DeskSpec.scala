@@ -89,7 +89,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
       val desk = new Desk(2)
       val changedDesk = desk.set(1, 1, new OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
       "show available enemies around a field" in {
-        val availableEnemiesDesk = changedDesk.chooseFieldShowAvailableEnemies(changedDesk.neighbors(1, 1))
+        val availableEnemiesDesk = changedDesk.chooseFieldShowEnemyNeighbors(changedDesk.neighbors(1, 1))
         availableEnemiesDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
@@ -100,7 +100,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
       }
       "show available friendlies around a field" in {
         val addTeamFieldDesk = changedDesk.set(0, 1, new OccupiedField("OccupiedField", Troop(3, Team.BLUE)))
-        val availableFriendliesDesk = addTeamFieldDesk.chooseFieldShowAvailableFriendlies(addTeamFieldDesk.neighbors(1, 1))
+        val availableFriendliesDesk = addTeamFieldDesk.chooseFieldShowFriendlyNeighbors(addTeamFieldDesk.neighbors(1, 1))
         availableFriendliesDesk.toString should be(
           "\n"
             + "+-" + "-----" + "-----" + "-+\n"
@@ -110,7 +110,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
         )
       }
       "reset highlight of friendlies or enemies for every field" in {
-        val highlightedDesk = changedDesk.chooseFieldShowAvailableEnemies(changedDesk.neighbors(1, 1))
+        val highlightedDesk = changedDesk.chooseFieldShowEnemyNeighbors(changedDesk.neighbors(1, 1))
         val resetDesk = highlightedDesk.resetHighlight
         resetDesk.toString should be(
           "\n"

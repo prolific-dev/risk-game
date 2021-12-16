@@ -56,6 +56,7 @@ class FieldSpec extends AnyWordSpec with Matchers {
       "have no highlight" in {
         field.highlightOn should be(field)
         field.highlightOff should be(field)
+        field.getHighlight should be(false)
       }
       "have no troops" in {
         field.getTroop should be(None)

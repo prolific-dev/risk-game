@@ -1,30 +1,33 @@
 package de.htwg.se.riskgame.aview.GUI
 
 import de.htwg.se.riskgame.controller.Controller
+import de.htwg.se.riskgame.model.{Field, Team, Troop}
 import de.htwg.se.riskgame.util.Observer
+import javafx.beans.property.ReadOnlyObjectProperty
 import scalafx.application.JFXApp3
-import scalafx.geometry.Insets
+import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
-import scalafx.scene.control.{Menu, MenuBar, MenuItem}
-import scalafx.scene.effect.DropShadow
-import scalafx.scene.layout.{BorderPane, HBox, Pane, VBox}
-import scalafx.scene.paint.*
+import scalafx.scene.control.{Button, Menu, MenuBar, MenuItem}
+import scalafx.scene.layout.*
+import scalafx.scene.paint.Color
 import scalafx.scene.paint.Color.*
+import scalafx.scene.shape.{Rectangle, SVGPath}
 import scalafx.scene.text.Text
 
 class GUI(controller: Controller) extends JFXApp3 with Observer {
   controller.add(this)
+  val map: MapPane = MapPane(controller)
 
-  override def update: Unit = {}
+  override def update: Unit = start()
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Risk Game"
-      width = 900
-      height = 600
+      width = 1000
+      height = 800
       scene = new Scene {
-        fill = Color.LightGray
         root = new BorderPane {
+          style = "-fx-background-color: #3987c9"
           top = new MenuBar {
             menus = Seq(
               new Menu("File") {
@@ -39,13 +42,40 @@ class GUI(controller: Controller) extends JFXApp3 with Observer {
               }
             )
           }
-          left = new VBox {
+          center = new VBox {
+            padding = Insets(0, 0, 0, 1)
             children = Seq(
-              new Text("Left"),
-              new Text("VBox child")
+              new MapPane(controller) {}
             )
           }
-
+          bottom = new VBox {
+            children = new HBox {
+              minHeight = 115.0
+              maxHeight = 115.0
+              spacing = 200.0
+              visible = true
+              style = "-fx-background-color: #620808"
+              children = Seq(
+                new Button("New") {
+                  margin = Insets(10, 0, 0, 10)
+                  style = "background-color: #4CAF50; color: #4CAF50; border: none; padding: 10px 24px; text-align: center; font-size: 12px"
+                  onMouseClicked = e => controller.createContinentMapDesk()
+                },
+                new Button("Set") {
+                  margin = Insets(10, 0, 0, 0)
+                  onMouseClicked = e => controller.set(1, 0, Field("North America", Troop(3, Team.BLUE)))
+                },
+                new Button("Choose") {
+                  margin = Insets(10, 0, 0, 0)
+                  onMouseClicked = e => controller.chooseFieldShowEnemies(1, 0)
+                },
+                new Text("Player-turn: " + controller.currentPlayerTurnToString) {
+                  margin = Insets(10, 10, 0, 0)
+                  style = "-fx-font-size: 24px; -fx-font-weight: 500; color: #92a8d1;"
+                }
+              )
+            }
+          }
         }
       }
     }
@@ -84,4 +114,3 @@ class GUI(controller: Controller) extends JFXApp3 with Observer {
 //    }
 //  }
 //}
-
