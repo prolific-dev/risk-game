@@ -3,7 +3,6 @@ package de.htwg.se.riskgame.aview.GUI
 import de.htwg.se.riskgame.controller.Controller
 import de.htwg.se.riskgame.model.{Field, Team, Troop}
 import de.htwg.se.riskgame.util.Observer
-import javafx.beans.property.ReadOnlyObjectProperty
 import scalafx.application.JFXApp3
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
