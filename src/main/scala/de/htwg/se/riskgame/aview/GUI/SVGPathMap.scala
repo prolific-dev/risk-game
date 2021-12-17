@@ -1,8 +1,8 @@
 package de.htwg.se.riskgame.aview.GUI
 
 import de.htwg.se.riskgame.Gui.controller
-import de.htwg.se.riskgame.controller.Controller
-import de.htwg.se.riskgame.model.Team
+import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
+import de.htwg.se.riskgame.model.teamComponent.Team
 import scalafx.Includes.*
 import scalafx.beans.binding.Bindings.*
 import scalafx.beans.property.ObjectProperty

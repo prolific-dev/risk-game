@@ -1,5 +1,6 @@
 package de.htwg.se.riskgame.util
 
+import de.htwg.se.riskgame.controller.controllerComponent.IncrCommand
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

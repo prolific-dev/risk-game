@@ -1,17 +1,19 @@
 import de.htwg.se.riskgame.model.*
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Desk
 
 val desk = new Desk(3)
 
-val map: Map[String, Option[(Int, Int)]] = desk.neighbors(1, 1).neighborMap map {case(k, v) => if (v.isDefined) (k -> (k match {
+val map: Map[String, Option[(Int, Int)]] = desk.neighbors(1, 1).neighborMap map { case (k, v) => if (v.isDefined) k -> (k match {
   case "N" => Some((1 - 1, 1))
-  case "NE"=> Some((1 - 1, 1 + 1))
+  case "NE" => Some((1 - 1, 1 + 1))
   case "E" => Some((1, 1 + 1))
   case "SE" => Some((1 + 1, 1 + 1))
   case "S" => Some((1 + 1, 1))
   case "SW" => Some((1 + 1, 1 - 1))
   case "W" => Some((1, 1 - 1))
   case "NW" => Some((1 - 1, 1 - 1))
-})) else (k -> None)}
+}) else k -> None
+}
 
 map("N")
 

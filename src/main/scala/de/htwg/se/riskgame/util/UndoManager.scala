@@ -1,5 +1,7 @@
 package de.htwg.se.riskgame.util
 
+import de.htwg.se.riskgame.controller.controllerComponent.Command
+
 class UndoManager {
   private var undoStack: List[Command] = Nil
   private var redoStack: List[Command] = Nil

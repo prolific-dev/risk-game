@@ -1,7 +1,10 @@
 package de.htwg.se.riskgame.aview.TUI
 
-import de.htwg.se.riskgame.controller.Controller
+import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
 import de.htwg.se.riskgame.model.*
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
+import de.htwg.se.riskgame.model.teamComponent.Team
+import de.htwg.se.riskgame.model.troopComponent.Troop
 import de.htwg.se.riskgame.util.Observer
 
 import scala.io.StdIn.readLine
@@ -28,8 +31,8 @@ class TUI(controller: Controller) extends Observer {
       case "c" => controller.createContinentMapDesk()
       case "s" =>
         controller.set(0, 0, Field("OccupiedField", Troop(3, Team.BLUE)))
-        controller.set(0, 1, Field("OccupiedField", Troop(3, Team.BLUE)))
-        controller.set(1, 0, Field("OccupiedField", Troop(3, Team.RED)))
+        controller.set(0, 1, Field("OccupiedField", troopComponent.Troop(3, Team.BLUE)))
+        controller.set(1, 0, Field("OccupiedField", troopComponent.Troop(3, Team.RED)))
       case "c f" => controller.chooseFieldShowFriendlies(0, 0)
       case "c e" => controller.chooseFieldShowEnemies(0, 0)
       case "r h" => controller.resetHighlight()

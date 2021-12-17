@@ -2,10 +2,10 @@ package de.htwg.se.riskgame
 
 import de.htwg.se.riskgame.aview.GUI.GUI
 import de.htwg.se.riskgame.aview.TUI.TUI
-import de.htwg.se.riskgame.controller.Controller
-import de.htwg.se.riskgame.model.{Desk, DeskCreateContinentMapStrategy, OccupiedField, Player}
-import scalafx.application.{JFXApp3, Platform}
+import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{Desk, DeskCreateContinentMapStrategy}
 import scalafx.application.Platform.runLater
+import scalafx.application.{JFXApp3, Platform}
 
 import scala.io.StdIn.readLine
 

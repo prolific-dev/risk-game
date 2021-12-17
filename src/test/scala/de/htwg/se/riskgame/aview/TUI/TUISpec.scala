@@ -1,8 +1,10 @@
 package de.htwg.se.riskgame.aview.TUI
 
 import de.htwg.se.riskgame.aview.TUI.TUI
-import de.htwg.se.riskgame.controller.Controller
-import de.htwg.se.riskgame.model.{Desk, OccupiedField, Team, Troop}
+import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Desk
+import de.htwg.se.riskgame.model.teamComponent.Team
+import de.htwg.se.riskgame.model.troopComponent.Troop
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
