@@ -1,12 +1,13 @@
 package de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl
 
 import de.htwg.se.riskgame.controller.GameStatus
+import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
 import de.htwg.se.riskgame.model.*
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
-class Controller(var desk: Desk) extends Observable {
+class Controller(var desk: Desk) extends Observable with ControllerInterface {
   var gameStatus: GameStatus = GameStatus.IDLE
   private val undoManager = new UndoManager
 

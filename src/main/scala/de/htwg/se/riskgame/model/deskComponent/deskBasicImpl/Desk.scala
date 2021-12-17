@@ -1,10 +1,10 @@
 package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
 import de.htwg.se.riskgame.model.*
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
+import de.htwg.se.riskgame.model.deskComponent.{DeskInterface, deskBasicImpl}
 import de.htwg.se.riskgame.model.teamComponent.Team
 
-case class Desk(fields: Matrix[Field], info: DeskInfo) {
+case class Desk(fields: Matrix[Field], info: DeskInfo) extends DeskInterface {
   val size: Int = fields.size
 
   def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), DeskInfo(teams, 0))
