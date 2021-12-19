@@ -1,6 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/prolific-dev/risk-game/badge.svg?branch=main)](https://coveralls.io/github/prolific-dev/risk-game?branch=main)
 [![Build Status](https://app.travis-ci.com/prolific-dev/risk-game.svg?branch=main)](https://app.travis-ci.com/prolific-dev/risk-game)
-[![Contributors](https://img.shields.io/github/contributors/prolific-dev/risk-game?color=brightgreen)](https://github.com/prolific-dev/risk-game/graphs/contributors)
+[![GitHub contributors](https://img.shields.io/github/contributors/prolific-dev/risk-game?color=brightgreen)](https://github.com/prolific-dev/risk-game/graphs/contributors)
 # risk-game
 
 Redesign of the previously implemented game...
