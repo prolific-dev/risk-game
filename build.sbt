@@ -27,7 +27,7 @@ lazy val root = project
         .map(m => "org.openjfx" % s"javafx-$m" % javaFXVersion classifier osName)
     },
 
-    jacocoExcludes := Seq("aview.gui.*")
+    jacocoExcludes := Seq("de.htwg.se.riskgame.aview.gui.*")
 
   )
   .enablePlugins(JacocoCoverallsPlugin)
