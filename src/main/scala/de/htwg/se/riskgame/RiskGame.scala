@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame
 
-import de.htwg.se.riskgame.RiskGame.controller
+
 import de.htwg.se.riskgame.aview.gui.GUI
 import de.htwg.se.riskgame.aview.tui.TUI
 import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
@@ -10,6 +10,12 @@ import scalafx.application.{JFXApp3, Platform}
 
 import scala.io.StdIn.readLine
 
+
+@main def run: Unit =
+  val desk: Desk = new Desk(3)
+  val controller: Controller = new Controller(desk)
+  val tui = new TUI(controller)
+  tui.run()
 
 object RiskGame {
   val desk: Desk = new DeskCreateContinentMapStrategy().createDesk()
