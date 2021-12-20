@@ -28,7 +28,7 @@ lazy val root = project
     },
 
     jacocoExcludes := Seq(
-      "de.htwg.se.riskgame.RiskGame*",
+      "de.htwg.se.riskgame.RiskGame.class",
       "de.htwg.se.riskgame.aview.gui.*"
     )
 
