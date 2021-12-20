@@ -1,21 +1,19 @@
-package de.htwg.se.riskgame.aview.GUI
+package de.htwg.se.riskgame.aview.gui
 
-import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
+import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
+import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 import de.htwg.se.riskgame.util.Observer
 import scalafx.application.JFXApp3
-import scalafx.geometry.{Insets, Pos}
+import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Menu, MenuBar, MenuItem}
-import scalafx.scene.layout.*
-import scalafx.scene.paint.Color
-import scalafx.scene.paint.Color.*
-import scalafx.scene.shape.{Rectangle, SVGPath}
+import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.text.Text
 
-class GUI(controller: Controller) extends JFXApp3 with Observer {
+class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
   controller.add(this)
   val map: MapPane = MapPane(controller)
 
@@ -23,10 +21,8 @@ class GUI(controller: Controller) extends JFXApp3 with Observer {
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
-      title = "Risk Game"
-      width = 1000
-      height = 800
-      scene = new Scene {
+      title.value = "Risk Game"
+      scene = new Scene(1000, 800) {
         root = new BorderPane {
           style = "-fx-background-color: #3987c9"
           top = new MenuBar {

@@ -1,6 +1,5 @@
 package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
-import de.htwg.se.riskgame.model.deskComponent.DeskCreateStrategyTemplate
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{BlockedField, DeskCreateRandomStrategy}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

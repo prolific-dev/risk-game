@@ -1,6 +1,4 @@
-package de.htwg.se.riskgame.model.deskComponent
-
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Desk
+package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
 trait DeskCreateStrategyTemplate {
 

@@ -2,10 +2,16 @@ package de.htwg.se.riskgame.controller.controllerComponent
 
 import de.htwg.se.riskgame.controller.GameStatus
 import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.SetFieldCommand
+import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
-import de.htwg.se.riskgame.util.Observable
+import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 trait ControllerInterface extends Observable {
+  def gameStatus: GameStatus
+
+  def undoManager: UndoManager
+
+  def desk: DeskInterface
 
   def createEmptyDesk(size: Int): Unit
 

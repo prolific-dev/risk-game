@@ -1,6 +1,5 @@
 package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
-import de.htwg.se.riskgame.model.deskComponent.DeskCreateStrategyTemplate
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{BlockedField, Desk}
 
 import scala.util.Random

@@ -9,7 +9,7 @@ import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 class Controller(var desk: Desk) extends Observable with ControllerInterface {
   var gameStatus: GameStatus = GameStatus.IDLE
-  private val undoManager = new UndoManager
+  val undoManager = new UndoManager
 
   def createEmptyDesk(size: Int): Unit =
     desk = new Desk(size)

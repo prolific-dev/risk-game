@@ -4,22 +4,27 @@ import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
 import de.htwg.se.riskgame.model.teamComponent.Team
 
 trait DeskInterface {
+  def fields: Matrix[Field]
 
-  def chooseFieldShowFriendlyNeighbors(neighbors: Neighbors): Desk
+  def info: DeskInfo
 
-  def showHighlightNeighbors(available: Map[String, Option[Field]], neighbors: Neighbors): Desk
+  def size: Int
 
-  def chooseFieldShowEnemyNeighbors(neighbors: Neighbors): Desk
+  def chooseFieldShowFriendlyNeighbors(neighbors: Neighbors): DeskInterface
 
-  def resetHighlight: Desk
+  def showHighlightNeighbors(available: Map[String, Option[Field]], neighbors: Neighbors): DeskInterface
 
-  def endTurn: Desk
+  def chooseFieldShowEnemyNeighbors(neighbors: Neighbors): DeskInterface
+
+  def resetHighlight: DeskInterface
+
+  def endTurn: DeskInterface
 
   def teams: IndexedSeq[Team]
 
   def currentPlayerTurn: Team
 
-  def set(row: Int, col: Int, value: Field): Desk
+  def set(row: Int, col: Int, value: Field): DeskInterface
 
   def valid: Boolean
 
