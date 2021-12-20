@@ -12,7 +12,7 @@ class MapPaneSpec extends AnyWordSpec with Matchers {
       val controller = new Controller(desk)
       val mapPane = new MapPane(controller)
       "should have specific amount of children" in {
-        mapPane.children.size should be(16)
+        mapPane.getChildrenUnmodifiable.size() should be(16)
       }
     }
   }

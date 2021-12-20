@@ -7,6 +7,7 @@ lazy val root = project
   .settings(
     name := "risk-game",
     version := "0.1.0-SNAPSHOT",
+
     //crossScalaVersions ++= Seq("3.1.0", "2.13.5"),
     scalaVersion := scala3Version,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
@@ -30,6 +31,7 @@ lazy val root = project
   .enablePlugins(JacocoCoverallsPlugin)
 val javaFXVersion = "16"
 val scalaFXVersion = "16.0.0-R24"
+
 
 
 
