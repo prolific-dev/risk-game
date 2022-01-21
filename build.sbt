@@ -1,7 +1,6 @@
 val scala3Version = "3.1.0"
 val scalaTestVersion = "3.2.10"
-val scalaFXVersion = "16.0.0-R24"
-val javaFXVersion = "16"
+
 lazy val root = project
   .in(file("."))
   .settings(
@@ -11,7 +10,11 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test",
-    libraryDependencies += "org.scalafx" %% "scalafx" % scalaFXVersion,
+    libraryDependencies += ("org.scalafx" %% "scalafx" % "17.0.1-R26").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += "com.google.inject" % "guice"% "4.2.3",
+    libraryDependencies += ("net.codingwell" %% "scala-guice" % "5.0.2").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
+    libraryDependencies += ("com.typesafe.play" %% "play-json" % "2.9.2").cross(CrossVersion.for3Use2_13),
     //libraryDependencies += ("org.scalafx" %% "scalafx" % scalaFXVersion).cross(CrossVersion.for3Use2_13),
 
     // Add JavaFX dependencies
@@ -24,7 +27,7 @@ lazy val root = project
         case _ => throw new Exception("Unknown platform!")
       }
       Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
-        .map(m => "org.openjfx" % s"javafx-$m" % javaFXVersion classifier osName)
+        .map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName)
     },
 
     jacocoExcludes := Seq(
