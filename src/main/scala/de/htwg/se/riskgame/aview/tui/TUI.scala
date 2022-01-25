@@ -26,7 +26,7 @@ class TUI(controller: ControllerInterface) extends Observer {
     input match {
       case "n" => controller.createEmptyDesk(3)
       case "r" => controller.createRandomDesk(3)
-      case "w" => controller.createWorldMapDesk()
+//      case "w" => controller.createWorldMapDesk()
       case "c" => controller.createContinentMapDesk()
       case "s" => controller.set(1, 0, Field("North America", Troop(3, Team.BLUE)))
       case "c f" => controller.chooseFieldShowFriendlies(1, 0)

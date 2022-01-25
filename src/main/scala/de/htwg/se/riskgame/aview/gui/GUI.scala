@@ -7,6 +7,7 @@ import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 import de.htwg.se.riskgame.util.Observer
 import scalafx.application.JFXApp3
+import scalafx.beans.property.StringProperty
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Menu, MenuBar, MenuItem}
@@ -21,8 +22,10 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
-      title.value = "Risk Game"
-      scene = new Scene(1000, 800) {
+      title = "Risk Game"
+      width = 1000
+      height = 800
+      scene = new Scene {
         root = new BorderPane {
           style = "-fx-background-color: #3987c9"
           top = new MenuBar {
