@@ -1,7 +1,7 @@
 package de.htwg.se.riskgame.aview.gui
 
 import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.DeskCreateContinentMapStrategy
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.DeskCreateContinentMapStrategy
 import javafx.scene.Node
 import javafx.scene.layout.Pane
 import org.scalatest.matchers.should.Matchers

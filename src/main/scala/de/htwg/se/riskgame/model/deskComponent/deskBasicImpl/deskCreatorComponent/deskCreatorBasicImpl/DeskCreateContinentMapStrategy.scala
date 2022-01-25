@@ -1,22 +1,24 @@
-package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
+package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl
 
+import com.google.inject.Inject
 import de.htwg.se.riskgame.model.*
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{Desk, DeskInfo, Field}
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.DeskCreateStrategyTemplate
+import de.htwg.se.riskgame.model.deskComponent.{DeskInterface, deskBasicImpl}
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 
-class DeskCreateContinentMapStrategy extends DeskCreateStrategyTemplate {
+class DeskCreateContinentMapStrategy() extends DeskCreateStrategyTemplate {
   val fixSize: Int = 4
 
-  def createDesk(): Desk =
+  def createDesk(): DeskInterface =
     var desk = prepare(fixSize)
     desk = fill(desk)
     postProcess(desk)
 
-  override def prepare(size: Int): Desk = deskBasicImpl.Desk(new Matrix[Field](fixSize, Field("x")), new DeskInfo())
+  override def prepare(size: Int): DeskInterface = deskBasicImpl.Desk(new Matrix[Field](fixSize, Field("x")), new DeskInfo())
 
-  override def fill(desk: Desk): Desk = {
+  override def fill(desk: DeskInterface): DeskInterface = {
     var _desk = desk
     val defaultTroop = Troop(1, Team.NO_TEAM)
 

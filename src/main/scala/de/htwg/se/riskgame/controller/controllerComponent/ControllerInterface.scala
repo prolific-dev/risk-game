@@ -19,7 +19,7 @@ trait ControllerInterface extends Observable {
 
   def createContinentMapDesk(): Unit
 
-  def createWorldMapDesk(): Unit
+//  def createWorldMapDesk(): Unit
 
   def set(row: Int, col: Int, field: Field): Unit
 

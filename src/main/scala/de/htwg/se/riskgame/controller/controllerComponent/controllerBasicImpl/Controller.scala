@@ -1,13 +1,16 @@
 package de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl
 
+import com.google.inject.Inject
 import de.htwg.se.riskgame.controller.GameStatus
 import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
 import de.htwg.se.riskgame.model.*
+import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.{DeskCreateContinentMapStrategy, DeskCreateRandomStrategy}
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
-class Controller(var desk: Desk) extends Observable with ControllerInterface {
+class Controller(var desk: DeskInterface) extends Observable with ControllerInterface {
   var gameStatus: GameStatus = GameStatus.IDLE
   val undoManager = new UndoManager
 
@@ -26,10 +29,10 @@ class Controller(var desk: Desk) extends Observable with ControllerInterface {
     gameStatus = GameStatus.NEW
     notifyObserver
 
-  def createWorldMapDesk(): Unit =
-    desk = new DeskCreateWorldMapStrategy().createDesk()
-    gameStatus = GameStatus.NEW
-    notifyObserver
+  //  def createWorldMapDesk(): Unit =
+  //    desk = new DeskCreateWorldMapStrategy().createDesk()
+  //    gameStatus = GameStatus.NEW
+  //    notifyObserver
 
   def set(row: Int, col: Int, field: Field): Unit =
     undoManager.doStep(new SetFieldCommand(row, col, field, this))

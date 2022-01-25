@@ -1,6 +1,6 @@
 package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
-import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.DeskCreateWorldMapStrategy
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.DeskCreateWorldMapStrategy
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

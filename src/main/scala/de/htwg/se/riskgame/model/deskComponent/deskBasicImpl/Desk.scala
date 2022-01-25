@@ -1,10 +1,12 @@
 package de.htwg.se.riskgame.model.deskComponent.deskBasicImpl
 
+import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.htwg.se.riskgame.model.*
 import de.htwg.se.riskgame.model.deskComponent.{DeskInterface, deskBasicImpl}
 import de.htwg.se.riskgame.model.teamComponent.Team
 
-case class Desk(fields: Matrix[Field], info: DeskInfo) extends DeskInterface {
+case class Desk @Inject(fields: Matrix[Field], info: DeskInfo) extends DeskInterface {
   val size: Int = fields.size
 
   def this(size: Int, teams: IndexedSeq[Team]) = this(new Matrix[Field](size, Field("free")), DeskInfo(teams, 0))
