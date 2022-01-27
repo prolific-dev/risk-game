@@ -15,25 +15,29 @@ import java.io.*
 import scala.io.Source
 
 class FileIO @Inject extends FileIOInterface {
+  val mapFile = new File("src/main/resources/mapdata/continentmap.json")
+  val memFile = new File("src/main/resources/memory/desk.json")
+  val mapSource: String = Source.fromFile(mapFile).getLines().mkString
+  val memSource: String = Source.fromFile(memFile).getLines().mkString
 
-  override def loadGuiMapDataPath(): Map[String, String] = {
-    val source = Source.fromFile("src/main/resources/mapdata/continentmap.json").getLines().mkString
-    val json = Json.parse(source)
+  override def loadGuiMapDataPath(): Map[String, MapData] = {
+    val json = Json.parse(mapSource)
     val size = (json \ "map" \ "mapsize").get.toString.toInt
-    var pathMap: Map[String, String] = Map()
+    var map: Map[String, MapData] = Map()
 
     for (index <- 0 until size * size) {
       val name = (json \\ "name") (index).as[String]
       val path = (json \\ "path") (index).as[String]
-      pathMap = pathMap + (name -> path)
+      val layoutX = (json \\ "layoutX") (index).as[Int]
+      val layoutY = (json \\ "layoutY") (index).as[Int]
+      map = map + (name -> MapData(path, layoutX, layoutY))
     }
-    pathMap
+    map
   }
 
   override def loadMap(desk: DeskInterface): DeskInterface =
     var _desk = desk
-    val source = Source.fromFile("src/main/resources/mapdata/continentmap.json").getLines().mkString
-    val json = Json.parse(source)
+    val json = Json.parse(mapSource)
     val size = (json \ "map" \ "mapsize").get.toString.toInt
 
     for (index <- 0 until size * size) {
@@ -52,8 +56,7 @@ class FileIO @Inject extends FileIOInterface {
   override def load: DeskInterface = {
     val injector = Guice.createInjector(new RiskGameModule)
     var desk = injector.getInstance(classOf[DeskInterface])
-    val source = Source.fromFile("src/main/resources/memory/desk.json").getLines().mkString
-    val json = Json.parse(source)
+    val json = Json.parse(memSource)
     val size = (json \ "desk" \ "size").get.toString.toInt
 
     for (index <- 0 until size * size) {
@@ -77,7 +80,7 @@ class FileIO @Inject extends FileIOInterface {
   }
 
   override def save(desk: DeskInterface): Unit =
-    val pw = new PrintWriter(new File("src/main/resources/memory/desk.json"))
+    val pw = new PrintWriter(memFile)
     pw.write(Json.prettyPrint(deskToJson(desk)))
     pw.close()
 

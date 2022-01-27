@@ -5,6 +5,7 @@ import de.htwg.se.riskgame.RiskGameModule
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
 import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
+import de.htwg.se.riskgame.model.fileIoComponent.fileIoJsonImpl.MapData
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 
@@ -12,7 +13,7 @@ import scala.xml.{Elem, XML}
 
 class FileIO @Inject extends FileIOInterface {
 
-  override def loadGuiMapDataPath(): Map[String, String] = ???
+  override def loadGuiMapDataPath(): Map[String, MapData] = ???
 
   override def loadMap(desk: DeskInterface): DeskInterface = ???
 
