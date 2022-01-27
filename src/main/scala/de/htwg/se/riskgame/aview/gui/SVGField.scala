@@ -4,11 +4,6 @@ import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.fileIoComponent.fileIoJsonImpl.MapData
 import de.htwg.se.riskgame.model.teamComponent.Team
-import scalafx.Includes.*
-import scalafx.beans.binding.Bindings.*
-import scalafx.beans.property.ObjectProperty
-import scalafx.geometry.{Insets, Pos}
-import scalafx.scene.Node
 import scalafx.scene.effect.DropShadow
 import scalafx.scene.layout.{GridPane, Pane}
 import scalafx.scene.paint.Color
