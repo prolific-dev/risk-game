@@ -15,12 +15,46 @@ import java.io.*
 import scala.io.Source
 
 class FileIO @Inject extends FileIOInterface {
+
+  override def loadGuiMapDataPath(): Map[String, String] = {
+    val source = Source.fromFile("src/main/resources/mapdata/continentmap.json").getLines().mkString
+    val json = Json.parse(source)
+    val size = (json \ "map" \ "mapsize").get.toString.toInt
+    var pathMap: Map[String, String] = Map()
+
+    for (index <- 0 until size * size) {
+      val name = (json \\ "name") (index).as[String]
+      val path = (json \\ "path") (index).as[String]
+      pathMap = pathMap + (name -> path)
+    }
+    pathMap
+  }
+
+  override def loadMap(desk: DeskInterface): DeskInterface =
+    var _desk = desk
+    val source = Source.fromFile("src/main/resources/mapdata/continentmap.json").getLines().mkString
+    val json = Json.parse(source)
+    val size = (json \ "map" \ "mapsize").get.toString.toInt
+
+    for (index <- 0 until size * size) {
+      val row = (json \\ "row") (index).as[Int]
+      val col = (json \\ "col") (index).as[Int]
+      val name = (json \\ "name") (index).as[String]
+      val defaultTroop = Troop(1, Team.NO_TEAM)
+
+      name match {
+        case "x" => _desk = _desk
+        case _ => _desk = _desk.set(row, col, Field(name, defaultTroop))
+      }
+    }
+    _desk
+
   override def load: DeskInterface = {
     val injector = Guice.createInjector(new RiskGameModule)
     var desk = injector.getInstance(classOf[DeskInterface])
     val source = Source.fromFile("src/main/resources/memory/desk.json").getLines().mkString
     val json = Json.parse(source)
-    val size = (json \ "desk" \ "size").get.toString().toInt
+    val size = (json \ "desk" \ "size").get.toString.toInt
 
     for (index <- 0 until size * size) {
       val row = (json \\ "row") (index).as[Int]

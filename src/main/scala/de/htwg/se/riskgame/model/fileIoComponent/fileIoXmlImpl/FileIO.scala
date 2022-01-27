@@ -12,6 +12,10 @@ import scala.xml.{Elem, XML}
 
 class FileIO @Inject extends FileIOInterface {
 
+  override def loadGuiMapDataPath(): Map[String, String] = ???
+
+  override def loadMap(desk: DeskInterface): DeskInterface = ???
+
   override def load: DeskInterface = {
     val file = scala.xml.XML.loadFile("src/main/resources/memory/desk.xml")
     val injector = Guice.createInjector(new RiskGameModule)
