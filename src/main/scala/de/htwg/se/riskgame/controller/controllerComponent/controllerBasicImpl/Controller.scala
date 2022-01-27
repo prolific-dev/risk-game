@@ -1,16 +1,21 @@
 package de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl
 
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject, Injector}
+import de.htwg.se.riskgame.RiskGameModule
 import de.htwg.se.riskgame.controller.GameStatus
 import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
 import de.htwg.se.riskgame.model.*
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.*
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.{DeskCreateContinentMapStrategy, DeskCreateRandomStrategy}
+import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
+import de.htwg.se.riskgame.model.fileIoComponent.fileIoXmlImpl.FileIO
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.util.{Observable, UndoManager}
 
 class Controller(var desk: DeskInterface) extends Observable with ControllerInterface {
+  val injector: Injector = Guice.createInjector(new RiskGameModule)
+  val fileIO: FileIOInterface = injector.getInstance(classOf[FileIOInterface])
   var gameStatus: GameStatus = GameStatus.IDLE
   val undoManager = new UndoManager
 
@@ -61,6 +66,16 @@ class Controller(var desk: DeskInterface) extends Observable with ControllerInte
   def redo(): Unit =
     undoManager.redoStep()
     gameStatus = GameStatus.REDO
+    notifyObserver
+
+  def save: Unit =
+    fileIO.save(desk)
+    gameStatus = GameStatus.SAVED
+    notifyObserver
+
+  def load: Unit =
+    desk = fileIO.load
+    gameStatus = GameStatus.LOADED
     notifyObserver
 
   def currentPlayerTurnToString: String = desk.currentPlayerTurn.toString

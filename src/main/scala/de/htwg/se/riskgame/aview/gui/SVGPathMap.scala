@@ -20,11 +20,11 @@ trait SVGPathMap {
   def path(id: String): String
 }
 
-class SVGPathWorldMap extends SVGPathMap {
-  val mapPath: Map[String, String] = Map("" -> "")
-
-  override def path(id: String): String = mapPath(id)
-}
+//class SVGPathWorldMap extends SVGPathMap {
+//  val mapPath: Map[String, String] = Map("" -> "")
+//
+//  override def path(id: String): String = mapPath(id)
+//}
 
 class SVGPathContinentMap extends SVGPathMap {
   val mapPath: Map[String, String] = Map(

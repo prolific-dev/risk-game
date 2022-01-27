@@ -65,6 +65,10 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
                   margin = Insets(10, 0, 0, 0)
                   onMouseClicked = e => controller.set(1, 0, Field("North America", Troop(3, Team.BLUE)))
                 },
+                new Button("Undo") {
+                  margin = Insets(10, 0, 0, 0)
+                  onMouseClicked = e => controller.undo()
+                },
                 new Button("Choose") {
                   margin = Insets(10, 0, 0, 0)
                   onMouseClicked = e => controller.chooseFieldShowEnemies(1, 0)

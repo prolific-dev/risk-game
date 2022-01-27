@@ -1,13 +1,16 @@
 package de.htwg.se.riskgame.model.fileIoComponent.fileIoXmlImpl
 
-import com.google.inject.Guice
+import com.google.inject.{Guice, Inject}
 import de.htwg.se.riskgame.RiskGameModule
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
 import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
+import de.htwg.se.riskgame.model.teamComponent.Team
+import de.htwg.se.riskgame.model.troopComponent.Troop
 
 import scala.xml.{Elem, XML}
 
-class FileIO extends FileIOInterface {
+class FileIO @Inject extends FileIOInterface {
 
   override def load: DeskInterface = {
     val file = scala.xml.XML.loadFile("desk.xml")
@@ -17,16 +20,26 @@ class FileIO extends FileIOInterface {
     for (field <- fieldNodes) {
       val row: Int = (field \ "@row").text.toInt
       val col: Int = (field \ "@col").text.toInt
-      val value: String = (field \ "@value").text
-      //desk = desk.set(row, col, )
+      val name: String = (field \ "@name").text
+      name match {
+        case "x" => desk = desk.set(row, col, Field("x"))
+        case _ =>
+          val troops: Int = (field \ "@troops").text.toInt
+          val team: Team = (field \ "@team").text match {
+            case "No Team" => Team.NO_TEAM
+            case "Blue" => Team.BLUE
+            case "Red" => Team.RED
+          }
+          desk = desk.set(row, col, Field(name, Troop(troops, team)))
+      }
     }
     desk
   }
 
-  override def save(desk: DeskInterface): Unit = XML.save("desk.xml", deskToXml(desk))
+  override def save(desk: DeskInterface): Unit = scala.xml.XML.save("desk.xml", deskToXml(desk))
 
   def deskToXml(desk: DeskInterface): Elem = {
-    <desk size={ desk.size.toString }>
+    <desk size={desk.size.toString} teams={desk.info.teams.toString()} playerTurn={desk.info.playerTurn.toString}>
       {
         for {
           row <- 0 until desk.size
@@ -37,8 +50,12 @@ class FileIO extends FileIOInterface {
   }
 
   def fieldToXml(desk: DeskInterface, row: Int, col: Int): Elem = {
-    <field row={ row.toString } col={ col.toString } value={ desk.field(row, col).toString }>
-    </field>
+    <field
+    row={row.toString}
+    col={col.toString}
+    name={desk.field(row, col).getName}
+    troops={desk.field(row, col).getTroop.getOrElse("-1").toString}
+    team={desk.field(row, col).team.getName}></field>
   }
 
 }
