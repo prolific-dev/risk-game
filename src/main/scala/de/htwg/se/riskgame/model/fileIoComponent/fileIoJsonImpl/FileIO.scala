@@ -18,7 +18,7 @@ class FileIO @Inject extends FileIOInterface {
   override def load: DeskInterface = {
     val injector = Guice.createInjector(new RiskGameModule)
     var desk = injector.getInstance(classOf[DeskInterface])
-    val source = Source.fromFile("desk.json").getLines().mkString
+    val source = Source.fromFile("src/main/resources/memory/desk.json").getLines().mkString
     val json = Json.parse(source)
     val size = (json \ "desk" \ "size").get.toString().toInt
 
@@ -43,7 +43,7 @@ class FileIO @Inject extends FileIOInterface {
   }
 
   override def save(desk: DeskInterface): Unit =
-    val pw = new PrintWriter(new File("desk.json"))
+    val pw = new PrintWriter(new File("src/main/resources/memory/desk.json"))
     pw.write(Json.prettyPrint(deskToJson(desk)))
     pw.close()
 

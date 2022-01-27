@@ -13,7 +13,7 @@ import scala.xml.{Elem, XML}
 class FileIO @Inject extends FileIOInterface {
 
   override def load: DeskInterface = {
-    val file = scala.xml.XML.loadFile("desk.xml")
+    val file = scala.xml.XML.loadFile("src/main/resources/memory/desk.xml")
     val injector = Guice.createInjector(new RiskGameModule)
     var desk = injector.getInstance(classOf[DeskInterface])
     val fieldNodes = file \\ "field"
@@ -36,7 +36,7 @@ class FileIO @Inject extends FileIOInterface {
     desk
   }
 
-  override def save(desk: DeskInterface): Unit = scala.xml.XML.save("desk.xml", deskToXml(desk))
+  override def save(desk: DeskInterface): Unit = scala.xml.XML.save("src/main/resources/memory/desk.xml", deskToXml(desk))
 
   def deskToXml(desk: DeskInterface): Elem = {
     <desk size={desk.size.toString} teams={desk.info.teams.toString()} playerTurn={desk.info.playerTurn.toString}>

@@ -15,9 +15,9 @@ import scalafx.application.JFXApp3
 import scala.io.StdIn.readLine
 
 
-//@main def run: Unit =
-//  println("Hello")
-//  RiskGame.runTUI()
+@main def run(): Unit =
+  println("Hello")
+  RiskGame.runTUI()
 
 
 object RiskGame {
@@ -38,8 +38,8 @@ object RiskGameTUI extends App {
   RiskGame.runTUI()
 }
 
-//object RiskGameGUI extends JFXApp3 {
-//  override def start(): Unit = RiskGame.runGUI()
-//}
+object RiskGameGUI extends JFXApp3 {
+  override def start(): Unit = RiskGame.runGUI()
+}
 
 
