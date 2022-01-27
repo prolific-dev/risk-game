@@ -3,6 +3,8 @@ package de.htwg.se.riskgame.aview.gui
 import de.htwg.se.riskgame.controller.controllerComponent.ControllerInterface
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
+import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
+import de.htwg.se.riskgame.model.fileIoComponent.fileIoJsonImpl.{FileIO, MapData}
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 import de.htwg.se.riskgame.util.Observer
@@ -11,7 +13,11 @@ import scalafx.beans.property.StringProperty
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Menu, MenuBar, MenuItem}
-import scalafx.scene.layout.{BorderPane, HBox, VBox}
+import scalafx.scene.effect.DropShadow
+import scalafx.scene.layout.{BorderPane, HBox, Pane, VBox}
+import scalafx.scene.paint.Color
+import scalafx.scene.paint.Color.{Blue, Red, Yellow, rgb}
+import scalafx.scene.shape.SVGPath
 import scalafx.scene.text.Text
 
 class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
@@ -84,6 +90,36 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
       }
     }
   }
+}
+
+class MapPane(controller: ControllerInterface) extends Pane {
+  val fileIO: FileIOInterface = new FileIO
+  val size: Int = controller.desk.size
+  var childrenSeq: Seq[SVGField] = Seq()
+  for {
+    i <- 0 until size
+    j <- 0 until size
+  } yield {
+    val field = controller.desk.field(i, j)
+    val color = if (field.getHighlight) Yellow else field.team match {
+      case Team.NO_TEAM => rgb(217, 182, 80, 1)
+      case Team.BLUE => Blue
+      case Team.RED => Red
+    }
+    childrenSeq = childrenSeq.appended(SVGField(field.getName, color, fileIO.loadGuiMapDataPath()))
+  }
+  children = childrenSeq
+}
+
+case class SVGField(name: String, color: Color, map: Map[String, MapData]) extends SVGPath {
+  id = name
+  content = map(getId).path
+  fill = color
+  scaleX = 2.4
+  scaleY = 2.4
+  effect = new DropShadow()
+  layoutX = map(getId).layoutX
+  layoutY = map(getId).layoutY
 }
 
 //stage = new JFXApp3.PrimaryStage {
