@@ -19,6 +19,11 @@ class Controller(var desk: DeskInterface) extends Observable with ControllerInte
   var gameStatus: GameStatus = GameStatus.IDLE
   val undoManager = new UndoManager
 
+  def createContinentMapDesk(): Unit =
+    desk = new DeskCreateContinentMapStrategy().createDesk()
+    gameStatus = GameStatus.NEW
+    notifyObserver
+
   def createEmptyDesk(size: Int): Unit =
     desk = new Desk(size)
     gameStatus = GameStatus.EMPTY
@@ -29,43 +34,51 @@ class Controller(var desk: DeskInterface) extends Observable with ControllerInte
     gameStatus = GameStatus.NEW
     notifyObserver
 
-  def createContinentMapDesk(): Unit =
-    desk = new DeskCreateContinentMapStrategy().createDesk()
-    gameStatus = GameStatus.NEW
-    notifyObserver
-
-  //  def createWorldMapDesk(): Unit =
-  //    desk = new DeskCreateWorldMapStrategy().createDesk()
-  //    gameStatus = GameStatus.NEW
-  //    notifyObserver
-
-  def set(row: Int, col: Int, field: Field): Unit =
-    undoManager.doStep(new SetFieldCommand(row, col, field, this))
-    gameStatus = GameStatus.SET
-    notifyObserver
-
-  def chooseFieldShowFriendlies(row: Int, col: Int): Unit =
-    resetHighlight()
-    desk = desk.chooseFieldShowFriendlyNeighbors(desk.neighbors(row, col))
-    notifyObserver
-
-  def resetHighlight(): Unit =
-    desk = desk.resetHighlight
-    notifyObserver
-
   def chooseFieldShowEnemies(row: Int, col: Int): Unit =
-    resetHighlight()
+    resetHighlight
     desk = desk.chooseFieldShowEnemyNeighbors(desk.neighbors(row, col))
     notifyObserver
 
-  def undo(): Unit =
+  def chooseFieldShowFriendlies(row: Int, col: Int): Unit =
+    resetHighlight
+    desk = desk.chooseFieldShowFriendlyNeighbors(desk.neighbors(row, col))
+    notifyObserver
+
+  def exit: Unit =
+    gameStatus = GameStatus.CLOSING
+    notifyObserver
+    sys.exit(0)
+
+  def set(row: Int, col: Int, field: Field): Unit =
+    resetHighlight
+    undoManager.doStep(new SetFieldCommand(row, col, field, this))
+    chooseField(row, col)
+    gameStatus = GameStatus.SET
+    notifyObserver
+
+  def chooseField(row: Int, col: Int): Unit =
+    resetHighlight
+    desk = desk.chooseField(row, col)
+    notifyObserver
+
+  def resetHighlight: Unit =
+    desk = desk.resetHighlight
+    notifyObserver
+
+  def undo: Unit =
     undoManager.undoStep()
     gameStatus = GameStatus.UNDO
     notifyObserver
 
-  def redo(): Unit =
+  def redo: Unit =
     undoManager.redoStep()
     gameStatus = GameStatus.REDO
+    notifyObserver
+
+  def endTurn: Unit =
+    resetHighlight
+    resetChosenField
+    desk = desk.endTurn
     notifyObserver
 
   def save: Unit =
@@ -78,7 +91,19 @@ class Controller(var desk: DeskInterface) extends Observable with ControllerInte
     gameStatus = GameStatus.LOADED
     notifyObserver
 
+  def resetChosenField: Unit =
+    desk = desk.resetHighlight
+    desk = desk.resetChosenField
+    notifyObserver
+
+  def getCurrentPlayerTurn: Team = desk.currentPlayerTurn
+
   def currentPlayerTurnToString: String = desk.currentPlayerTurn.toString
 
   def deskToString: String = desk.toString
+
+  //  def createWorldMapDesk(): Unit =
+  //    desk = new DeskCreateWorldMapStrategy().createDesk()
+  //    gameStatus = GameStatus.NEW
+  //    notifyObserver
 }
