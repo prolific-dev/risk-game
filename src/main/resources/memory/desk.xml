@@ -4,7 +4,7 @@
   <field row="0" col="2" name="x" troops="-1" team="No Team"></field>
   <field row="0" col="3" name="x" troops="-1" team="No Team"></field>
   <field row="1" col="0" name="North America" troops="3" team="Blue"></field>
-  <field row="1" col="1" name="Europe" troops="1" team="No Team"></field>
+  <field row="1" col="1" name="Europe" troops="3" team="Red"></field>
   <field row="1" col="2" name="x" troops="-1" team="No Team"></field>
   <field row="1" col="3" name="Asia" troops="1" team="No Team"></field>
   <field row="2" col="0" name="South America" troops="1" team="No Team"></field>

@@ -16,7 +16,7 @@ class DeskSpec extends AnyWordSpec with Matchers {
       "be created with the length of its edges as size and a default team-set and playersTurn" in {
         val desk = new Desk(2)
         desk.size should be(2)
-        desk.info should be(DeskInfo(IndexedSeq[Team](Team.BLUE, Team.RED), 0))
+        desk.info should be(DeskInfo(IndexedSeq[Team](Team.BLUE, Team.RED), 0, None))
       }
       "for test purposes only created with a Matrix of Fields" in {
         val desk = new Desk(2)

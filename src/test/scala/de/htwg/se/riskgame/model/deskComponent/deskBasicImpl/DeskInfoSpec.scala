@@ -8,7 +8,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class DeskInfoSpec extends AnyWordSpec with Matchers {
   "A DeskInfo" when {
     "new" should {
-      val info = DeskInfo(IndexedSeq[Team](Team.BLUE, Team.RED), 1)
+      val info = DeskInfo(IndexedSeq[Team](Team.BLUE, Team.RED), 1, None)
       "contain the input team sequence" in {
         info.teams should be(IndexedSeq[Team](Team.BLUE, Team.RED))
       }

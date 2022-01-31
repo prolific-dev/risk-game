@@ -33,7 +33,7 @@ class TUI(controller: ControllerInterface) extends Observer {
       case "l" => controller.load
       case "c f" => controller.chooseFieldShowFriendlies(1, 0)
       case "c e" => controller.chooseFieldShowEnemies(1, 0)
-      case "r h" => controller.resetHighlight()
+      case "r h" => controller.resetHighlight
       case _ =>
     }
 

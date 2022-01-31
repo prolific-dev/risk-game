@@ -6,7 +6,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import scalafx.scene.paint.Color.Blue
 
 
-class SVGPathMapSpec extends AnyWordSpec with Matchers {
+class SVGFieldSpec extends AnyWordSpec with Matchers {
   //  "A SVGPathMap" when {
   //    "SVGPathContinentMap" should {
   //      val continentMap = new SVGPathContinentMap

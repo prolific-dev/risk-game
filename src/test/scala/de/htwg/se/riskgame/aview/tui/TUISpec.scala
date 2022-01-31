@@ -2,7 +2,9 @@ package de.htwg.se.riskgame.aview.tui
 
 import de.htwg.se.riskgame.aview.tui.TUI
 import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
+import de.htwg.se.riskgame.controller.GameStatus
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{Desk, Field}
+import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.DeskCreateContinentMapStrategy
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 import org.scalatest.matchers.should.Matchers
@@ -62,6 +64,12 @@ class TUISpec extends AnyWordSpec with Matchers {
       val oldDesk = controller.desk
       tui.processInputLine("")
       controller.desk.equals(oldDesk) should be(true)
+    }
+    "further tests" in {
+      tui.processInputLine("save")
+      controller.gameStatus should be(GameStatus.SAVED)
+      tui.processInputLine("l")
+      controller.gameStatus should be(GameStatus.LOADED)
     }
   }
 }
