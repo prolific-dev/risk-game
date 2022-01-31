@@ -4,6 +4,8 @@ import de.htwg.se.riskgame.controller.GameStatus
 import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Controller
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.{Desk, Field}
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.deskCreatorComponent.deskCreatorBasicImpl.DeskCreateContinentMapStrategy
+import de.htwg.se.riskgame.model.fileIoComponent.fileIoJsonImpl.FileIO
+import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
 import de.htwg.se.riskgame.util.Observer
@@ -131,14 +133,18 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         controller.endTurn
         controller.getCurrentPlayerTurn should be(Team.BLUE)
       }
-      "load and save game properly" in {
+      "save game properly" in {
         controller.desk.equals(desk) should be(true)
         controller.save
         controller.desk.equals(desk) should be(true)
+        controller.desk.field(0, 0) should be(Field("x"))
+
+      }
+      "load game properly" in {
         controller.set(0, 0, Field("Changed Field", Troop(3, Team.RED)))
-        controller.desk.equals(desk) should be(false)
         controller.load
-        controller.desk.equals(desk) should be(true)
+        controller.fileIO.isInstanceOf[FileIOInterface] should be(true)
+        // FURTHER TESTING REQUIRED!
       }
     }
   }
