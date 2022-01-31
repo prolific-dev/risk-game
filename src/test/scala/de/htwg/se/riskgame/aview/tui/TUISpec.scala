@@ -65,9 +65,11 @@ class TUISpec extends AnyWordSpec with Matchers {
       tui.processInputLine("")
       controller.desk.equals(oldDesk) should be(true)
     }
-    "further tests" in {
+    "further tests save" in {
       tui.processInputLine("save")
       controller.gameStatus should be(GameStatus.SAVED)
+    }
+    "further tests in load" in {
       tui.processInputLine("l")
       controller.gameStatus should be(GameStatus.LOADED)
     }
