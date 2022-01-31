@@ -8,19 +8,19 @@ import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Field
 import de.htwg.se.riskgame.model.fileIoComponent.FileIOInterface
 import de.htwg.se.riskgame.model.teamComponent.Team
 import de.htwg.se.riskgame.model.troopComponent.Troop
-import play.api.libs.json.JsLookupResult.jsLookupResultToJsLookup
 import play.api.libs.json.{JsNumber, JsObject, Json}
+import play.api.libs.json.JsLookupResult.jsLookupResultToJsLookup
 
 import java.io.*
 import scala.io.Source
 
 class FileIO @Inject extends FileIOInterface {
-  val mapFile = new File("src/main/resources/mapdata/continentmap.json")
-  val memFile = new File("src/main/resources/memory/desk.json")
-  val mapSource: String = Source.fromFile(mapFile).getLines().mkString
-  val memSource: String = Source.fromFile(memFile).getLines().mkString
 
   override def loadGuiMapDataPath(): Map[String, MapData] = {
+    val mapFile = new File("src/main/resources/mapdata/continentmap.json")
+    val memFile = new File("src/main/resources/memory/desk.json")
+    val mapSource: String = Source.fromFile(mapFile).getLines().mkString
+    val memSource: String = Source.fromFile(memFile).getLines().mkString
     val json = Json.parse(mapSource)
     val size = (json \ "map" \ "mapsize").get.toString.toInt
     var map: Map[String, MapData] = Map()
@@ -36,6 +36,10 @@ class FileIO @Inject extends FileIOInterface {
   }
 
   override def loadMap(desk: DeskInterface): DeskInterface =
+    val mapFile = new File("src/main/resources/mapdata/continentmap.json")
+    val memFile = new File("src/main/resources/memory/desk.json")
+    val mapSource: String = Source.fromFile(mapFile).getLines().mkString
+    val memSource: String = Source.fromFile(memFile).getLines().mkString
     var _desk = desk
     val json = Json.parse(mapSource)
     val size = (json \ "map" \ "mapsize").get.toString.toInt
@@ -56,6 +60,10 @@ class FileIO @Inject extends FileIOInterface {
   override def load: DeskInterface = {
     val injector = Guice.createInjector(new RiskGameModule)
     var desk = injector.getInstance(classOf[DeskInterface])
+    val mapFile = new File("src/main/resources/mapdata/continentmap.json")
+    val memFile = new File("src/main/resources/memory/desk.json")
+    var mapSource: String = Source.fromFile(mapFile).getLines().mkString
+    var memSource: String = Source.fromFile(memFile).getLines().mkString
     val json = Json.parse(memSource)
     val size = (json \ "desk" \ "size").get.toString.toInt
 
@@ -80,6 +88,10 @@ class FileIO @Inject extends FileIOInterface {
   }
 
   override def save(desk: DeskInterface): Unit =
+    val mapFile = new File("src/main/resources/mapdata/continentmap.json")
+    val memFile = new File("src/main/resources/memory/desk.json")
+    var mapSource: String = Source.fromFile(mapFile).getLines().mkString
+    var memSource: String = Source.fromFile(memFile).getLines().mkString
     val pw = new PrintWriter(memFile)
     pw.write(Json.prettyPrint(deskToJson(desk)))
     pw.close()

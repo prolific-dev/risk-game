@@ -1,70 +1,119 @@
 {
   "desk": {
-    "size": 3,
+    "size": 4,
     "teams": "Vector(BLUE, RED)",
     "playerTurn": 0,
     "fields": [
       {
         "row": 0,
         "col": 0,
-        "name": "Free Field",
-        "troops": 1,
+        "name": "x",
+        "troops": -1,
         "team": "No Team"
       },
       {
         "row": 0,
         "col": 1,
-        "name": "Free Field",
-        "troops": 1,
+        "name": "x",
+        "troops": -1,
         "team": "No Team"
       },
       {
         "row": 0,
         "col": 2,
-        "name": "Free Field",
-        "troops": 1,
+        "name": "x",
+        "troops": -1,
+        "team": "No Team"
+      },
+      {
+        "row": 0,
+        "col": 3,
+        "name": "x",
+        "troops": -1,
         "team": "No Team"
       },
       {
         "row": 1,
         "col": 0,
-        "name": "Free Field",
-        "troops": 1,
-        "team": "No Team"
+        "name": "North America",
+        "troops": 3,
+        "team": "Blue"
       },
       {
         "row": 1,
         "col": 1,
-        "name": "Free Field",
-        "troops": 1,
-        "team": "No Team"
+        "name": "Europe",
+        "troops": 3,
+        "team": "Red"
       },
       {
         "row": 1,
         "col": 2,
-        "name": "Free Field",
+        "name": "x",
+        "troops": -1,
+        "team": "No Team"
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "name": "Asia",
         "troops": 1,
         "team": "No Team"
       },
       {
         "row": 2,
         "col": 0,
-        "name": "Free Field",
+        "name": "South America",
         "troops": 1,
         "team": "No Team"
       },
       {
         "row": 2,
         "col": 1,
-        "name": "Free Field",
-        "troops": 1,
+        "name": "x",
+        "troops": -1,
         "team": "No Team"
       },
       {
         "row": 2,
         "col": 2,
-        "name": "Free Field",
+        "name": "Africa",
         "troops": 1,
+        "team": "No Team"
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "name": "Australia",
+        "troops": 1,
+        "team": "No Team"
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "name": "x",
+        "troops": -1,
+        "team": "No Team"
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "name": "x",
+        "troops": -1,
+        "team": "No Team"
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "name": "x",
+        "troops": -1,
+        "team": "No Team"
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "name": "x",
+        "troops": -1,
         "team": "No Team"
       }
     ]
