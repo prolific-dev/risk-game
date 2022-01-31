@@ -10,11 +10,15 @@ trait DeskInterface {
 
   def size: Int
 
-  def chooseFieldShowFriendlyNeighbors(neighbors: Neighbors): DeskInterface
-
   def showHighlightNeighbors(available: Map[String, Option[Field]], neighbors: Neighbors): DeskInterface
 
+  def chooseField(row: Int, col: Int): DeskInterface
+
+  def chooseFieldShowFriendlyNeighbors(neighbors: Neighbors): DeskInterface
+
   def chooseFieldShowEnemyNeighbors(neighbors: Neighbors): DeskInterface
+
+  def resetChosenField: DeskInterface
 
   def resetHighlight: DeskInterface
 
