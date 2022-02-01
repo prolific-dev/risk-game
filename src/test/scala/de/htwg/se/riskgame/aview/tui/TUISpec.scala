@@ -65,13 +65,20 @@ class TUISpec extends AnyWordSpec with Matchers {
       tui.processInputLine("")
       controller.desk.equals(oldDesk) should be(true)
     }
-    "further tests save" in {
-      tui.processInputLine("save")
-      controller.gameStatus should be(GameStatus.SAVED)
+    "further tests save [FURTHER TESTING NEEDED!]" in {
+      val cDesk = new DeskCreateContinentMapStrategy().createDesk()
+      val cController = new Controller(cDesk)
+      val cTui = new TUI(cController)
+      cTui.processInputLine("save")
+      cController.gameStatus should be(GameStatus.SAVED)
     }
-    "further tests in load" in {
-      tui.processInputLine("l")
-      controller.gameStatus should be(GameStatus.LOADED)
+    "further tests in load [FURTHER TESTING NEEDED!]" in {
+      val cDesk = new DeskCreateContinentMapStrategy().createDesk()
+      val cController = new Controller(cDesk)
+      val cTui = new TUI(cController)
+      cTui.processInputLine("save")
+      cTui.processInputLine("l")
+      cController.gameStatus should be(GameStatus.LOADED)
     }
   }
 }
