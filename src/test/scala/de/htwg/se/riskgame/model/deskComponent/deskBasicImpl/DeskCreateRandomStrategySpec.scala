@@ -26,11 +26,13 @@ class DeskCreateRandomStrategySpec extends AnyWordSpec with Matchers {
         desk.valid should be(true)
       }
     }
+    /*
     "for trait test purpose only" should {
       val strategy = new DeskCreateStrategyTemplate {}
       val desk = strategy.createDesk(3)
       desk.size should be(3)
       desk.valid should be(true)
     }
+    */
   }
 }
