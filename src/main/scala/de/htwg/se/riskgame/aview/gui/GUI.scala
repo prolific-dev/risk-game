@@ -143,7 +143,7 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
                       fillWidth = true
                       children = Seq(
                         new Label("Action") {
-                          font = Font.font("System", FontWeight.Bold, 22)
+                          font = Font.font("Comic Sans MS", FontWeight.Bold, 22)
                         }
                         ,
                         actionButton1,
@@ -171,7 +171,7 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
                         + "\nTeam: "
                         + field.get.getTroop.get.team.toString
                     )
-                    fieldLabel.setFont(Font.font("System", 18))
+                    fieldLabel.setFont(Font.font("Comic Sans MS", 18))
                   }
                   maxWidth = 200
                   padding = Insets(0, 0, 0, 0)
@@ -186,7 +186,7 @@ class GUI(controller: ControllerInterface) extends JFXApp3 with Observer {
                       fillWidth = true
                       children = Seq(
                         new Label("Details") {
-                          font = Font.font("System", FontWeight.Bold, 22)
+                          font = Font.font("Comic Sans MS", FontWeight.Bold, 22)
                         },
                         fieldLabel
                       )

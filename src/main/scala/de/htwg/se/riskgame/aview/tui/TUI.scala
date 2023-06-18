@@ -12,6 +12,11 @@ import scala.io.StdIn.readLine
 class TUI(controller: ControllerInterface) extends Observer {
   controller.add(this)
 
+  override def update: Unit =
+    println("Player Turn: " + controller.currentPlayerTurnToString)
+    println(controller.deskToString)
+    println(controller.gameStatus.message)
+
   def run(): Unit =
     println(controller.deskToString)
     inputLoop()
@@ -37,8 +42,5 @@ class TUI(controller: ControllerInterface) extends Observer {
       case _ =>
     }
 
-  override def update: Unit =
-    println("Player Turn: " + controller.currentPlayerTurnToString)
-    println(controller.deskToString)
-    println(controller.gameStatus.message)
+
 }

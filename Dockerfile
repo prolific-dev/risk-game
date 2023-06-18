@@ -3,4 +3,3 @@ RUN apt-get update && apt-get install -y sbt libxrender1 libxtst6 libxi6
 WORKDIR /risk-game
 COPY . /risk-game
 CMD sbt run
-

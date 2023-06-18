@@ -28,8 +28,8 @@ object RiskGameTUI extends App {
   RiskGame.runTUI()
 }
 
-//object RiskGameGUI extends JFXApp3 {
-//  override def start(): Unit = RiskGame.runGUI()
-//}
+object RiskGameGUI extends JFXApp3 {
+  override def start(): Unit = RiskGame.runGUI()
+}
 
 

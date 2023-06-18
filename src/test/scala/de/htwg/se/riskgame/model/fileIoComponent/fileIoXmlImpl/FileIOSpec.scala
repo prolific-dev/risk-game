@@ -23,13 +23,12 @@ class FileIOSpec extends AnyWordSpec with Matchers {
         fileIO.save(controller.desk)
         unsavedDesk.equals(controller.desk) should be(true)
       }
-      "have a load function" in {
+      "have a load function [FURTHER TESTING NEEDED!]" in {
         val savedDesk = controller.desk
         controller.desk.equals(savedDesk) should be(true)
         controller.set(1, 1, Field("Europe", Troop(3, Team.BLUE)))
         controller.desk.equals(savedDesk) should be(false)
         fileIO.load.isInstanceOf[DeskInterface] should be(true)
-        // FURTHER TESTING NEEDED!
       }
     }
   }
