@@ -1,0 +1,59 @@
+version: '3.3'
+volumes:
+  my-db:
+
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'risk-game'
+      MYSQL_USER: 'dennis'
+      MYSQL_PASSWORD: 'password123'
+      MYSQL_ROOT_PASSWORD: 'meow123456789'
+      MYSQL_ALLOW_EMPTY_PASSWORD: '1'
+      MYSQL_RANDOM_ROOT_PASSWORD: '0'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    container_name: mysql
+    stdin_open: true
+    tty: true
+
+  core:
+    image: "redesign-risk-game_core:latest"
+    build:
+      context: ./core
+      dockerfile: Dockerfile
+    container_name: core
+    stdin_open: true
+    tty: true
+    restart: "no"
+
+  mapcreator:
+    image: "redesign-risk-game_mapcreator:latest"
+    build:
+      context: ./mapcreator
+      dockerfile: Dockerfile
+    container_name: mapcreator
+    stdin_open: true
+    tty: true
+    restart: "no"
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '8082:8082'
+
+  fileio:
+    image: "redesign-risk-game_fileio:latest"
+    build:
+      context: ./fileio
+      dockerfile: Dockerfile
+    container_name: fileio
+    stdin_open: true
+    tty: true
+    restart: "no"
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '8081:8081'

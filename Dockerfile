@@ -1,5 +1,9 @@
-FROM hseeberger/scala-sbt:8u222_1.3.5_2.13.1
-RUN apt-get update && apt-get install -y sbt libxrender1 libxtst6 libxi6
+FROM hseeberger/scala-sbt:17.0.2_1.6.2_3.1.1
+RUN apt-get update && apt-get install -y curl nano
 WORKDIR /risk-game
-COPY . /risk-game
-CMD sbt run
+ADD ./core /risk-game/core
+ADD ./fileio /risk-game/fileio
+ADD ./mapcreator /risk-game/mapcreator
+ADD ./build.sbt /risk-game/build.sbt
+ADD ./project/plugins.sbt /risk-game/project/plugins.sbt
+CMD sbt compile && tail -f /dev/null
