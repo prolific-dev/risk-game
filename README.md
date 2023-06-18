@@ -21,3 +21,7 @@ start a Scala 3 REPL.
 
 For more information on the sbt-dotty plugin, see the
 [scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+
+
+### Presentation
+[Google Slides Presentation of Risk Game](https://docs.google.com/presentation/d/1MshATYhO_28-YSviFxzDrVELAPorGtYlS5kgH3Sjha0/edit?usp=sharing)

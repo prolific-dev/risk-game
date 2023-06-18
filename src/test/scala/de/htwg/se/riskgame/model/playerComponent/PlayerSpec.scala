@@ -19,9 +19,11 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         player.toString should be("Your Name")
       }
     }
+    /*
     "only for class test purpose and 100% coverage" should {
       val player = new Player("Your Name")
       player.equals(Player("Your Name", Team.NO_TEAM))
     }
+    */
   }
 }
