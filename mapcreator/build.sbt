@@ -14,14 +14,10 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.typesafe.akka"  %% "akka-actor-typed"     % "2.8.0",
   libraryDependencies += "com.typesafe.akka"  %% "akka-stream"          % "2.8.0",
 )
-
-lazy val persistence = project
+lazy val mapcreator = project
   .in(file("."))
   .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
   .settings(commonSettings *)
   .settings(
-    name := "persistence",
-    libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.32",
-    libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.6.0").cross(CrossVersion.for3Use2_13),
+    name := "mapcreator",
   )

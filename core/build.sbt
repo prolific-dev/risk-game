@@ -15,19 +15,10 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.typesafe.akka"  %% "akka-stream"          % "2.8.0",
 )
 
-lazy val root = project
-  .in(file("."))
-  .aggregate(core, persistence, mapcreator)
-  .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
-  .settings(commonSettings: _*)
-  .settings(
-    name := "riskgame",
-  )
-
 lazy val core = project
-  .in(file("core"))
+  .in(file("."))
   .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
-  .settings(commonSettings: _*)
+  .settings(commonSettings *)
   .settings(
     name := "core",
     libraryDependencies += "org.scalafx" %% "scalafx" % "20.0.0-R31",
@@ -36,23 +27,4 @@ lazy val core = project
       "de.htwg.se.riskgame.aview.gui.*",
       "de.htwg.se.riskgame.model.fileIoComponent.*",
     )
-  )
-
-lazy val persistence = project
-  .in(file("persistence"))
-  .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
-  .settings(commonSettings: _*)
-  .settings(
-    name := "persistence",
-    libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.32",
-    libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.6.0").cross(CrossVersion.for3Use2_13),
-  )
-
-lazy val mapcreator = project
-  .in(file("mapcreator"))
-  .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
-  .settings(commonSettings: _*)
-  .settings(
-    name := "mapcreator",
   )
