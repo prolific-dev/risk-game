@@ -11,10 +11,10 @@ import de.htwg.se.riskgame.slick.table.*
 
 class SlickDAO:
     val databaseDB:   String = "risk-game"
-    val databaseUser: String = "dennis"
-    val databasePW:   String = "password123"
+    val databaseUser: String = "root"
+    val databasePW:   String = "example"
     val databasePort: String = "3306"
-    val databaseHost: String = "127.0.0.1"
+    val databaseHost: String = "localhost"
     val databaseUrl:  String = s"jdbc:mysql://$databaseHost:$databasePort/$databaseDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&autoReconnect=true"
     val database = Database.forURL(
         url      = databaseUrl,

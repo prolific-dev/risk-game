@@ -18,7 +18,7 @@ import concurrent.duration.DurationInt
 class MongoDAO extends DAOInterface:
   val host        = "127.0.0.1"
   val port        = "27017"
-  val databaseUrl = s"mongodb://$host:$port/?authSource=romme"
+  val databaseUrl = s"mongodb://$host:$port/?authSource=risk-game"
 
   val mongoClient:    MongoClient               = MongoClient(databaseUrl)
   val database:       MongoDatabase             = mongoClient.getDatabase("risk-game")

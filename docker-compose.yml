@@ -10,18 +10,15 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - '8084:8084'
     container_name: mongo
     stdin_open: true
     tty: true
 
   mysql:
     image: mysql:latest
+    commmand: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: 'password123'
-    ports:
-      - '8083:8083'
+      MYSQL_ROOT_PASSWORD: example
     container_name: mysql
     stdin_open: true
     tty: true
