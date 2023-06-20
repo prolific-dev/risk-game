@@ -29,7 +29,7 @@ lazy val core = project
   .settings(commonSettings: _*)
   .settings(
     name := "core",
-    libraryDependencies  += "org.scalafx" %% "scalafx" % "20.0.0-R31",
+    libraryDependencies += "org.scalafx" %% "scalafx" % "20.0.0-R31",
     jacocoExcludes := Seq(
       "de.htwg.se.riskgame.RiskGame*",
       "de.htwg.se.riskgame.aview.gui.*",
@@ -42,8 +42,8 @@ lazy val persistence = project
   .settings(commonSettings: _*)
   .settings(
     name := "persistence",
-    libraryDependencies  += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
-    libraryDependencies  += "mysql" % "mysql-connector-java" % "8.0.32",
+    libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
+    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.32",
   )
 
 lazy val mapcreator = project
