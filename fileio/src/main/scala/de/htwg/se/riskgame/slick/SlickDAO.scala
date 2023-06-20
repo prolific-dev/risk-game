@@ -1,4 +1,4 @@
-package de.htwg.se.riskgame.fileio
+package de.htwg.se.riskgame.slick
 
 import java.sql.SQLNonTransientException
 import slick.jdbc.JdbcBackend.Database

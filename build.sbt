@@ -40,7 +40,7 @@ lazy val root = project
     Compile / target            := baseDirectory.value / "target",
     Test    / sourceDirectory   := baseDirectory.value / "src/test",
   )
-  .aggregate(core, fileio, mapcreator)
+  .aggregate(core, persistence, mapcreator)
 
 lazy val core = project
   .in(file("core"))
@@ -54,16 +54,16 @@ lazy val core = project
     Test    / sourceDirectory   := baseDirectory.value / "core/src/test",
   )
 
-lazy val fileio = project
-  .in(file("fileio"))
+lazy val persistence = project
+  .in(file("persistence"))
   .settings(
-    name         := "fileio",
+    name         := "persistence",
     commonSettings,
 
-    Compile / sourceDirectory   := baseDirectory.value / "fileio/src/main",
-    Compile / resourceDirectory := baseDirectory.value / "fileio/src/main/resources",
-    Compile / target            := baseDirectory.value / "fileio/target",
-    Test    / sourceDirectory   := baseDirectory.value / "fileio/src/test",
+    Compile / sourceDirectory   := baseDirectory.value / "persistence/src/main",
+    Compile / resourceDirectory := baseDirectory.value / "persistence/src/main/resources",
+    Compile / target            := baseDirectory.value / "persistence/target",
+    Test    / sourceDirectory   := baseDirectory.value / "persistence/src/test",
   )
 
 lazy val mapcreator = project
