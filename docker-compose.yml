@@ -7,18 +7,36 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    expose:
+      - 27017
     container_name: mongo
+    environment:
+      MONGO_INITDB_HOST: riskgame-mongo
+      MONGO_INITDB_PORT: 27017
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: riskgame
     stdin_open: true
     tty: true
 
   mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: example
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
     container_name: mysql
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: riskgame
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
     stdin_open: true
     tty: true
 
@@ -31,9 +49,6 @@ services:
     stdin_open: true
     tty: true
     restart: "no"
-    ports:
-      # <Port exposed> : < Port running inside container>
-      - '8080:8080'
 
   persistence:
     image: "risk-game_persistence:latest"
@@ -46,7 +61,10 @@ services:
     restart: "no"
     ports:
       # <Port exposed> : < Port running inside container>
-      - '8081:8081'
+      - '8082:8082'
+    depends_on:
+      - mysql
+      - mongo
 
   mapcreator:
     image: "risk-game_mapcreator:latest"
@@ -59,6 +77,6 @@ services:
     restart: "no"
     ports:
       # <Port exposed> : < Port running inside container>
-      - '8082:8082'
+      - '8083:8083'
 
 
