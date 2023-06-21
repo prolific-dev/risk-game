@@ -15,7 +15,7 @@ class SlickDAO:
     val databaseUser: String = sys.env.getOrElse("MYSQL_USER", "admin")
     val databasePassword: String = sys.env.getOrElse("MYSQL_PASSWORD", "root")
     val databasePort: String = sys.env.getOrElse("MYSQL_PORT", "3306")
-    val databaseHost: String = sys.env.getOrElse("MYSQL_HOST", "0.0.0.0")
+    val databaseHost: String = sys.env.getOrElse("MYSQL_HOST", "riskgame-database")
     val databaseUrl = s"jdbc:mysql://$databaseHost:$databasePort/$databaseDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&autoReconnect=true"
 
     val database = Database.forURL(

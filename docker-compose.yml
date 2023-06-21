@@ -30,13 +30,16 @@ services:
       - 3306
     container_name: mysql
     environment:
-      MYSQL_HOST: localhost
+      MYSQL_HOST: riskgame-database
       MYSQL_PORT: 3306
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: riskgame
       MYSQL_USER: admin
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-db:/var/lib/mysql
     stdin_open: true
     tty: true
 
@@ -56,6 +59,8 @@ services:
       context: ./persistence
       dockerfile: Dockerfile
     container_name: persistence
+    links:
+      - mysql:mysql
     stdin_open: true
     tty: true
     restart: "no"
