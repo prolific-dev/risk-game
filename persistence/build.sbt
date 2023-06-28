@@ -14,18 +14,17 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.typesafe.akka"  %% "akka-actor"           % "2.8.0",
   libraryDependencies += "com.typesafe.akka"  %% "akka-actor-typed"     % "2.8.0",
   libraryDependencies += "com.typesafe.akka"  %% "akka-stream"          % "2.8.0",
-  libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
-  libraryDependencies += "io.gatling" % "gatling-test-framework" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
 
 )
 
 lazy val persistence = project
   .in(file("."))
   .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
-  .settings(commonSettings *)
+  .settings(commonSettings: _*)
   .settings(
     name := "persistence",
+    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
     libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.32",
+    libraryDependencies += "org.postgresql" % "postgresql" % "42.3.4",
     libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.6.0").cross(CrossVersion.for3Use2_13),
   )

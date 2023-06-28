@@ -6,9 +6,8 @@ import de.htwg.se.riskgame.controller.controllerComponent.controllerBasicImpl.Co
 import de.htwg.se.riskgame.model.deskComponent.DeskInterface
 import de.htwg.se.riskgame.model.deskComponent.deskBasicImpl.Desk
 
-@main def hello(): Unit =
-
-  val controller: ControllerInterface = new Controller(new Desk(0))
-  val tui       : TUI                 = new TUI(controller)
-
-  tui.run()
+object RiskGame:
+  def main(args: Array[String]): Unit =
+    val controller: ControllerInterface = new Controller(new Desk(0))
+    val tui: TUI = new TUI(controller)
+    tui.run()

@@ -1,4 +1,4 @@
-package de.htwg.se.riskgame.mapcreator
+package de.htwg.se.riskgame
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
@@ -16,9 +16,7 @@ import scala.io.StdIn
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-object MapCreatorService {
-
-    def main(args: Array[String]) = myapi()
+object MapCreatorService:
 
     implicit val system: ActorSystem[_] = ActorSystem(Behaviors.empty, "SprayExample")
     // needed for the future flatMap/onComplete in the end
@@ -42,10 +40,8 @@ object MapCreatorService {
         orders = order.items ::: orders
         Future { Done }
     }
-    
-    def myapi(): Unit =
 
-
+    def mapCreatorService(): Unit =
         val route: Route =
             concat(
                 get {
@@ -77,7 +73,3 @@ object MapCreatorService {
         bindingFuture
             .flatMap(_.unbind()) // trigger unbinding from the port
             .onComplete(_ => system.terminate()) // and shutdown when done
-
-
-
-}

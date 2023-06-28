@@ -1,6 +1,6 @@
 version: '3.3'
 volumes:
-  mysql-db:
+  postgres-db:
   mongo-db:
 
 services:
@@ -21,25 +21,20 @@ services:
     stdin_open: true
     tty: true
 
-  mysql:
-    image: mysql:5.7
+  postgres:
+    image: postgres
     restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     expose:
-      - 3306
-    container_name: mysql
+      - 5432
+    container_name: postgres
     environment:
-      MYSQL_HOST: localhost
-      MYSQL_PORT: 3306
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: riskgame
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: root
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
-    command: --default-authentication-plugin=mysql_native_password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
     volumes:
-      - mysql-db:/var/lib/mysql
+      - postgres-db:/var/postgresql11/data
+      - ./db/init-scripts.sql:/docker-entrypoint-initdb.d/scripts.sql
     stdin_open: true
     tty: true
 
@@ -60,7 +55,7 @@ services:
       dockerfile: Dockerfile
     container_name: persistence
     links:
-      - mysql:mysql
+      - postgres:postgres
     stdin_open: true
     tty: true
     restart: "no"
@@ -68,7 +63,7 @@ services:
       # <Port exposed> : < Port running inside container>
       - '8082:8082'
     depends_on:
-      - mysql
+      - postgres
       - mongo
 
   mapcreator:
@@ -84,4 +79,15 @@ services:
       # <Port exposed> : < Port running inside container>
       - '8083:8083'
 
-
+  mapeditor:
+    image: "risk-game_mapeditorr:latest"
+    build:
+      context: ./mapeditor
+      dockerfile: Dockerfile
+    container_name: mapeditor
+    stdin_open: true
+    tty: true
+    restart: "no"
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '8085:8085'

@@ -14,8 +14,6 @@ lazy val commonSettings = Seq(
   libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.8.0",
   libraryDependencies += "com.typesafe.akka" %% "akka-actor-typed" % "2.8.0",
   libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.8.0",
-  libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
-  libraryDependencies += "io.gatling" % "gatling-test-framework" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
 )
 lazy val mapcreator = project
   .in(file("."))

@@ -16,14 +16,14 @@ import scala.util.{Failure, Success, Try}
 import concurrent.duration.DurationInt
 
 class MongoDAO extends DAOInterface:
-  val database_pw = sys.env.getOrElse("MONGO_INITDB_ROOT_PASSWORD", "mongo")
-  val database_username = sys.env.getOrElse("MONGO_INITDB_ROOT_USERNAME", "root")
-  val host = sys.env.getOrElse("MONGO_INITDB_HOST", "riskgame-mongo")
-  val port = sys.env.getOrElse("MONGO_INITDB_PORT", "27017")
+  private val database_pw = sys.env.getOrElse("MONGO_INITDB_ROOT_PASSWORD", "mongo")
+  private val database_username = sys.env.getOrElse("MONGO_INITDB_ROOT_USERNAME", "root")
+  private val host = sys.env.getOrElse("MONGO_INITDB_HOST", "riskgame-mongo")
+  private val port = sys.env.getOrElse("MONGO_INITDB_PORT", "27017")
 
-  val uri: String = s"mongodb://$database_username:$database_pw@$host:$port/?authSource=admin"
+  private val uri: String = s"mongodb://$database_username:$database_pw@$host:$port/?authSource=admin"
   private val client: MongoClient = MongoClient(uri)
-  val db: MongoDatabase = client.getDatabase("riskgame")
+  private val db: MongoDatabase = client.getDatabase("riskgame")
   var gameCollection: MongoCollection[Document] = db.getCollection("game")
   override def save: Unit = ???
   //override def save(id: Int, json: String): Unit = ???

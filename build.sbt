@@ -7,20 +7,17 @@ lazy val commonSettings = Seq(
   libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
   libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.15",
   libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % "test",
-  libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
   libraryDependencies += ("com.typesafe.play" %% "play-json" % "2.9.2").cross(CrossVersion.for3Use2_13),
   libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.5.1",
   libraryDependencies += "com.typesafe.akka" %% "akka-http-spray-json" % "10.5.1",
   libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.8.0",
   libraryDependencies += "com.typesafe.akka" %% "akka-actor-typed" % "2.8.0",
   libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.8.0",
-  libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
-  libraryDependencies += "io.gatling" % "gatling-test-framework" % "3.9.5" exclude("com.typesafe.scala-logging", "scala-logging_2.13"),
-
 )
 
 lazy val root = project
   .in(file("."))
+  .dependsOn(core, persistence, mapcreator)
   .aggregate(core, persistence, mapcreator)
   .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
   .settings(commonSettings: _*)
@@ -48,8 +45,9 @@ lazy val persistence = project
   .settings(commonSettings: _*)
   .settings(
     name := "persistence",
+    libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.7.25",
     libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3").cross(CrossVersion.for3Use2_13),
-    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.32",
+    libraryDependencies += "org.postgresql" % "postgresql" % "42.3.4",
     libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.6.0").cross(CrossVersion.for3Use2_13),
   )
 
@@ -59,4 +57,12 @@ lazy val mapcreator = project
   .settings(commonSettings: _*)
   .settings(
     name := "mapcreator",
+  )
+
+lazy val mapeditor = project
+  .in(file("mapeditor"))
+  .enablePlugins(JacocoCoverallsPlugin, DockerPlugin, JavaAppPackaging)
+  .settings(commonSettings: _*)
+  .settings(
+    name := "mapeditor",
   )

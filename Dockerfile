@@ -4,6 +4,7 @@ WORKDIR /risk-game
 ADD ./core /risk-game/core
 ADD ./fileio /risk-game/fileio
 ADD ./mapcreator /risk-game/mapcreator
+ADD ./mapeditor /risk-game/mapeditor
 ADD ./build.sbt /risk-game/build.sbt
 ADD ./project/plugins.sbt /risk-game/project/plugins.sbt
 CMD sbt compile && tail -f /dev/null
