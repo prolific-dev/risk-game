@@ -6,6 +6,6 @@ RUN apt-get update && apt-get install -y curl nano && apt-get clean
 
 COPY . /opt/risk-game/persistence/
 
-EXPOSE 8081
+EXPOSE 8082
 
 CMD sbt run

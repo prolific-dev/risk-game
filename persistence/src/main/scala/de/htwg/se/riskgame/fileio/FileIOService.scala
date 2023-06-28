@@ -9,7 +9,7 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives.*
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.unmarshalling.FromRequestUnmarshaller
-import de.htwg.se.riskgame.slick.SlickDAO
+// import de.htwg.se.riskgame.slick.SlickDAO
 import play.api.libs.json.{JsObject, JsValue, Json}
 import spray.json.DefaultJsonProtocol.*
 import spray.json.*
@@ -28,17 +28,6 @@ class FileIOService:
 
   case class MyJsonData(data: JsObject)
 
-  def loadMap(id: Int): Future[Option[String]] = Future {
-    val lastFile = new File("fileIO/src/main/resources/memory")
-    val fileList = lastFile.listFiles(_.isFile()).map(_.getPath()).toList
-
-    val path = fileList.head
-    val source = Source.fromFile(path)
-    val content = source.mkString
-    source.close()
-    Some(content)
-  }
-
   def listMaps: Future[Option[String]] = Future {
     val lastFile = new File("fileIO/src/main/resources/memory")
     val fileList = lastFile.listFiles(_.isFile()).map(_.getPath()).toList
@@ -49,6 +38,17 @@ class FileIOService:
         val sb: StringBuilder = new StringBuilder
         fileList.foreach(s => sb.append(s"${s},\n"))
         Some(sb.toString().dropRight(2))
+  }
+
+  def loadMap(id: Int): Future[Option[String]] = Future {
+    val lastFile = new File("fileIO/src/main/resources/memory")
+    val fileList = lastFile.listFiles(_.isFile()).map(_.getPath()).toList
+
+    val path = fileList.head
+    val source = Source.fromFile(path)
+    val content = source.mkString
+    source.close()
+    Some(content)
   }
 
   def saveMap(jsonString: String): Future[Done] = {
@@ -106,8 +106,7 @@ class FileIOService:
         case Some(js) => println(js.toString())
     )
 
-    val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
-    val slickDAO = new SlickDAO
+    val bindingFuture = Http().newServerAt("localhost", 8082).bind(route)
     println(s"Server now online. Press RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
     bindingFuture
